@@ -2,7 +2,7 @@
   "schema": "offline_dual_baseline_delta_v1",
   "base_package_id": "offline_dual_reconstruction_v1_20261014",
   "base_source_version": "bcf197d198d6e9ff2aef2d2dd7abfb6a025cb3f06df4739beb1a4d4190dc3dfd",
-  "candidate_stage": "prerelease_failed_end_to_end_baseline",
+  "candidate_stage": "prerelease_metric_recovery_development_update",
   "modified_files": [
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/camera_support_bridge.py",
@@ -52,6 +52,41 @@
       "candidate_sha256": "b5e84c32f0a7b52a78cf5f0568f5940c2167eade52e2a6db8f627d702297c0d6",
       "incidents": ["RA-010"],
       "purpose": "Bind and verify pose-gap camera tools before invoking sparse augmentation."
+    },
+    {
+      "path": "payload/02_code/box2_lio_guided_sfm_v1_20261002/run_prior_ba.py",
+      "base_sha256": "871a0a56209b136c60dfd46c79a1dfbcbf07bfcab1531f65e75113466444e1b4",
+      "candidate_sha256": "918dbd59ab2f11c063905adfb31853dfc8bef0e2d43939a3c6a5d411f0525343",
+      "incidents": ["RA-017"],
+      "purpose": "Report registered zero-observation cameras without attempting an empty projection."
+    },
+    {
+      "path": "payload/02_code/gaussian_pipeline_optimization_v1_20261005/run_metric_refinement.py",
+      "base_sha256": "bd102792056a79af81b7073aaddc08e56cf869dd9385892d652c135736773662",
+      "candidate_sha256": "e580fa22bb3b7f33da87cad10926489f3fec218b0268433532ee9df480d476d6",
+      "incidents": ["RA-012", "RA-017", "RA-018", "RA-019"],
+      "purpose": "Use active prior accounting and a fail-closed current-run metric retriangulation recovery."
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/README.md",
+      "base_sha256": "2650cae530a3b0ad979445e05df9bb6bed3ff21c125c40006f18bddbc6cc0fea",
+      "candidate_sha256": "ebd856eaae38312d477c6ca19c53fcbe0de30533ec0532ae07242cb046391292",
+      "incidents": ["RA-012", "RA-019"],
+      "purpose": "Document the metric recovery contract and its unresolved downstream admission boundary."
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/prepare_camera_backend.py",
+      "base_sha256": "772c49603bf6b285d3c1b6570354dd20c80e6a0b37c96e4b9f93a5c07c7ea8b8",
+      "candidate_sha256": "895423bf4cb33f0aff5848525b00c136cdea21d3c2b9322beb416fb3eb020e91",
+      "incidents": ["RA-012"],
+      "purpose": "Expose the most downstream same-run matching database and image root to metric recovery."
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/run_native_supported.py",
+      "base_sha256": "88075ee4a8035f2571ada7d37f9ad2e892f13adbd0f2947e79a1290afb8f46c2",
+      "candidate_sha256": "f2f404a9c6d0c4aede5089a99b47fe85b0464ae9ff587e7d6b0bd761c4e5854b",
+      "incidents": ["RA-012", "RA-018", "RA-019"],
+      "purpose": "Route verified current-run matching inputs into the offline metric recovery adapter."
     }
   ],
   "added_files": [
@@ -66,12 +101,30 @@
       "candidate_sha256": "83a8544e0f10e7ba3f1835791bb9df0159267485ca9e8177c3cbd033f6540747",
       "incidents": ["RA-003", "RA-008", "RA-009", "RA-010"],
       "purpose": "Regression tests for diagnostic decoding, long-path imports and native runtime equivalence."
+    },
+    {
+      "path": "payload/02_code/box2_lio_guided_sfm_v1_20261002/test_run_prior_ba_metrics.py",
+      "candidate_sha256": "21c331656eafd545be0f00d163c839cb72b44cd98bd82bc25ec9e3028f6903c0",
+      "incidents": ["RA-017"],
+      "purpose": "Regress registered images that legitimately have zero sparse observations."
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/metric_retriangulation_recovery.py",
+      "candidate_sha256": "64aa1f7d59b3a7b21a4ebf81814f38218aefcf6928e1c1db76f470e3837f225a",
+      "incidents": ["RA-012", "RA-018", "RA-019"],
+      "purpose": "Rebuild metric points from same-run matches around coarse camera centers with verified active prior factors."
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_metric_retriangulation_recovery.py",
+      "candidate_sha256": "126b93f6fbf8766b690dba3f35d9e41a5ef945ca84766d95c16ecd8e2250423d",
+      "incidents": ["RA-012", "RA-018", "RA-019"],
+      "purpose": "Regress center replacement, active factors, bounded pruning, input routing and source database immutability."
     }
   ],
   "bundled_runtime_manifest": "payload/04_outputs/gaussian_pipeline_optimization_v3_20261005/RUNTIME_MANIFEST.json",
   "end_to_end_acceptance": {
     "passed": false,
-    "blocking_incident": "RA-012",
+    "blocking_incident": "RA-019",
     "completed_recordings": 0,
     "required_recordings": 4
   }

@@ -106,6 +106,7 @@ def prepare(source, initial, raw, output, adopted=None, verified_metric=None):
         missing_initial = initial_names - original_names
         requires_real_BA, method = False, 'existing_visual_map_with_pre_BA_point_policy'
         image_root = source.parent / 'images'
+        triangulation_database = None
         if not image_root.is_dir():
             image_root = initial / 'images'
         if adopted is None:
@@ -120,6 +121,8 @@ def prepare(source, initial, raw, output, adopted=None, verified_metric=None):
                 matches = output / 'missing_matches'
                 matching = stage('missing_matches', 'camera_support_recovery.py', ['--source-model', source,
                     '--initial-frames', initial, '--output', matches, '--matching-only'], 2000, matches / 'RESULT.json')
+                triangulation_database = Path(matching['database'])
+                image_root = Path(matching['images'])
                 visual_arguments = ['--database', matching['database'], '--images', matching['images']]
                 use_native_recovery = bool(unbound)
                 if weak or missing_initial:
@@ -145,6 +148,8 @@ def prepare(source, initial, raw, output, adopted=None, verified_metric=None):
                             ['--source-model', current, '--initial-frames', initial,
                                 '--database', matching['database'], '--decisions', pnp / 'FRAME_DECISIONS.json',
                                 '--raw', raw, '--output', bridge, '--matching-only'], 2600, bridge / 'RESULT.json')
+                        triangulation_database = Path(matched_bridge['database'])
+                        image_root = Path(matched_bridge['images'])
                         visual_arguments = ['--database', matched_bridge['database'],
                             '--images', matched_bridge['images'], '--bridge', bridge]
                 if use_native_recovery:
@@ -152,6 +157,8 @@ def prepare(source, initial, raw, output, adopted=None, verified_metric=None):
                     recovered = stage('native_visual_recovery', 'camera_visual_recovery.py',
                         ['--source-model', current, '--initial-frames', initial, '--output', initialized,
                             *visual_arguments], 630, initialized / 'RESULT.json')
+                    triangulation_database = Path(recovered['database'])
+                    image_root = Path(recovered['images'])
                     rebuilt_path = output / 'all_point_rebuilding'
                     rebuilt = stage('all_point_rebuilding', 'camera_point_rebuild.py',
                         ['--source-model', recovered['model'], '--initial-frames', initial,
@@ -159,6 +166,7 @@ def prepare(source, initial, raw, output, adopted=None, verified_metric=None):
                             '--camera-role-result', initialized / 'RESULT.json', '--output', rebuilt_path],
                         400, rebuilt_path / 'RESULT.json')
                     current, image_root = Path(rebuilt['model']), Path(rebuilt['images'])
+                    triangulation_database = Path(rebuilt['database'])
                     role_arguments = ['--camera-role-result', rebuilt_path / 'RESULT.json']
                     requires_real_BA, method = True, 'genuine_native_visual_recovery_all_points_and_joint_BA_required'
             prepared_path = output / 'point_preparation'
@@ -187,6 +195,8 @@ def prepare(source, initial, raw, output, adopted=None, verified_metric=None):
         value = {'status': 'same_run_camera_geometry_prepared_BA_required', 'method': method,
             'source_model': str(source), 'source_identity': config['source_identity'], 'model': str(prepared_model),
             'output_identity': model_identity(prepared_model), 'images': str(image_root),
+            'retriangulation_database': str(triangulation_database) if triangulation_database else None,
+            'retriangulation_images': str(image_root) if triangulation_database else None,
             'registered_frames': actual.num_reg_images(), 'original_registered_frames': original.num_reg_images(),
             'original_registered_names_all_retained': True, 'added_registered_frames': len(actual_names - original_names),
             'requires_native_BA_coarse_initialization': requires_real_BA,

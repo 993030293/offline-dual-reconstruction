@@ -1,14 +1,14 @@
 {
   "schema": "offline_dual_publication_manifest_v2",
   "candidate_id": "offline_dual_reconstruction_github_v0_1_20261110",
-  "release_stage": "prerelease_failed_end_to_end_baseline",
+  "release_stage": "prerelease_metric_recovery_development_update",
   "historical_accepted_source_version": "bcf197d198d6e9ff2aef2d2dd7abfb6a025cb3f06df4739beb1a4d4190dc3dfd",
-  "candidate_algorithm_source_version": "b3fc0fd285057425487cb7b0b7c0e58c508d6cb1192ef2c6527c3adac7dd709e",
-  "candidate_algorithm_file_count": 1606,
+  "candidate_algorithm_source_version": "2d7f5531aa43e94c0366c80f9072adbdb667371dd7048f0c8f54f9cf0494d896",
+  "candidate_algorithm_file_count": 1609,
   "manifest_self_excluded": true,
   "generated_verify_result_excluded": true,
-  "file_count": 1643,
-  "total_bytes": 11197940,
+  "file_count": 1646,
+  "total_bytes": 11246321,
   "files": [
     {
       "path": ".gitattributes",
@@ -27,13 +27,13 @@
     },
     {
       "path": "CHANGELOG.md",
-      "bytes": 1234,
-      "sha256": "dc23748d3cfae80ff3ea3d3d7ca3d6cba0e3349c4de5512abd7a8a6a92ed7821"
+      "bytes": 2598,
+      "sha256": "47641df3cedd19cef863b3a5b79ed5f45c1b15863335cb78bd16698931b293ea"
     },
     {
       "path": "README.md",
-      "bytes": 5210,
-      "sha256": "f5c1782ac44e7d76c7252248575bf98dad16961b5001f97aa15a1b62d33e1598"
+      "bytes": 5397,
+      "sha256": "6f5fe0c8936fff825b45767ca6d764553d663fb0dbd857d79e45388d9b4eb9c5"
     },
     {
       "path": "THIRD_PARTY.md",
@@ -67,8 +67,8 @@
     },
     {
       "path": "docs/VALIDATION_STATUS.md",
-      "bytes": 5872,
-      "sha256": "3ddcefcc44bf5db7693e9d6dfc0b7963abf94d0e39545e57d08255bd69baf2c8"
+      "bytes": 8726,
+      "sha256": "3ca11b40335ac16c17b4cf1d7a890daa735f47856dbc8e1017103fc026779abb"
     },
     {
       "path": "docs/accepted_package/BIND_RUNTIME.ps1",
@@ -307,8 +307,8 @@
     },
     {
       "path": "payload/02_code/box2_lio_guided_sfm_v1_20261002/run_prior_ba.py",
-      "bytes": 8740,
-      "sha256": "871a0a56209b136c60dfd46c79a1dfbcbf07bfcab1531f65e75113466444e1b4"
+      "bytes": 8987,
+      "sha256": "918dbd59ab2f11c063905adfb31853dfc8bef0e2d43939a3c6a5d411f0525343"
     },
     {
       "path": "payload/02_code/box2_lio_guided_sfm_v1_20261002/serve_viewer.py",
@@ -324,6 +324,11 @@
       "path": "payload/02_code/box2_lio_guided_sfm_v1_20261002/test_prior_contracts.py",
       "bytes": 3874,
       "sha256": "cd0b447ff70483c5c8260f91fa6be431b85df318121703649348fdae63de466a"
+    },
+    {
+      "path": "payload/02_code/box2_lio_guided_sfm_v1_20261002/test_run_prior_ba_metrics.py",
+      "bytes": 1064,
+      "sha256": "21c331656eafd545be0f00d163c839cb72b44cd98bd82bc25ec9e3028f6903c0"
     },
     {
       "path": "payload/02_code/box2_lio_guided_sfm_v1_20261002/train_gaussians.py",
@@ -1112,8 +1117,8 @@
     },
     {
       "path": "payload/02_code/gaussian_pipeline_optimization_v1_20261005/run_metric_refinement.py",
-      "bytes": 20044,
-      "sha256": "bd102792056a79af81b7073aaddc08e56cf869dd9385892d652c135736773662"
+      "bytes": 25565,
+      "sha256": "e580fa22bb3b7f33da87cad10926489f3fec218b0268433532ee9df480d476d6"
     },
     {
       "path": "payload/02_code/gaussian_pipeline_optimization_v1_20261005/run_native_lightglue.py",
@@ -6902,8 +6907,8 @@
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/README.md",
-      "bytes": 24117,
-      "sha256": "2650cae530a3b0ad979445e05df9bb6bed3ff21c125c40006f18bddbc6cc0fea"
+      "bytes": 24813,
+      "sha256": "ebd856eaae38312d477c6ca19c53fcbe0de30533ec0532ae07242cb046391292"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/RUN_BOX1.ps1",
@@ -7166,6 +7171,11 @@
       "sha256": "1dbf1cfcb65a027a76142ee5a721452ece5c5d43e6670ab920cb3c8ccfe6105d"
     },
     {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/metric_retriangulation_recovery.py",
+      "bytes": 22268,
+      "sha256": "64aa1f7d59b3a7b21a4ebf81814f38218aefcf6928e1c1db76f470e3837f225a"
+    },
+    {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/metric_sim3_checked.py",
       "bytes": 1316,
       "sha256": "1636105b3b5b1a44f856d4a8bb64e4befb20b292418b6a0fff8bcd69941ebdcc"
@@ -7252,8 +7262,8 @@
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/prepare_camera_backend.py",
-      "bytes": 14175,
-      "sha256": "772c49603bf6b285d3c1b6570354dd20c80e6a0b37c96e4b9f93a5c07c7ea8b8"
+      "bytes": 14884,
+      "sha256": "895423bf4cb33f0aff5848525b00c136cdea21d3c2b9322beb416fb3eb020e91"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/prepare_metric_support.py",
@@ -7297,8 +7307,8 @@
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/run_native_supported.py",
-      "bytes": 2788,
-      "sha256": "88075ee4a8035f2571ada7d37f9ad2e892f13adbd0f2947e79a1290afb8f46c2"
+      "bytes": 4751,
+      "sha256": "f2f404a9c6d0c4aede5089a99b47fe85b0464ae9ff587e7d6b0bd761c4e5854b"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/run_sfm_global.py",
@@ -7494,6 +7504,11 @@
       "path": "payload/02_code/reconstruction_dual_v1_20261009/test_metric_prior_provenance.py",
       "bytes": 4484,
       "sha256": "69d6ad69fa0a40e4b97f1ff18a9cd3b5b1991abe79baee3d2d2d00e5c083f37d"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_metric_retriangulation_recovery.py",
+      "bytes": 5370,
+      "sha256": "126b93f6fbf8766b690dba3f35d9e41a5ef945ca84766d95c16ecd8e2250423d"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/test_missing_initial_recovery.py",
@@ -8192,8 +8207,8 @@
     },
     {
       "path": "provenance/BASELINE_DELTA.json",
-      "bytes": 4234,
-      "sha256": "a32901057f2f7201b23b1bba639200b20d59bf48bfb4888e683b0b1b2b17b4e2"
+      "bytes": 7508,
+      "sha256": "dcd7a984f88599661f21bccda8fa9339e75e7d985c4eae03c797c3a6ec4c295f"
     },
     {
       "path": "provenance/EXTERNAL_SOURCE_LOCK.json",
@@ -8207,13 +8222,13 @@
     },
     {
       "path": "provenance/SOURCE_COPY_MAP.json",
-      "bytes": 368785,
-      "sha256": "5de9d3297565a19a4abb2b4803eb392473f351c0303071b8553a4cad6962477a"
+      "bytes": 371574,
+      "sha256": "af34132231ca7f223931f2441d32d42827ee05e66a4aebca4bc57f0a42f3817f"
     },
     {
       "path": "tools/build_publication_manifest.py",
-      "bytes": 11521,
-      "sha256": "d42c6258d769782555f498f722e58ce232659992b856c1785dd5c5001e2a4412"
+      "bytes": 11596,
+      "sha256": "11cb97231b6393a890765fbb4acb8a5f3ddbd621a23bf6af2323db3e22d4415a"
     },
     {
       "path": "tools/verify_pgsr_patch.sh",

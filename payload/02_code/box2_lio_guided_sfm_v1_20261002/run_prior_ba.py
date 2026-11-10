@@ -26,7 +26,13 @@ def quantiles(values):
 def observation_metrics(model):
     all_errors, per_image, observation_count, negative = [], [], 0, 0
     for image in sorted(model.images.values(), key=lambda im: im.image_id):
+        if not image.has_pose:
+            continue
         points = [point for point in image.points2D if point.has_point3D()]
+        if not points:
+            per_image.append({"image_id": image.image_id, "image_name": image.name,
+                              "observations": 0, **quantiles([])})
+            continue
         xyz = np.asarray([model.points3D[p.point3D_id].xyz for p in points])
         xy = np.asarray([p.xy for p in points])
         pose = image.cam_from_world()

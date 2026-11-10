@@ -267,7 +267,9 @@ def main() -> int:
     manifest = {
         "schema": "offline_dual_publication_manifest_v2",
         "candidate_id": "offline_dual_reconstruction_github_v0_1_20261110",
-        "release_stage": "prerelease_failed_end_to_end_baseline",
+        "release_stage": json.loads(
+            (candidate_root / BASELINE_DELTA).read_text(encoding="utf-8")
+        )["candidate_stage"],
         "historical_accepted_source_version": "bcf197d198d6e9ff2aef2d2dd7abfb6a025cb3f06df4739beb1a4d4190dc3dfd",
         "candidate_algorithm_source_version": source_tree_version(source_map),
         "candidate_algorithm_file_count": len(source_map["files"]),
