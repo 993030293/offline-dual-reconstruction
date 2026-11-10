@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PGSR 表面点云 · 自由移动</title><link rel="icon" href="data:,">
+<style>
+html,body{margin:0;height:100%;background:#080b0f;color:#e8eef5;font:14px system-ui,sans-serif;overflow:hidden}#viewport{position:absolute;inset:0}header,footer{position:absolute;left:18px;right:18px;background:#0f1824df;border:1px solid #344052;border-radius:10px;padding:12px;z-index:2;display:flex;gap:12px;align-items:center;flex-wrap:wrap}header{top:14px}footer{bottom:14px}h1{font-size:16px;margin:0 12px 0 0}a{color:#8dccff}button,select{background:#1e2b3b;border:1px solid #52677e;color:#eef4ff;padding:7px;border-radius:5px}label{display:flex;align-items:center;gap:6px}#path{flex:1;min-width:150px}#error{position:absolute;top:120px;left:20px;right:20px;background:#431e24;padding:14px;display:none;white-space:pre-wrap;z-index:3}#instructions{opacity:.75;font-size:12px}
+</style>
+<script type="importmap">{"imports":{"three":"../shared-build/vendor/three.module.js","three/addons/":"../shared-build/vendor/"}}</script>
+</head><body>
+<div id="viewport"></div><header><h1>PGSR 表面点云</h1><a href="../">双输出交付</a><a id="gaussian-link" href="../box1-optimized/cases/packed/index.html">查看 3D 高斯</a>
+<label>范围<select id="scene-mode"><option value="scene">完整表面</option><option value="focus">自动聚焦</option></select></label>
+<label>移动<select id="navigation-mode"><option value="orbit">环绕</option><option value="fly">自由飞行</option></select></label>
+<button id="overview">物体概览</button><button id="top">俯视</button><button id="reset">采集视角</button><label>点大小<input id="point-size" type="range" min="2" max="25" value="8"></label><span id="status">正在读取表面点云</span></header>
+<pre id="error"></pre><footer><button id="play">播放采集路径</button><input id="path" type="range" min="0" max="0" value="0"><span id="view-label"></span><div id="instructions">左键旋转 / 右键平移 / 滚轮缩放。自由飞行：拖动转向，W/A/S/D 移动，Q/E 升降，Shift 加速。坐标单位 m；采样密度不代表测量精度。</div></footer>
+<script type="module" src="./point_viewer.js"></script></body></html>

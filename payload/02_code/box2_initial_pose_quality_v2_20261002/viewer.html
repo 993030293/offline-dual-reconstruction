@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Box2 · 自由飞行三维预览</title>
+  <link rel="icon" href="data:,">
+  <style>
+    :root { color-scheme: dark; font-family: "Segoe UI", "Microsoft YaHei", sans-serif; --accent: #54c3ad; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #080b0f; color: #edf2f6; overflow: hidden; }
+    #viewport { position: fixed; inset: 0; }
+    canvas { display: block; outline: none; touch-action: none; }
+    header { position: absolute; top: 20px; left: 24px; max-width: calc(100vw - 380px); pointer-events: none; text-shadow: 0 1px 8px #000; }
+    h1 { font-size: 21px; margin: 0 0 7px; font-weight: 600; }
+    header p { font-size: 12px; color: #b4c6ce; margin: 6px 0; }
+    .panel { position: absolute; top: 16px; right: 16px; width: 304px; padding: 14px; border: 1px solid #304450; background: #0c1117ed; max-height: calc(100vh - 132px); overflow: auto; border-radius: 8px; }
+    .panel.collapsed { width: 46px; padding: 4px; }
+    .panel.collapsed .panel-content { display: none; }
+    .panel-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+    .panel-head span { font-size: 12px; color: #9bb4bf; }
+    .panel.collapsed .panel-head span { display: none; }
+    .group { margin-top: 13px; padding-top: 12px; border-top: 1px solid #23333f; }
+    label, .group-title { display: block; font-size: 12px; color: #a9bdc7; margin-bottom: 7px; }
+    button, select { font: inherit; font-size: 12px; color: #e2edf0; border: 1px solid #344c59; background: #121d25; border-radius: 5px; padding: 8px 9px; min-height: 35px; cursor: pointer; }
+    button:hover, select:hover { border-color: var(--accent); }
+    button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    select { width: 100%; }
+    .camera-grid, .button-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .button-row { grid-template-columns: repeat(2, 1fr); }
+    .drone { border-color: #42796c; background: #14352c; }
+    input[type="range"] { width: 100%; accent-color: var(--accent); }
+    #speed-value { float: right; font-variant-numeric: tabular-nums; color: #dce8ee; }
+    .shortcut { font-size: 11px; line-height: 1.65; color: #91aebc; margin: 9px 0 0; }
+    footer { position: absolute; bottom: 18px; left: 20px; right: 20px; display: flex; align-items: center; gap: 10px; padding: 11px; background: #0c1117ed; border: 1px solid #304450; border-radius: 7px; }
+    footer input { flex: 1; min-width: 70px; }
+    #view-label { font-size: 11px; color: #bdced7; min-width: 88px; }
+    #help { position: absolute; bottom: 83px; left: 24px; font-size: 12px; color: #d3e1e6; text-shadow: 0 1px 6px #000; pointer-events: none; }
+    #error { display: none; position: absolute; left: 20px; right: 340px; top: 120px; white-space: pre-wrap; background: #321d1de8; padding: 18px; border: 1px solid #a57769; }
+    @media (max-width: 760px) {
+      header { left: 14px; top: 14px; max-width: calc(100vw - 70px); }
+      h1 { font-size: 17px; }
+      .panel { top: 96px; right: 10px; width: 264px; max-height: calc(100vh - 208px); }
+      .panel.collapsed { top: 12px; }
+      footer { bottom: 10px; left: 10px; right: 10px; gap: 6px; padding: 8px; }
+      #help { left: 14px; bottom: 76px; max-width: calc(100vw - 28px); font-size: 11px; }
+      footer button { padding: 7px 6px; }
+      #previous, #next { display: none; }
+      #error { right: 20px; }
+    }
+  </style>
+  <script type="importmap">
+    { "imports": { "three": "./vendor/three.module.js", "three/addons/": "./vendor/", "@sparkjsdev/spark": "./vendor/spark.module.js" } }
+  </script>
+</head>
+<body>
+  <main id="viewport" aria-label="可自由移动的 Box2 高斯三维场景"></main>
+  <header>
+    <h1>__CASE_LABEL__</h1>
+    <p>自由旋转、平移与飞行 · Z 轴向上 · 坐标单位为米</p>
+    <p id="status" role="status">正在加载模型…</p>
+  </header>
+  <aside class="panel" id="settings">
+    <div class="panel-head"><span>三维浏览控制</span><button id="collapse" aria-label="收起控制面板" aria-expanded="true">−</button></div>
+    <div class="panel-content">
+      <div class="group">
+        <label for="case-select">对照分支</label>
+        <select id="case-select">__CASE_OPTIONS__</select>
+        <label for="scene-mode" style="margin-top:10px">展示范围</label>
+        <select id="scene-mode"><option value="scene">完整场景</option><option value="box">箱体范围</option></select>
+      </div>
+      <div class="group">
+        <label for="navigation-mode">移动方式</label>
+        <select id="navigation-mode"><option value="orbit">旋转与平移</option><option value="fly">自由飞行</option></select>
+        <div class="camera-grid" style="margin-top:10px">
+          <button data-preset="front">前视</button><button data-preset="right">右视</button><button data-preset="back">后视</button>
+          <button data-preset="left">左视</button><button data-preset="top" class="drone">无人机俯视</button><button data-preset="drone" class="drone">无人机斜俯视</button>
+        </div>
+      </div>
+      <div class="group">
+        <label for="flight-speed">飞行速度 <span id="speed-value">0.70 m/s</span></label>
+        <input id="flight-speed" type="range" min="0.10" max="4.00" step="0.10" value="0.70">
+        <p class="shortcut">飞行：点击场景后 W/S 前后，A/D 左右，Q/E 下降/上升，Shift 加速。左键拖动转向，右键拖动平移，滚轮前后移动。</p>
+      </div>
+      <div class="group button-row">
+        <button id="reset">重置采集视角</button><button id="fullscreen">全屏</button>
+        <button id="grid" aria-pressed="false">显示参考网格</button><button id="background">浅色背景</button>
+      </div>
+      <p class="shortcut">自由视角会显示未充分观测的区域；箱顶和远离采集路径的位置可能出现模糊或漂浮高斯。</p>
+    </div>
+  </aside>
+  <p id="help">左键旋转 · 右键平移 · 滚轮缩放 · 可切换自由飞行</p>
+  <footer>
+    <button id="play" aria-pressed="false">播放采集路径</button>
+    <button id="previous" aria-label="上一个采集视角">上一视角</button>
+    <input id="path-slider" type="range" min="0" max="179" value="0" aria-label="采集视角">
+    <button id="next" aria-label="下一个采集视角">下一视角</button>
+    <span id="view-label">采集视角</span>
+  </footer>
+  <div id="error" role="alert"></div>
+  <script type="module" src="./viewer.js"></script>
+</body>
+</html>

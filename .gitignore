@@ -1,0 +1,75 @@
+# Machine-local runtime and configuration
+config/runtime.local.json
+**/config/local_runtime.json
+**/OFFLINE_RUNTIME.local.json
+RUNTIME_BINDING_RECEIPT.json
+PACKAGE_VERIFY_RESULT.json
+PUBLICATION_VERIFY_RESULT.json
+PUBLICATION_PUBLIC_GATE_RESULT.json
+
+# Python and test caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments and installed runtimes
+.venv/
+venv/
+env/
+05_envs/
+payload/05_envs/
+payload/04_outputs/*
+!payload/04_outputs/gaussian_pipeline_optimization_v3_20261005/
+payload/04_outputs/gaussian_pipeline_optimization_v3_20261005/*
+!payload/04_outputs/gaussian_pipeline_optimization_v3_20261005/RUNTIME_MANIFEST.json
+!payload/04_outputs/gaussian_pipeline_optimization_v3_20261005/bg001/
+payload/04_outputs/gaussian_pipeline_optimization_v3_20261005/bg001/*
+!payload/04_outputs/gaussian_pipeline_optimization_v3_20261005/bg001/b0/
+payload/04_outputs/gaussian_pipeline_optimization_v3_20261005/bg001/b0/*
+!payload/04_outputs/gaussian_pipeline_optimization_v3_20261005/bg001/b0/native_bayer_gray.dll
+!payload/04_outputs/gaussian_pipeline_optimization_v3_20261005/qc001/
+payload/04_outputs/gaussian_pipeline_optimization_v3_20261005/qc001/*
+!payload/04_outputs/gaussian_pipeline_optimization_v3_20261005/qc001/b0/
+payload/04_outputs/gaussian_pipeline_optimization_v3_20261005/qc001/b0/*
+!payload/04_outputs/gaussian_pipeline_optimization_v3_20261005/qc001/b0/native_planar_corner.dll
+!payload/04_outputs/gaussian_pipeline_optimization_v3_20261005/vector_gray_stats_001/
+payload/04_outputs/gaussian_pipeline_optimization_v3_20261005/vector_gray_stats_001/*
+!payload/04_outputs/gaussian_pipeline_optimization_v3_20261005/vector_gray_stats_001/b0/
+payload/04_outputs/gaussian_pipeline_optimization_v3_20261005/vector_gray_stats_001/b0/*
+!payload/04_outputs/gaussian_pipeline_optimization_v3_20261005/vector_gray_stats_001/b0/native_vector_gray_stats.dll
+
+# Reconstruction inputs and generated results
+*.mcap
+*.bag
+*.db3
+*.sqlite
+*.sqlite3
+*.ckpt
+*.pth
+*.pt
+*.safetensors
+*.onnx
+*.ply
+*.pcd
+*.obj
+*.glb
+*.gltf
+*.las
+*.laz
+runs/
+outputs/
+/04_outputs/
+
+# Logs, reports and local evidence
+*.log
+*.jsonl
+evidence/
+receipts/
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

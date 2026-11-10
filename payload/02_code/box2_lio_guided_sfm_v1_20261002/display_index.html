@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Box2 · 位姿先验与覆盖增补对照</title>
+  <link rel="icon" href="data:,">
+  <style>
+    :root { color-scheme: dark; font-family: "Segoe UI", "Microsoft YaHei", sans-serif; }
+    body { margin: 0; background: #101110; color: #f2f1ed; line-height: 1.7; }
+    main { max-width: 1280px; margin: auto; padding: 32px 24px 64px; }
+    h1 { font-size: 28px; font-weight: 500; margin: 0 0 12px; }
+    h2 { font-size: 19px; font-weight: 500; margin-top: 32px; }
+    p { color: #c6c8c1; }
+    nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 26px 0; }
+    nav a { display: block; padding: 22px; border: 1px solid #ffffff30; background: #191a19; border-radius: 8px; text-decoration: none; color: #e5d6a8; }
+    nav a:hover { border-color: #d1bc7d; }
+    strong { display: block; font-size: 19px; color: #f2f1ed; }
+    small { color: #aeb3a6; }
+    img { max-width: 100%; height: auto; display: block; border: 1px solid #ffffff25; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { padding: 11px 12px; border-bottom: 1px solid #ffffff20; text-align: left; }
+    @media (max-width: 720px) { nav { grid-template-columns: 1fr; } main { padding: 24px 16px; } h1 { font-size: 23px; } }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Box2 · 位姿先验与覆盖增补对照</h1>
+  <p>点击任一分支进入三维场景，可旋转、平移、缩放、切换箱体范围和播放采集路径；场景内右上角可切换对照分支。</p>
+  <nav aria-label="三维对照分支">
+    <a href="cases/A1_visual/index.html"><strong>纯视觉 BA · 180 帧</strong>共同图像、固定内参、视觉联合优化</a>
+    <a href="cases/B_w_sigma015/index.html"><strong>弱位置先验 · 180 帧</strong>177 个活跃先验，σ = 0.15 m</a>
+    <a href="cases/C_augmented_212/index.html"><strong>覆盖增补 · 212 帧</strong>32 张新增图像经匹配、PnP 与 BA 精化</a>
+  </nav>
+  <p>这轮验证了记录里程计引导选帧、注册及先验优化的工程链。弱先验没有呈现明显的同帧视觉收益；增补组在本次开发留出上的渲染指标更高。真实位姿与几何精度尚无独立参考。</p>
+  <table aria-label="24 张开发留出图像的渲染统计">
+    <thead><tr><th>分支</th><th>全图 PSNR</th><th>全图 SSIM</th><th>目标矩形 PSNR</th></tr></thead>
+    <tbody>
+      <tr><td>纯视觉 BA / 180</td><td>26.462 dB</td><td>0.93481</td><td>27.159 dB</td></tr>
+      <tr><td>弱位置先验 / 180</td><td>26.541 dB</td><td>0.93460</td><td>27.284 dB</td></tr>
+      <tr><td>覆盖增补 / 212</td><td>26.936 dB</td><td>0.94053</td><td>27.611 dB</td></tr>
+    </tbody>
+  </table>
+  <p><small>三组均训练 10,000 次；212 帧组每帧平均曝光次数更少。留出相机由各自训练地图的 PnP 定位，指标反映地图、定位与渲染的共同效果。这是已经查看过的开发录制。</small></p>
+  <h2>同一组实拍留出视角</h2>
+  <p>从左至右：实拍参考、纯视觉 BA、弱位置先验、212 帧增补。六行按冻结留出集合均匀取样。</p>
+  <img src="H_comparison.png" alt="六个实拍留出视角的四列渲染对照">
+  <h2>离开采集轨迹后的表现</h2>
+  <p>从左至右为三个分支；从上至下为横向偏移、抬高视角和未观测的高处视角。大幅偏离轨迹时仍存在模糊、拉丝和漂浮高斯。</p>
+  <img src="free_view_comparison.png" alt="三个自由视角的三列渲染对照">
+</main>
+</body>
+</html>

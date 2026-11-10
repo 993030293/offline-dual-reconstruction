@@ -1,0 +1,27 @@
+{
+  "schema_version": "e26_validated_environment_lock_v1",
+  "captured_on": "2026-09-21",
+  "windows_sfm": {
+    "python": "3.11.9",
+    "numpy": "2.3.5",
+    "opencv": "4.13.0",
+    "scipy": "1.17.1",
+    "pillow": "12.3.0"
+  },
+  "windows_geometry": {
+    "python": "3.11.9",
+    "numpy": "2.2.6",
+    "scipy": "1.15.3",
+    "open3d": "0.19.0"
+  },
+  "colmap": "4.1.1 CUDA, commit a0d785f, 2026-07-17",
+  "wsl_pgsr": {
+    "python": "3.11.16",
+    "torch": "2.7.1+cu128",
+    "torch_cuda": "12.8",
+    "opencv": "4.11.0",
+    "numpy": "1.26.4",
+    "cuda_available_at_capture": true
+  },
+  "meaning": "Versions observed on the machine used for the verified Tesla v2 run. The installer probes the bound runtimes but does not vendor CUDA, COLMAP, WSL, or PGSR binaries."
+}

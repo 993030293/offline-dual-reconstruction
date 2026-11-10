@@ -1,0 +1,32 @@
+{
+  "schema_version": "e26_trajectory_binding_config_v1",
+  "image_manifest": "C:\\lidar-camera-fusion-mask-robust-downsampling\\04_outputs\\e26_sfm_full_reconstruction_v1_20260808\\box_visual_dense_v2_parallel_v1\\image_manifest.json",
+  "trajectory": {
+    "path": "C:\\lidar-camera-fusion-mask-robust-downsampling\\04_outputs\\e26_sfm_full_reconstruction_v1_20260808\\lio_local_map\\lio_local_map.tum",
+    "format": "tum",
+    "role": "current_fastlio2_metric_pose_prior",
+    "raw_source_frame": "base_link",
+    "raw_target_frame": "world_lio",
+    "time_domain": "sensor_header_relative_epoch",
+    "clock_source": "mcap_sensor_header",
+    "parameter_source": "fixed_from_existing_baseline"
+  },
+  "T_base_link_camera_optical": {
+    "source_frame": "camera_optical",
+    "target_frame": "base_link",
+    "pose_xyz_xyzw": [
+      0.008213166173439,
+      -0.059576895401653,
+      -0.007314906758354,
+      -0.49849066110900375,
+      0.5065209962730037,
+      -0.49292091710500374,
+      0.5019686350780038
+    ],
+    "parameter_source": "fixed_from_calibration",
+    "source_record": "MCAP /tf_static base_link -> camera_optical"
+  },
+  "maximum_bracket_span_ns": 120000000,
+  "maximum_bracket_span_parameter_source": "fixed_from_existing_10hz_lio_baseline_plus_20_percent_jitter_guard",
+  "scientific_boundary": "Offline bracketing uses the pose sample immediately after an image timestamp. It is not an online-causal estimate."
+}

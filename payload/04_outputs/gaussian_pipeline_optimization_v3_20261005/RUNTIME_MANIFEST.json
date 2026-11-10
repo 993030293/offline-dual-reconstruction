@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "status": "offline_native_runtime_component_verified",
+  "purpose": "Bundled native image-quality acceleration required by the optimized initial frame-selection stage",
+  "platform": "Windows x86-64 with AVX2",
+  "compiler_family": "Microsoft Visual C++ 2022 Build Tools",
+  "offline_build": true,
+  "runtime_download_required": false,
+  "libraries": [
+    {
+      "path": "bg001/b0/native_bayer_gray.dll",
+      "bytes": 104960,
+      "sha256": "dc740ba99da5084cdb51a1b990f653078e4b8a019640fbe422d9454868ea1787",
+      "source": "payload/02_code/gaussian_pipeline_optimization_v3_20261005/native_bayer_gray.cpp",
+      "source_bytes": 5308,
+      "source_sha256": "58d8f4968117ea36ae3926ac1f97f158b1c824dc269a025928c32e3b477c78fa"
+    },
+    {
+      "path": "qc001/b0/native_planar_corner.dll",
+      "bytes": 126464,
+      "sha256": "343359257441df65c16d26d871b1a0fc7b8c0acb3726b5cc4430a4dfe2153c16",
+      "source": "payload/02_code/gaussian_pipeline_optimization_v3_20261005/native_planar_corner.cpp",
+      "source_bytes": 5152,
+      "source_sha256": "1dd7dcd0b27bc8cfbb389126b3127da1c1f89addd70d96f5cba261a73aed4966"
+    },
+    {
+      "path": "vector_gray_stats_001/b0/native_vector_gray_stats.dll",
+      "bytes": 104960,
+      "sha256": "f6bd5de17dfe58e700a6ada3dba048a6120dbe967c8b61970ca0eef60558d620",
+      "source": "payload/02_code/gaussian_pipeline_optimization_v3_20261005/native_vector_gray_stats.cpp",
+      "source_bytes": 4216,
+      "source_sha256": "401e251ed160b520dbc62d473a700010aecb1c2d813c12bf847ba5bc2582d98f"
+    }
+  ],
+  "behavior_validation": {
+    "status": "passed",
+    "entry": "payload/02_code/reconstruction_dual_v1_20261009/native_quality_runtime.py",
+    "opencv_contract": "4.13.0 optimized with IPP",
+    "bayer_exact_cases": 18,
+    "planar_exact_cases": 15,
+    "vector_exact_cases": 18,
+    "comparison": "exact pixels, exact response bits and corner order, exact integer accumulators and binary64 bits"
+  },
+  "excluded_build_artifacts": [
+    "object files",
+    "import libraries",
+    "export files",
+    "compiler logs",
+    "machine-specific build receipts"
+  ]
+}

@@ -1,0 +1,653 @@
+{
+  "schema_version": "e26_video_to_target_m3_manifest_v1",
+  "package_id": "e26_video_to_target_m3_nollm_v1r23_20260927",
+  "file_count": 129,
+  "total_bytes": 3239238,
+  "files": [
+    {
+      "path": "ALGORITHM_SCOPE.md",
+      "bytes": 7261,
+      "sha256": "9f1755f00fc75ff6d2cccfdf11a51af1926c9297c553c83427dca1b4fdd555cb"
+    },
+    {
+      "path": "code/audit_target_preservation.py",
+      "bytes": 5212,
+      "sha256": "1524b1d586e000d58a00f3addf6ed71399b7fb6255a43eecb4672da975d349e9"
+    },
+    {
+      "path": "code/check_mcap_capabilities.py",
+      "bytes": 1900,
+      "sha256": "0bd2e0c0d8e7cf9f6ac72cb30d8bcabfd88e7d4337dd8aef5ae8751536516f06"
+    },
+    {
+      "path": "code/derive_vehicle_roi.py",
+      "bytes": 20744,
+      "sha256": "255778c1d60e5a55d38507a7c17f32f4ce9ee0832908365b4fe52196c8b15f94"
+    },
+    {
+      "path": "code/estimate_sparse_floor.py",
+      "bytes": 4809,
+      "sha256": "97428efc7a1d295a1f14a4e7c08bb14ace43ae705a36035075c03893b14a10d2"
+    },
+    {
+      "path": "code/extract_stable_registered_lidar.py",
+      "bytes": 11927,
+      "sha256": "c65f7b1b4f16c3d03ffdc70efadaefa20200d8947971b0231e1ae112e682e283"
+    },
+    {
+      "path": "code/finalize_integrated_run.py",
+      "bytes": 5680,
+      "sha256": "2437e850693c5c001d37875e1441209061efeb3d98ff17711f9c680a436b1334"
+    },
+    {
+      "path": "code/fit_vehicle_ground_plane_receipt.py",
+      "bytes": 7857,
+      "sha256": "74754823e730b4db9c99718b11f7ada196e4c67b09a43a4c47fa4448acf25ba5"
+    },
+    {
+      "path": "code/prepare_pose_quality_workspace.py",
+      "bytes": 15169,
+      "sha256": "728062cbe2e5f0fdd54cfdac9b62ec53603259ed33f1408b55e5d2ebb89b4684"
+    },
+    {
+      "path": "code/reference_sources/c0_lio_fallback/tools/camera_motion.py",
+      "bytes": 8063,
+      "sha256": "2ae6427151e8805c9127d58121c985659deaf2aa8f981fa615a77c81e53fde3e"
+    },
+    {
+      "path": "code/reference_sources/c0_lio_fallback/tools/endpoint_visual_constraint.py",
+      "bytes": 8016,
+      "sha256": "76d2335e874ae3c4e8e0b989fac3a3f2ade6b8c3fc0f93fefcd1979ae9e53d54"
+    },
+    {
+      "path": "code/reference_sources/c0_lio_fallback/tools/lio_baseline.py",
+      "bytes": 16718,
+      "sha256": "85787145156366b72047f28c80ecb975f4f8598e39822da4b0fed3f5aa50ffae"
+    },
+    {
+      "path": "code/reference_sources/c0_lio_fallback/tools/lio_local_map.py",
+      "bytes": 18077,
+      "sha256": "930974ba7147feec9c36dae25de64a1927a37cf0003b62052d9e48ffe32b80b5"
+    },
+    {
+      "path": "code/reference_sources/c0_lio_fallback/tools/mcap_audit.py",
+      "bytes": 34135,
+      "sha256": "120a4dc3f76aeca7a7f35d8d2e81ac80bc72f4cdbaebf18f09a88a2f63e5182a"
+    },
+    {
+      "path": "code/reference_sources/e26_c2_support/frontend/prepare_e26_orbit_visual_mvs_workspace.py",
+      "bytes": 17169,
+      "sha256": "8317f545f7ac1c4876b9075b10f994a063f44ca46100e2976508f3a3f09732f7"
+    },
+    {
+      "path": "code/reference_sources/e26_c2_support/frontend/tools/camera_motion.py",
+      "bytes": 8063,
+      "sha256": "2ae6427151e8805c9127d58121c985659deaf2aa8f981fa615a77c81e53fde3e"
+    },
+    {
+      "path": "code/reference_sources/e26_c2_support/frontend/tools/color_contract.py",
+      "bytes": 2075,
+      "sha256": "6de8b3bc0954b3c8d9f0c5f9401f3e84063139a949d4dc85ee31c781c911795c"
+    },
+    {
+      "path": "code/reference_sources/e26_c2_support/frontend/tools/mcap_audit.py",
+      "bytes": 30481,
+      "sha256": "51873f08e9cb08583f1eb80ebd5ec27b4aa9ec930f38f27aa73b5a4b677851eb"
+    },
+    {
+      "path": "code/reference_sources/e26_c2_support/geometry/configs/e26_colmap_pose_refinement_v2_local_motion.json",
+      "bytes": 3095,
+      "sha256": "bba38e168783003908e7e440161eab628d3aa0eae3eece0b2d1a33592f538491"
+    },
+    {
+      "path": "code/reference_sources/e26_c2_support/geometry/configs/e26_colmap_pose_refinement_v2r2_truncated_step.json",
+      "bytes": 3382,
+      "sha256": "306ae800533f3d3239a01c40f3d92b3f34a135ade8e894d20603a5b94aa871da"
+    },
+    {
+      "path": "code/reference_sources/e26_c2_support/geometry/scripts/run_e26_colmap_pose_refinement.py",
+      "bytes": 25436,
+      "sha256": "e5385c7986a5b08bf13a12cc2239c40dde74d71b81441e438eefe4597e2da381"
+    },
+    {
+      "path": "code/reference_sources/e26_c2_support/geometry/scripts/run_e26_sim3_initialization.py",
+      "bytes": 3735,
+      "sha256": "b64237f22f6cccf274f77bee03373006cf62d3318e3bc860084aee21ce1090d6"
+    },
+    {
+      "path": "code/reference_sources/e26_c2_support/geometry/src/lidar_camera_recon/__init__.py",
+      "bytes": 78,
+      "sha256": "a10ff2c294973c6d4f7fbd193229a6f6173ca712b5c908a71c7e29e6f057697a"
+    },
+    {
+      "path": "code/reference_sources/e26_c2_support/geometry/src/lidar_camera_recon/e26/__init__.py",
+      "bytes": 364,
+      "sha256": "c86b68b0344fca6595594dc881b2d742f19c6d93c4ba4158937168f7f5f84e79"
+    },
+    {
+      "path": "code/reference_sources/e26_c2_support/geometry/src/lidar_camera_recon/e26/contracts.py",
+      "bytes": 6071,
+      "sha256": "380c4ba11647258c5611f4933aa253e9e55ca59240f09ca08a33cafc9113e118"
+    },
+    {
+      "path": "code/reference_sources/e26_c2_support/geometry/src/lidar_camera_recon/e26/input_freeze.py",
+      "bytes": 4422,
+      "sha256": "9879650f8642d7e8bf2c2c243e3e5dfa501f2ab90f10363f8f1554dc9f6cb54c"
+    },
+    {
+      "path": "code/reference_sources/e26_c2_support/geometry/src/lidar_camera_recon/e26/receipts.py",
+      "bytes": 824,
+      "sha256": "e47c710b306f78e9aa7a9b716207ae7ece49909a7d658e8aba47efae96b00a28"
+    },
+    {
+      "path": "code/reference_sources/e26_c2_support/geometry/src/lidar_camera_recon/e26/trajectory_interpolation.py",
+      "bytes": 4476,
+      "sha256": "0cda576b7b82afdf817921400609291291a36755cf2625f17528f2b2a0fc74ba"
+    },
+    {
+      "path": "code/reference_sources/e26_c2_support/geometry/src/lidar_camera_recon/e26/trajectory_io.py",
+      "bytes": 9803,
+      "sha256": "ad3a2ad45ebb9812d78439d27b52e5e4906d94e558c61487f31281fbbbe691f8"
+    },
+    {
+      "path": "code/reference_sources/e26_c2_support/geometry/src/lidar_camera_recon/e26_colmap_pose_refinement.py",
+      "bytes": 27937,
+      "sha256": "b029fabf1cc476a8336ad0088e9800f40eff858cd1fba219d22306f12a61aa8d"
+    },
+    {
+      "path": "code/reference_sources/e26_c2_support/geometry/src/lidar_camera_recon/e26_paperbox_precision.py",
+      "bytes": 20603,
+      "sha256": "d793acb309cada215648965939240d36b824d4335f59682f44a3d0f890d61ec1"
+    },
+    {
+      "path": "code/reference_sources/e26_c2_support/geometry/src/lidar_camera_recon/e26_pose_prior_builder.py",
+      "bytes": 7328,
+      "sha256": "e9d8ddf886f3b63f1d3bdc7b087d7ccc64610485b62d63a67b3ba561662a4d2e"
+    },
+    {
+      "path": "code/reference_sources/e26_c2_support/geometry/src/lidar_camera_recon/e26_sim3_initialization.py",
+      "bytes": 6933,
+      "sha256": "07661a589f6c23d2f27db4ad8574c47ca214724f110d2872c9a9cf43c692b983"
+    },
+    {
+      "path": "code/reference_sources/e26_c2_support/geometry/src/lidar_camera_recon/e26_trajectory_binding.py",
+      "bytes": 9464,
+      "sha256": "b76824e170afe7e7c9f762b7dd19532417626ffb976d171d182f285148548381"
+    },
+    {
+      "path": "code/reference_sources/README.md",
+      "bytes": 850,
+      "sha256": "3d98aa0aa2560411d0f9cad27aaa1712176094c3e564dfe92ce0123aa43cd6c7"
+    },
+    {
+      "path": "code/run_reliable_lidar_tsdf.py",
+      "bytes": 37581,
+      "sha256": "2dbbd503033ef081ed6910e9c88c9db6490a6d254f84ff10eb9baba38b664c7f"
+    },
+    {
+      "path": "code/runtime/admit_bootstrap_scene_machine.py",
+      "bytes": 4445,
+      "sha256": "c42e70000c619fff68e39ee343f8c7dca5cfb2f40f6658fa1ffaddecea381a6b"
+    },
+    {
+      "path": "code/runtime/build_s08_preview_input.py",
+      "bytes": 8439,
+      "sha256": "9c842fb5d754e96623acdb0f870be318b65db49de81319437cf3e9c2e169e646"
+    },
+    {
+      "path": "code/runtime/common.py",
+      "bytes": 2289,
+      "sha256": "4838fb78526d3083a020e71cbb8c930c5c8aafd3c07154491da78f0bca242490"
+    },
+    {
+      "path": "code/runtime/extract_frames.py",
+      "bytes": 6338,
+      "sha256": "a38c0318edd6373e39e2763d10747c49f0fba72a2e45f9b01a55c08f0c73ae51"
+    },
+    {
+      "path": "code/runtime/machine_frame_inventory.py",
+      "bytes": 4648,
+      "sha256": "4952fcd2c19d143bd65bda469e0ea823b73feb0195d42d1bf5760cdc8551ea0e"
+    },
+    {
+      "path": "code/validated_fresh_runtime/detect_mcap_metric_source.py",
+      "bytes": 1513,
+      "sha256": "71822c5827a7dc8733450027f9a6fa61ee12bd8cd701975a454169682410eac9"
+    },
+    {
+      "path": "code/validated_fresh_runtime/extract_e26_mcap_metric_context.py",
+      "bytes": 11670,
+      "sha256": "41678c61ff01a0b04959430a5945de2a24f68e0f10853007597eec445704f229"
+    },
+    {
+      "path": "code/validated_fresh_runtime/finalize_fresh_run.py",
+      "bytes": 5337,
+      "sha256": "7d2c4dc661a7d0ee382f4d2b0c17d105b4887d990881b6a8a9b53e866d7d8836"
+    },
+    {
+      "path": "code/validated_fresh_runtime/fit_ground_plane_receipt.py",
+      "bytes": 7924,
+      "sha256": "e3c44c60ae0944e81835bf14eb6e286f35efeaf1f7cd70eaa4e8784238496dc8"
+    },
+    {
+      "path": "code/validated_fresh_runtime/initialize_fresh_run.py",
+      "bytes": 3119,
+      "sha256": "93e794249767160f32b75164a4dc356739a0f439a9bab6f2c2737977aa9a8063"
+    },
+    {
+      "path": "code/validated_fresh_runtime/metric_admission.py",
+      "bytes": 1759,
+      "sha256": "da0b1be060904ea2cb5467789bf34bd09bffb2bb22128584ad67b2bfabf34e33"
+    },
+    {
+      "path": "code/validated_fresh_runtime/metric_manifest_lineage.py",
+      "bytes": 3084,
+      "sha256": "81b3f75d2fd5f97fcbce9146c6951dc98dfe12979c90a1c422050c29f8b49f24"
+    },
+    {
+      "path": "code/validated_fresh_runtime/point_track_admission.py",
+      "bytes": 1049,
+      "sha256": "2b63affbca2807fea93659b1213fe62a140fba47d26ff124408f4002e2aff0b1"
+    },
+    {
+      "path": "code/validated_fresh_runtime/prepare_metric_configs.py",
+      "bytes": 6411,
+      "sha256": "7698afe3fe90c691284837918ce94d39ff75b142bcc79c82078b8192de48edad"
+    },
+    {
+      "path": "code/validated_fresh_runtime/prepare_metric_pgsr_input_inliers.py",
+      "bytes": 21976,
+      "sha256": "313370834e5d4cc0dc4312ae1d13874e49eb03ad8349f50257ac8da257ebb397"
+    },
+    {
+      "path": "code/validated_fresh_runtime/run_auto_roi_tsdf.py",
+      "bytes": 20056,
+      "sha256": "3e5d428b0f940dca39af0a2954173eae612852400f148e99af0215cc42030912"
+    },
+    {
+      "path": "code/validated_fresh_runtime/run_e26_sim3_initialization.py",
+      "bytes": 4976,
+      "sha256": "6b8894cf963125a163260095a8d3dc1279cced04f234e1a6baadc00e19830b71"
+    },
+    {
+      "path": "code/validated_fresh_runtime/run_e26_trajectory_binding.py",
+      "bytes": 4769,
+      "sha256": "6a202e780f7cf3b46834c8cde57da9b82191dcf3ad53a09e3dd72fbfd71e56ee"
+    },
+    {
+      "path": "code/validated_fresh_runtime/run_sparse_from_extracted.py",
+      "bytes": 2327,
+      "sha256": "ff00fe751591c5b1f13920d17acd0c625d53f5dfcdbb6bf718f67f047387fd48"
+    },
+    {
+      "path": "code/validated_fresh_runtime/train_pgsr_supervised.py",
+      "bytes": 11615,
+      "sha256": "47508007d81f0c52d02748f153d049d816dda8bd7c9088b242f88055e6e9348d"
+    },
+    {
+      "path": "code/verify_package.py",
+      "bytes": 4486,
+      "sha256": "9ae6c599752cee7a6f3d084a910384e4a8d300ca2c57f2d4f73791d6a661eff6"
+    },
+    {
+      "path": "code/viewer/build_pointcloud_interactive_v2.py",
+      "bytes": 24683,
+      "sha256": "9c565d78a5348d22948dd66b486bc5a8ead62927b9c9b458ef3291f71ad1f6aa"
+    },
+    {
+      "path": "code/viewer/build_pointcloud_interactive_v3.py",
+      "bytes": 21332,
+      "sha256": "29804c8ed47dee28d0d910188503b03aba162912ca504ca53b012682a2c88fa4"
+    },
+    {
+      "path": "code/viewer/validate_pointcloud_interactive_v3.py",
+      "bytes": 5913,
+      "sha256": "dd451fc59cd8c4f1f56493410dd4565ee3f04f791b1ee9e6b833d693fdfcbeb4"
+    },
+    {
+      "path": "code/write_pipeline_failure_receipt.py",
+      "bytes": 3784,
+      "sha256": "3376eec420005c492e4ecfee8fa66e6286053563883216c6a158329c121ba2c3"
+    },
+    {
+      "path": "config/ENVIRONMENT_LOCK.json",
+      "bytes": 773,
+      "sha256": "b8c4c318cfde0077c92f913fef1a049e634469a16d466749729c044c3fc1f8a2"
+    },
+    {
+      "path": "config/METRIC_ALIGNMENT_POLICY.json",
+      "bytes": 1386,
+      "sha256": "3039048d235e2148bd41b4e96064a10a3b048b9c52850b51d39a4cb75a6be541"
+    },
+    {
+      "path": "config/runtime.example.json",
+      "bytes": 1029,
+      "sha256": "4218927a66b78ad5e02d44c1b2707937a4f574e34c9ec992e2e8781ee31010eb"
+    },
+    {
+      "path": "contracts/NO_LLM_CONTRACT.json",
+      "bytes": 1147,
+      "sha256": "d82b9210916d5d10003a83098f8c72bad775a34ac7af87cb06e31b2bfaf8f42f"
+    },
+    {
+      "path": "evidence/failure_receipts/ATTEMPT_01_FAILED.json",
+      "bytes": 607,
+      "sha256": "8ff78047c61edc4bb1306a4c55f9879a37b0ac71008d8f84367da6474c26bd5b"
+    },
+    {
+      "path": "evidence/failure_receipts/ATTEMPT_02_FAILED.json",
+      "bytes": 818,
+      "sha256": "439a0b4dc55530267c3b7b9671c240562f6adfa16fd917357c5bbc07cfd95b60"
+    },
+    {
+      "path": "evidence/failure_receipts/ATTEMPT_03_ROI_FAILED.json",
+      "bytes": 720,
+      "sha256": "39c4c3efed913c78d0756e5da92e6a7d83aa873edbe84b393a52e4e3795e14e3"
+    },
+    {
+      "path": "evidence/failure_receipts/ATTEMPT_04_GROUND_GATE_FAILED.json",
+      "bytes": 550,
+      "sha256": "0049aad8c8834bd6381c4387b4714ef982261c1ff1d41850cc247319524dc229"
+    },
+    {
+      "path": "evidence/failure_receipts/V3R1_IMPLEMENTATION_ATTEMPT_01_FAILED.json",
+      "bytes": 502,
+      "sha256": "e6dee3845b24aac2a46292d06f01d0b211bb01b6c41cd1cdc959390b4aba15c6"
+    },
+    {
+      "path": "evidence/failure_receipts/V3R1_METRIC_REPLAY_VERIFICATION.json",
+      "bytes": 1762,
+      "sha256": "31ef1dea7ad48906f639acce82be0a131efd1590e067959cb68df3f5c499eab0"
+    },
+    {
+      "path": "evidence/integrated_v3/INSTALL_RECEIPT.json",
+      "bytes": 1028,
+      "sha256": "9810626db722124b66944fb96175c2491d9dea67cb3740a50143394f037e2c88"
+    },
+    {
+      "path": "evidence/integrated_v3/INSTALL_VERIFY.json",
+      "bytes": 2037,
+      "sha256": "9b676ff1fa99f51d911d4edf1684c9f6e8d6c5575439080778a38f4bf574a722"
+    },
+    {
+      "path": "evidence/integrated_v3/INTEGRATED_FINAL_STATUS.json",
+      "bytes": 2203,
+      "sha256": "582b1fbbeb44c653c47f2e9fc7f0e8c4b6cbfe13e8123cd3e432797edcfa1f3f"
+    },
+    {
+      "path": "evidence/integrated_v3/s08_offline_viewer_validation.json",
+      "bytes": 2486,
+      "sha256": "469f7bd216d92c6f267ecc048fc7c1ceb8c67cd2e8b87e0fb322b1020bbc7be7"
+    },
+    {
+      "path": "evidence/integrated_v3/s08_preview_derivative_receipt.json",
+      "bytes": 2727,
+      "sha256": "6034274f9974245e6e292011ac3063bd9f765d412d68c6d179b3781eccbbe1db"
+    },
+    {
+      "path": "evidence/tesla_baseline_vs_reliable_v2.jpg",
+      "bytes": 191036,
+      "sha256": "7cf53b09967cce818e8955f517cf85fcf964a01a3f11caf3de6e86b0c0862592"
+    },
+    {
+      "path": "evidence/tesla_right.png",
+      "bytes": 344974,
+      "sha256": "7e51a502794d0896cd7f13e62d43383b25f5f32e54ae589f1646409c9fe9e1f6"
+    },
+    {
+      "path": "evidence/tesla_top.png",
+      "bytes": 539072,
+      "sha256": "4b12d6cd9508d54ca607d639e42e674f7268448ec23c3f84f517bbbbd4db02a9"
+    },
+    {
+      "path": "evidence/tesla_v2_oblique.png",
+      "bytes": 451140,
+      "sha256": "98a4056303237038957439b76908d4f9e0f5fdf590bb15b85e02c224a8b2059d"
+    },
+    {
+      "path": "evidence/tesla_v2_right.png",
+      "bytes": 304994,
+      "sha256": "26115f12805aa3b9c648e5ac7e1c0ed48414eb50e6ef0defe29893951d958053"
+    },
+    {
+      "path": "evidence/tesla_v2_top.png",
+      "bytes": 484243,
+      "sha256": "b81a4e5c8e9eefc2d7a10abd75fb19240c5e5fdaf0ff69cb02e6d233dfa25ed9"
+    },
+    {
+      "path": "FAILURE_REPAIR_MATRIX.md",
+      "bytes": 8805,
+      "sha256": "2f914f1fb3cd0d63ad4c25f6ae5c8c51541014d3f4bae0955c14930fae0f7497"
+    },
+    {
+      "path": "ground/code/audit_m3_delivery.py",
+      "bytes": 5920,
+      "sha256": "dab14477ef63f384f13abfa14628a36014ef43cb845b8d3c16cecc6d29cb7758"
+    },
+    {
+      "path": "ground/code/extract_m3_target.py",
+      "bytes": 10452,
+      "sha256": "d01e996b83025ee29ca85690769b140a60b86923fa9064b51c6a15af341b5816"
+    },
+    {
+      "path": "ground/code/ground_target_extraction.py",
+      "bytes": 47444,
+      "sha256": "952ba7a904d3b461d550baaa776548e0919bf2ddc18e5209159ef711bf34dd42"
+    },
+    {
+      "path": "ground/code/m3_ground.py",
+      "bytes": 9141,
+      "sha256": "788efb1ee1e3a14be9fcb58d6ed602da659e530c97718ad8cafa49a30bd81090"
+    },
+    {
+      "path": "ground/code/registered_lidar_ground_support.py",
+      "bytes": 4609,
+      "sha256": "0c20409765a9915f5d365e2f21d1a25b8c88e2ca3215d5459a0a80678935baed"
+    },
+    {
+      "path": "ground/code/viewer/build_pointcloud_interactive_v2.py",
+      "bytes": 24683,
+      "sha256": "9c565d78a5348d22948dd66b486bc5a8ead62927b9c9b458ef3291f71ad1f6aa"
+    },
+    {
+      "path": "ground/code/viewer/build_pointcloud_interactive_v3.py",
+      "bytes": 22791,
+      "sha256": "71456a9d2521f3650196b223c0b97f921c023eee088621984f3758d3285f41e1"
+    },
+    {
+      "path": "ground/code/viewer/validate_pointcloud_interactive_v3.py",
+      "bytes": 7632,
+      "sha256": "8fb7a4b40e209374962ea5d82bf6a5ce78607320db72dab835f9e9fac21753b5"
+    },
+    {
+      "path": "ground/config.json",
+      "bytes": 2199,
+      "sha256": "f4538af3efea77fb6c4fba417219d984609999b1122c44ff6a7ac7b0f82b4c88"
+    },
+    {
+      "path": "INSTALL.ps1",
+      "bytes": 4630,
+      "sha256": "2f4e99955a2102800470fd3aca9d894b149f173453a87546ecdba172a640c0f9"
+    },
+    {
+      "path": "INTEGRATION_RESULT.md",
+      "bytes": 3418,
+      "sha256": "af779299a623bc5c7d00a912386330e3fa42450027cefda8d9499150aa3076dc"
+    },
+    {
+      "path": "README.md",
+      "bytes": 19720,
+      "sha256": "fe83950e1eec5ca9f4fa72d734c44ab754b4d28e1bbf14747863b917500b9ff3"
+    },
+    {
+      "path": "REPAIR_RESULT.md",
+      "bytes": 1579,
+      "sha256": "93c35fd2779a971e61597433ab69a43cbee7aabfea74f48467e13497a4260356"
+    },
+    {
+      "path": "RERUN_RESULT.md",
+      "bytes": 2520,
+      "sha256": "391a782fd5def0f754673314fbd92dbccdba371925f181c302b281fe7ad8c3cd"
+    },
+    {
+      "path": "ROI_ADAPTIVE_RESULT.md",
+      "bytes": 4113,
+      "sha256": "39a71653a3fa5239ce5ddedcb7ac17fa27ada91c9e54de86ba0e79f5f324937d"
+    },
+    {
+      "path": "ROI_REPAIR_RESULT.md",
+      "bytes": 5231,
+      "sha256": "ad897fe4bb9f82ac5a064d781ea337c324c66cd4d49e6ce22635d066eba7a78a"
+    },
+    {
+      "path": "RUN_FROM_S07_M3.ps1",
+      "bytes": 7282,
+      "sha256": "7825d3badbecf24a0ffc4d223fb201189cd5bf7816cc086960d465f7484558c8"
+    },
+    {
+      "path": "RUN_LEGACY_PGSR_S00_S08.ps1",
+      "bytes": 10840,
+      "sha256": "aa4b396aa5412fb2b0770231ead4fe17252f0b430bfe1db168fa2c0b258b7372"
+    },
+    {
+      "path": "RUN_MACHINE_S02.ps1",
+      "bytes": 710,
+      "sha256": "f7fe27dff09332979bce14d871fa5e9526e2f0366bf8fe00fcec32cbc1fbe579"
+    },
+    {
+      "path": "RUN_RELIABLE_LIDAR_S00_S08.ps1",
+      "bytes": 10408,
+      "sha256": "11db5a64c1393d88df4caf3e2497d53f916c1358a36d2072ef69f50f8bc851e1"
+    },
+    {
+      "path": "RUN_S08_PREVIEW.ps1",
+      "bytes": 2623,
+      "sha256": "9885e46c06e6649c55db2beb13ce1e65821aaf55f05d41f51206f2e094ca1f13"
+    },
+    {
+      "path": "RUN_TESLA_RELIABLE_S00_S08.ps1",
+      "bytes": 10102,
+      "sha256": "0525f1c76e1d4b6dc4af1d19e6210b8c67d9617c64501fc1900410181e9d7c16"
+    },
+    {
+      "path": "RUN_UNATTENDED.ps1",
+      "bytes": 7190,
+      "sha256": "849a00de18257dc1437752b06f3b666d5be6d61f2c594b67311a01c71d7771a5"
+    },
+    {
+      "path": "RUN_UPSTREAM_S00_S08.ps1",
+      "bytes": 4493,
+      "sha256": "6100517bd6b1cb58d78a7d4605a93364f780dba599731113865e3d56fb32d916"
+    },
+    {
+      "path": "scripts/package_manifest.py",
+      "bytes": 3222,
+      "sha256": "69afe92fe42f1c0f48f4fcbdfdb305a53467af8df536eb124005667bfc6ca673"
+    },
+    {
+      "path": "tests/test_adaptive_roi_trim.py",
+      "bytes": 2516,
+      "sha256": "8a87fdd730f6c7444bd63c4748da1d75eb38fd13899b5cf0e9269608af107dda"
+    },
+    {
+      "path": "tests/test_ground_lidar_spatial_fallback.py",
+      "bytes": 7087,
+      "sha256": "e49be14665368117586f003eb5e55a6167741e5149460eee25f00b34e3195974"
+    },
+    {
+      "path": "tests/test_ground_prior_fallback.py",
+      "bytes": 3295,
+      "sha256": "b62c217eac72d3cb8a1f9a90befa3b0ba81df3e637643e52ee7bed810928db00"
+    },
+    {
+      "path": "tests/test_legacy_lio_imports.py",
+      "bytes": 1477,
+      "sha256": "2c3e7bb4e03537168e4e951c9795a5fb3548ed54d5bc83bad27d8024020d14d0"
+    },
+    {
+      "path": "tests/test_lidar_view_alignment.py",
+      "bytes": 3083,
+      "sha256": "64816d42207fc64308b57ab1c098d86f3674fe5986ac79adc8f2c4f0a30d57d2"
+    },
+    {
+      "path": "tests/test_m3_ground.py",
+      "bytes": 1202,
+      "sha256": "39092c90ef35b7c424d27583b2607c233efc0f5fadf73f563d13d9009a96146b"
+    },
+    {
+      "path": "tests/test_metric_manifest_lineage.py",
+      "bytes": 4210,
+      "sha256": "92ae2888c234f22f4cdb5ec91834bf374e745a16bf8d1becce9e6cbfbc8a9ca3"
+    },
+    {
+      "path": "tests/test_pgsr_gpu_budget.py",
+      "bytes": 1539,
+      "sha256": "7dc7adc9ffeac4afd1f1f057cc0853b17689039186f44db98ad99fbc9f69323a"
+    },
+    {
+      "path": "tests/test_point_track_admission.py",
+      "bytes": 1620,
+      "sha256": "50f8347743a9c389fab61b6e04d18bdda7593b4d35a130b56580384e6843ce91"
+    },
+    {
+      "path": "tests/test_roi_derivation.py",
+      "bytes": 9290,
+      "sha256": "5a564ab423db603334f06f1e03227338e919383510b6feed6a0231a88653f7a9"
+    },
+    {
+      "path": "tests/test_runtime_cache_policy.py",
+      "bytes": 2215,
+      "sha256": "fce712fec8355ba5c8cebacac410ea1b5d62c1b44247bdfc36ca58dd30db49e8"
+    },
+    {
+      "path": "tests/test_runtime_config_forwarding.py",
+      "bytes": 787,
+      "sha256": "14dbd969e4acb9a530032266835f9375db086651465a15122b6396473f01ded1"
+    },
+    {
+      "path": "tests/test_s08_runtime.py",
+      "bytes": 13781,
+      "sha256": "8ea1ac53c271ac0e2888fe7b44dec6ec1482d6cc89e0292de169ab601b9b36c8"
+    },
+    {
+      "path": "tests/test_sparse_floor.py",
+      "bytes": 1435,
+      "sha256": "f04a22ac62702e70cbff811f8a002c15219bd790c97b82403ed792c855e3355b"
+    },
+    {
+      "path": "tests/test_stable_lidar_coverage.py",
+      "bytes": 2600,
+      "sha256": "ea1a0cde084562fc25687994a37aff27fa3419ab7dfd6c24895facfb0ae4ba69"
+    },
+    {
+      "path": "tests/test_surface_candidate_selection.py",
+      "bytes": 3286,
+      "sha256": "b92f2e209506f08693379b0d5a4c7a67b9e01964ec35ea634ec12b5e2974c59f"
+    },
+    {
+      "path": "tests/test_target_preservation_audit.py",
+      "bytes": 2615,
+      "sha256": "3abe61da04b27b7c5b082d682d75761b6ec03bcad194f16e51bfc1482d26eab0"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES/PGSR_LICENSE.md",
+      "bytes": 992,
+      "sha256": "c7ec1a2c15c1cacf02452c8f2265dc1a4106bb21a42bf5c38ebe91306f764c93"
+    },
+    {
+      "path": "UPSTREAM_README.md",
+      "bytes": 4669,
+      "sha256": "eab45951d9c736b8fa1a4aee032b21db7b601e2097aac9f83f5e978cb239e63c"
+    },
+    {
+      "path": "VERIFY_INSTALLATION.ps1",
+      "bytes": 3628,
+      "sha256": "2103a7fb41604adba944473faddd40629199d7f47164536c38be5ae3b4760e52"
+    },
+    {
+      "path": "VERIFY_PACKAGE.ps1",
+      "bytes": 1240,
+      "sha256": "bd7cbad8cc46d761da14f4b46a0f206540d38608e9bcd4124a7489a0c9eadf85"
+    }
+  ]
+}

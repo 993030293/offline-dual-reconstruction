@@ -1,0 +1,32 @@
+{
+  "schema": "offline_dual_external_source_lock_v1",
+  "colmap": {
+    "repository": "https://github.com/colmap/colmap",
+    "version": "4.1.1",
+    "observed_commit": "a0d785f",
+    "redistributed": false
+  },
+  "inria_gaussian_splatting": {
+    "repository": "https://github.com/graphdeco-inria/gaussian-splatting",
+    "commit": "54c035f7834b564019656c3e3fcc3646292f727d",
+    "source_worktree_clean_when_captured": true,
+    "redistributed": false,
+    "license_copy": "licenses/INRIA_3DGS_LICENSE.md"
+  },
+  "gsplat": {
+    "repository": "https://github.com/nerfstudio-project/gsplat",
+    "version": "1.5.3",
+    "commit": "937e29912570c372bed6747a5c9bf85fed877bae",
+    "glm_commit": "33b4a621a697a305bc3a7610d290677b96beb181",
+    "source_modified": false,
+    "redistributed": false,
+    "license_copy": "licenses/GSPLAT_APACHE_2.0.txt"
+  },
+  "pgsr": {
+    "repository": "https://github.com/zju3dv/PGSR",
+    "base_commit": "de24f1a38b350387e8d8fe381b2cd70c1ae946e7",
+    "redistributed": false,
+    "license_copy": "licenses/PGSR_LICENSE.md",
+    "required_patch": "patches/pgsr/0001-projective-validity-and-alpha-output.patch"
+  }
+}

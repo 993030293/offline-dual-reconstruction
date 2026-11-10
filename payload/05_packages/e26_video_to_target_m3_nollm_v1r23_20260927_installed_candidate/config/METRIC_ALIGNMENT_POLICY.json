@@ -1,0 +1,43 @@
+{
+  "schema_version": "e26_metric_alignment_policy_v1",
+  "metric_time_support": {
+    "minimum_supported_frames": 30,
+    "minimum_supported_fraction": 0.9
+  },
+  "trajectory_binding": {
+    "maximum_bracket_span_ns": 120000000,
+    "parameter_source": "10 Hz odometry plus 20 percent jitter guard"
+  },
+  "sim3_initialization": {
+    "maximum_error_m": 0.2,
+    "minimum_inliers": 30,
+    "ransac_iterations": 5000,
+    "random_seed": 20260809
+  },
+  "lio_prior": {
+    "position_sigma_m": 0.05,
+    "rotation_sigma_deg": 2.0
+  },
+  "camera_geometry_admission": {
+    "minimum_triangulated_points": 30,
+    "grid_rows": 4,
+    "grid_columns": 4,
+    "minimum_occupied_grid_cells": 4,
+    "minimum_bbox_area_fraction": 0.01,
+    "minimum_retained_cameras": 32,
+    "minimum_retained_fraction_of_sim3_inliers": 0.9
+  },
+  "model_identity": {
+    "maximum_camera_center_delta": 1e-09,
+    "maximum_rotation_matrix_delta": 1e-09
+  },
+  "point_filter": {
+    "camera_aabb_margin_m": 3.0,
+    "maximum_camera_radius_m": 20.0,
+    "maximum_point_reprojection_error_px": 2.0,
+    "minimum_point_track_length": 3,
+    "fallback_minimum_point_track_length": 2,
+    "minimum_retained_sparse_points": 10000
+  },
+  "claim_boundary": "Sim3 provides global metric alignment and one residual gate. Camera admission also requires independent sparse-geometry support and current-run lineage checks."
+}

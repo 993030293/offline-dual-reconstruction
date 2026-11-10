@@ -1,0 +1,119 @@
+diff --git a/gaussian_renderer/__init__.py b/gaussian_renderer/__init__.py
+index 50d10f3..9fc44bf 100644
+--- a/gaussian_renderer/__init__.py
++++ b/gaussian_renderer/__init__.py
+@@ -161,6 +161,7 @@ def render(viewpoint_camera, pc : GaussianModel, pipe, bg_color : torch.Tensor,
+                     "radii": radii,
+                     "out_observe": out_observe,
+                     "rendered_normal": rendered_normal,
++                    "rendered_alpha": rendered_alpha,
+                     "plane_depth": plane_depth,
+                     "rendered_distance": rendered_distance
+                     }
+@@ -176,4 +177,4 @@ def render(viewpoint_camera, pc : GaussianModel, pipe, bg_color : torch.Tensor,
+     
+     # Those Gaussians that were frustum culled or had a radius of 0 were not visible.
+     # They will be excluded from value updates used in the splitting criteria.
+-    return return_dict
+\ No newline at end of file
++    return return_dict
+diff --git a/scene/gaussian_model.py b/scene/gaussian_model.py
+index e7a691c..6be0bab 100644
+--- a/scene/gaussian_model.py
++++ b/scene/gaussian_model.py
+@@ -21,6 +21,7 @@ from simple_knn._C import distCUDA2
+ from utils.graphics_utils import BasicPointCloud
+ from utils.general_utils import strip_symmetric, build_scaling_rotation
+ from pytorch3d.transforms import quaternion_to_matrix
++from utils.projective_validity import project_camera_points
+ 
+ def dilate(bin_img, ksize=5):
+     pad = (ksize - 1) // 2
+@@ -526,11 +527,10 @@ class GaussianModel:
+         depth_view = depth[None,:,st::scale,st::scale]
+         W, H = int(fov_camera.image_width/scale), int(fov_camera.image_height/scale)
+         depth_view = depth_view[:H, :W]
+-        pts_projections = torch.stack(
+-                        [points_in_camera_space[:,0] * fov_camera.Fx / points_in_camera_space[:,2] + fov_camera.Cx,
+-                         points_in_camera_space[:,1] * fov_camera.Fy / points_in_camera_space[:,2] + fov_camera.Cy], -1).float()/scale
+-        mask = (pts_projections[:, 0] > 0) & (pts_projections[:, 0] < W) &\
+-               (pts_projections[:, 1] > 0) & (pts_projections[:, 1] < H) & (points_in_camera_space[:,2] > 0.1)
++        pts_projections, valid_depth = project_camera_points(points_in_camera_space, fov_camera, minimum_depth=0.1)
++        pts_projections = pts_projections.float()/scale
++        mask = valid_depth & (pts_projections[:, 0] > 0) & (pts_projections[:, 0] < W) &\
++               (pts_projections[:, 1] > 0) & (pts_projections[:, 1] < H)
+ 
+         pts_projections[..., 0] /= ((W - 1) / 2)
+         pts_projections[..., 1] /= ((H - 1) / 2)
+@@ -542,7 +542,7 @@ class GaussianModel:
+                                                 padding_mode='border',
+                                                 align_corners=True
+                                                 )[0, :, :, 0]
+-        return map_z, mask
++        return torch.where(mask[None], map_z, torch.zeros_like(map_z)), mask
+     
+     def get_points_from_depth(self, fov_camera, depth, scale=1):
+         st = int(max(int(scale/2)-1,0))
+@@ -554,4 +554,4 @@ class GaussianModel:
+         T = torch.tensor(fov_camera.T).float().cuda()
+         pts = (pts-T)@R.transpose(-1,-2)
+         return pts
+-    
+\ No newline at end of file
++    
+diff --git a/train.py b/train.py
+index 29508f0..0022ea2 100644
+--- a/train.py
++++ b/train.py
+@@ -16,6 +16,7 @@ import random
+ import numpy as np
+ from random import randint
+ from utils.loss_utils import l1_loss, ssim, lncc, get_img_grad_weight
++from utils.projective_validity import normalize_camera_points, project_camera_points
+ from utils.graphics_utils import patch_offsets, patch_warp
+ from gaussian_renderer import render, network_gui
+ import sys, time
+@@ -222,15 +223,16 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
+                 pts_in_nearest_cam = pts @ nearest_cam.world_view_transform[:3,:3] + nearest_cam.world_view_transform[3,:3]
+                 map_z, d_mask = gaussians.get_points_depth_in_depth_map(nearest_cam, nearest_render_pkg['plane_depth'], pts_in_nearest_cam)
+                 
+-                pts_in_nearest_cam = pts_in_nearest_cam / (pts_in_nearest_cam[:,2:3])
++                pts_in_nearest_cam, nearest_depth_valid = normalize_camera_points(pts_in_nearest_cam, minimum_depth=0.1)
++                d_mask = d_mask & nearest_depth_valid
+                 pts_in_nearest_cam = pts_in_nearest_cam * map_z.squeeze()[...,None]
+                 R = torch.tensor(nearest_cam.R).float().cuda()
+                 T = torch.tensor(nearest_cam.T).float().cuda()
+                 pts_ = (pts_in_nearest_cam-T)@R.transpose(-1,-2)
+                 pts_in_view_cam = pts_ @ viewpoint_cam.world_view_transform[:3,:3] + viewpoint_cam.world_view_transform[3,:3]
+-                pts_projections = torch.stack(
+-                            [pts_in_view_cam[:,0] * viewpoint_cam.Fx / pts_in_view_cam[:,2] + viewpoint_cam.Cx,
+-                            pts_in_view_cam[:,1] * viewpoint_cam.Fy / pts_in_view_cam[:,2] + viewpoint_cam.Cy], -1).float()
++                pts_projections, reference_depth_valid = project_camera_points(pts_in_view_cam, viewpoint_cam)
++                pts_projections = pts_projections.float()
++                d_mask = d_mask & reference_depth_valid
+                 pixel_noise = torch.norm(pts_projections - pixels.reshape(*pts_projections.shape), dim=-1)
+                 if not opt.wo_use_geo_occ_aware:
+                     d_mask = d_mask & (pixel_noise < pixel_noise_th)
+diff --git a/utils/projective_validity.py b/utils/projective_validity.py
+new file mode 100644
+--- /dev/null
++++ b/utils/projective_validity.py
+@@ -0,0 +1,18 @@
++"""Keep invalid camera-depth samples outside the differentiable projection domain."""
++
++import torch
++
++
++def normalize_camera_points(points, minimum_depth=0.0):
++    """Preserve supported rays and give unsupported rows a finite zero-gradient placeholder."""
++    valid = torch.isfinite(points).all(dim=-1) & (points[..., 2] > minimum_depth)
++    safe_points = torch.where(valid[..., None], points, torch.zeros_like(points))
++    denominator = torch.where(valid, points[..., 2], torch.ones_like(points[..., 2]))
++    return safe_points / denominator[..., None], valid
++
++
++def project_camera_points(points, camera, minimum_depth=0.0):
++    normalized, valid = normalize_camera_points(points, minimum_depth)
++    pixels = torch.stack((normalized[..., 0]*camera.Fx+camera.Cx,
++                          normalized[..., 1]*camera.Fy+camera.Cy), dim=-1)
++    return pixels, valid

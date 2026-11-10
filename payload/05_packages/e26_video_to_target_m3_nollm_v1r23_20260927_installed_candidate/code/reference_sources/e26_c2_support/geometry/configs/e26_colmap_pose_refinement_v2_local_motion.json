@@ -1,0 +1,70 @@
+{
+  "schema_version": "e26_colmap_pose_refinement_config_v1",
+  "baseline_sparse_model": "C:\\lidar-camera-fusion-mask-robust-downsampling\\04_outputs\\e26_sfm_full_reconstruction_v1_20260808\\box_visual_dense_v2_parallel_v1\\sparse\\0",
+  "trajectory_binding_report": "C:\\lidar-camera-fusion-mask-robust-downsampling\\04_outputs\\e26_corrected_colmap_incremental_v2_20260809\\01_trajectory_binding\\interpolated_camera_poses.json",
+  "supersedes_config_sha256": "26646b8ff6f1c1f3d220cd3c2c80324e0ec1c67636cb4121f3d11075ef243574",
+  "revision_reason": "Absolute raw-LIO priors accumulated orbit drift and conflicted with 0.846 px sparse observations. This revision uses local LIO motion factors plus visual local/loop factors and a fixed first-pose gauge; no dense output was inspected for tuning.",
+  "sim3_initialization": {
+    "maximum_error_m": 0.2,
+    "minimum_inliers": 30,
+    "ransac_iterations": 5000,
+    "random_seed": 20260809,
+    "parameter_source": "unchanged_global_metric_initialization"
+  },
+  "lio_prior": {
+    "position_sigma_m": 0.05,
+    "rotation_sigma_deg": 2.0,
+    "position_parameter_source": "diagnostic_only_when_local_motion_enabled",
+    "rotation_parameter_source": "diagnostic_only_when_local_motion_enabled"
+  },
+  "lio_motion_prior": {
+    "enabled": true,
+    "strides": [1, 2],
+    "translation_sigma_m": 0.05,
+    "rotation_sigma_deg": 1.2,
+    "parameter_source": "frozen_from_pre_dense_stride_1_and_stride_2_disagreement_audit"
+  },
+  "pose_graph": {
+    "lio_position_weight": 0.0,
+    "lio_rotation_weight": 0.0,
+    "local_translation_sigma_m": 0.015,
+    "local_rotation_sigma_deg": 0.6,
+    "lio_local_translation_sigma_m": 0.05,
+    "lio_local_rotation_sigma_deg": 1.2,
+    "anchor_translation_sigma_m": 0.002,
+    "anchor_rotation_sigma_deg": 0.1,
+    "loop_translation_sigma_m": 0.03,
+    "loop_rotation_sigma_deg": 1.0,
+    "smooth_translation_sigma_m": 0.04,
+    "smooth_rotation_sigma_deg": 1.5,
+    "maximum_evaluations": 250,
+    "robust_loss": "cauchy",
+    "parameter_source": "visual_local_and_loop_values_unchanged; local_lio_sigmas_frozen_before_dense"
+  },
+  "loop_constraints": {
+    "minimum_time_separation_s": 20.0,
+    "minimum_verified_matches": 80,
+    "robust_loss": "cauchy",
+    "parameter_source": "development_tuned"
+  },
+  "pose_correction_gate": {
+    "maximum_translation_m": 0.3,
+    "maximum_rotation_deg": 10.0,
+    "parameter_source": "unchanged_development_safety_gate"
+  },
+  "ceres_bundle_adjustment": {
+    "mode": "fixed_camera_points_only",
+    "maximum_iterations": 300,
+    "maximum_reprojection_error_ratio": 1.25,
+    "parameter_source": "visual_consistency_preserving_fixed_camera_sparse_point_refresh"
+  },
+  "fixed_variables": [
+    "camera_intrinsics",
+    "T_base_link_camera_optical",
+    "fastlio2_raw_trajectory",
+    "imu_bias",
+    "camera_lidar_time_offset",
+    "metric_scale_after_sim3"
+  ],
+  "scientific_boundary": "Raw LIO supplies local motion, not an absolute loop-closed trajectory. Sim3 initializes the metric frame; visual local and loop factors preserve multi-view consistency."
+}

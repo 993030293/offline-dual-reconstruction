@@ -1,0 +1,55 @@
+{
+  "schema_version": "e26_ground_target_extraction_config_v2",
+  "runtime_policy": "offline_unattended_machine_only",
+  "language_model_used": false,
+  "visual_language_model_used": false,
+  "manual_visual_decision_used": false,
+  "semantic_model_used": false,
+  "object_mask_used": false,
+  "glass_processing_used": false,
+  "ground_fit": {
+    "low_centroid_quantile": 0.45,
+    "candidate_triangle_maximum_tilt_degrees": 25.0,
+    "distance_threshold_m": 0.012,
+    "iterations": 4096,
+    "random_seed": 20260920,
+    "maximum_accepted_plane_tilt_degrees": 15.0,
+    "minimum_accepted_inlier_fraction": 0.35,
+    "minimum_accepted_inlier_xy_extent_m": 0.5,
+    "minimum_accepted_inlier_roi_span_fraction": 0.6,
+    "maximum_ground_roi_bottom_fraction": 0.35
+  },
+  "ground_classification": {
+    "maximum_signed_height_m": 0.04,
+    "minimum_normal_cosine": 0.65,
+    "unconditional_low_artifact_maximum_height_m": 0.015,
+    "contact_band_minimum_m": -0.035,
+    "contact_band_maximum_m": 0.04,
+    "vertical_support_minimum_m": 0.08,
+    "vertical_support_maximum_m": 0.45,
+    "vertical_normal_cosine": 0.62,
+    "ground_grid_cell_m": 0.01,
+    "support_dilation_cells": 1
+  },
+  "target_components": {
+    "anchor_minimum_height_m": 0.08,
+    "retain_contact_supported_low_components": true,
+    "reject_low_only_unsupported_components": true,
+    "require_dominant_component_envelope": true,
+    "dominant_component_minimum_area_fraction": 0.5,
+    "dominant_envelope_lower_quantile": 0.001,
+    "dominant_envelope_upper_quantile": 0.999,
+    "dominant_envelope_margin_m": 0.15,
+    "minimum_inside_triangle_fraction": 0.5,
+    "require_dominant_surface_proximity": true,
+    "dominant_surface_voxel_m": 0.02,
+    "maximum_dominant_surface_distance_m": 0.2,
+    "minimum_proximal_triangle_fraction": 0.5,
+    "proximity_gate_maximum_component_height_m": 0.45
+  },
+  "preview": {
+    "sample_count": 1000000,
+    "random_seed": 20260923
+  },
+  "claim_boundary": "The output is the observed surface inside the upstream metric target ROI after deterministic ground and unsupported low-component removal. It is not a semantic instance guarantee, a completed surface, or a watertight model."
+}

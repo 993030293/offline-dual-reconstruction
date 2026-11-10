@@ -1,0 +1,19 @@
+{
+  "schema": "offline_dual_pgsr_patch_verify_v1",
+  "status": "passed",
+  "verified_on": "2026-11-10",
+  "base_commit": "de24f1a38b350387e8d8fe381b2cd70c1ae946e7",
+  "patch": "patches/pgsr/0001-projective-validity-and-alpha-output.patch",
+  "checks": [
+    "git_apply_check_on_clean_base",
+    "git_apply_on_clean_base",
+    "python_syntax_compile_modified_files",
+    "patched_files_match_active_accepted_runtime_sha256"
+  ],
+  "modified_file_sha256": {
+    "gaussian_renderer/__init__.py": "307117ebad7eb74b7550c08ad782da3c1f32409f91a399c1bb50d4134abe13a8",
+    "scene/gaussian_model.py": "c3a89de4b92ea66e8cc264b918498c6f06646579d3c2bc62375ecb3d20dcff40",
+    "train.py": "19ce4fb69b32e496734b21272fb7c08dfdb940b650af0cb8e11e554a940c2ac1",
+    "utils/projective_validity.py": "8143b605acf8eef2d727312d179254efc0f06b63a490af856999fdc62abe4c0c"
+  }
+}

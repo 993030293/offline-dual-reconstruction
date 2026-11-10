@@ -1,0 +1,34 @@
+{
+  "schema_version": "e26_integrated_s00_s08_no_llm_v1",
+  "runtime_language_model_used": false,
+  "runtime_visual_language_model_used": false,
+  "runtime_human_visual_decision_used": false,
+  "specialist_models": [
+    "COLMAP SfM",
+    "PGSR"
+  ],
+  "runtime_profiles": [
+    "ReliableLidar",
+    "LegacyPgsr"
+  ],
+  "machine_only_decisions": [
+    "sharpness_exposure_pose_diverse_frame_selection",
+    "robust_sim3_metric_alignment",
+    "per_pixel_multiview_depth_reprojection_gate",
+    "registered_lidar_repeated_voxel_anchor_filter",
+    "lidar_conflict_override_and_weighted_tsdf",
+    "deterministic_ground_plane_fit",
+    "s08_observed_surface_mesh_materialization",
+    "spatial_sparse_floor_roi_selection",
+    "m3_target_support_preservation_audit"
+  ],
+  "object_mask_used": false,
+  "known_vehicle_dimensions_used": false,
+  "synthetic_points_added": false,
+  "surface_completion_used": false,
+  "unknown_surface_policy": "abstain_and_leave_hole",
+  "terminal_stage": "M3_ground_removed_target_offline_preview",
+  "mesh_artifact": "observed_surface_only",
+  "watertightness_claim": false,
+  "physical_completeness_claim": false
+}
