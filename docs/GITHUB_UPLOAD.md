@@ -2,7 +2,7 @@
 
 ## 推荐方式
 
-当前先创建 **private** 仓库，建议仓库名：`offline-dual-reconstruction`。不要把原工作区根目录或已验收包原目录直接设为 Git 根；只上传本发布候选目录。
+当前远端为私有仓库 `993030293/offline-dual-reconstruction`。不要把原工作区根目录、运行产物目录或历史参考包原目录设为 Git 根；只提交本发布候选目录。
 
 ## 上传前检查
 
@@ -21,7 +21,7 @@ git status --short
 - 不出现 MCAP、图像帧、PLY、模型权重、环境目录、运行证据或凭据；
 - PGSR 补丁已在固定基线上完成干净回放。
 
-## 创建私有远端
+## 首次创建私有远端
 
 在 GitHub 网页中创建一个空的 private 仓库，不要勾选自动生成 README、`.gitignore` 或 license。随后在候选目录执行：
 
@@ -41,7 +41,7 @@ git push -u origin main
 2. 运行 `python tools/verify_publication.py --root .`。
 3. 确认 GitHub Actions 的 `source-integrity` 通过。
 4. 核对 `payload/02_code`、PGSR 补丁、三份第三方许可和两个 provenance 清单均存在。
-5. 确认 README 和 `docs/VALIDATION_STATUS.md` 仍明确记录当前 0/4 的端到端失败状态。
+5. 确认 README 和 `docs/VALIDATION_STATUS.md` 明确记录：当前候选辅助完成 1/4，严格无人干预完成 0/4，独立几何精度未验证。
 6. 在当前候选四视频冷启动和跨机器运行均未完成前，不创建稳定标签或正式 Release。
 
 ## 以后公开时

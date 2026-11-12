@@ -405,8 +405,8 @@
     },
     {
       "path": "payload/02_code/gaussian_full_raw_ab_20261008/build_raw_viewer.py",
-      "bytes": 13450,
-      "sha256": "ab5b1fa4251bc76ac8419b2734dde7032f6f1f0430b88f5a53542c7633f1adbb"
+      "bytes": 14824,
+      "sha256": "7e470e8410c42f9062cd07d0db999bfdcf54cd27b64066fcbea1b4091f55490b"
     },
     {
       "path": "payload/02_code/gaussian_full_raw_ab_20261008/checkpoint_variant.py",
@@ -480,8 +480,8 @@
     },
     {
       "path": "payload/02_code/gaussian_full_raw_ab_20261008/pack_export.js",
-      "bytes": 3427,
-      "sha256": "338bde4af2e33961dc79052b9e4e266b382b3ff26a7290cdf3137545bdf5182c"
+      "bytes": 3676,
+      "sha256": "28e6ab5312e46a3cc511b2d9fc63cc212fcad225581d93ee96dcd0cf1af9a7f0"
     },
     {
       "path": "payload/02_code/gaussian_full_raw_ab_20261008/prepare_browser_module_audit.py",
@@ -657,6 +657,91 @@
       "path": "payload/02_code/gaussian_full_raw_ab_20261008/validate_delivery_receipts.py",
       "bytes": 9799,
       "sha256": "3f6ed47fca23ff81eb8f4f827f3da2a71e7e413b93ae8f53596a7a6aaf524a16"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/SOURCE_PROVENANCE.json",
+      "bytes": 796,
+      "sha256": "17d910c08dc97948f984f42d101e74f3031231957c328d028cd1a5b629ba40f6"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/baseline/cases/packed/calibrated_camera.js",
+      "bytes": 2285,
+      "sha256": "94575fdad267b8adc253b48450615e4deff0c46b203bc058c70ad9cbebfdd239"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/baseline/cases/packed/index.html",
+      "bytes": 7690,
+      "sha256": "8003c66b7ece984cb212154fcad6d398e43925540c2583be65166fb6ba64a0cd"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/baseline/cases/packed/lazy_models.js",
+      "bytes": 1778,
+      "sha256": "0e7e5b817b856f6ac6bd6ab79f85df8cc65417a11accc11509b48a5298228f59"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/baseline/cases/packed/motion_resolution.js",
+      "bytes": 908,
+      "sha256": "08481b4d986116a387adab6474b20524ecf70e6a3038987a17db408570728b00"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/baseline/cases/packed/packed_splat_asset.js",
+      "bytes": 7064,
+      "sha256": "cefd324f5ab829405711aa4ad20c571010e4bbd4246bdbd3dec565f453bf569e"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/baseline/cases/packed/persistent_asset_cache.js",
+      "bytes": 2616,
+      "sha256": "c0d2376d65de94cfa4a630b92024accbdbff06893acddd1614cb2cb71b02c0b3"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/baseline/cases/packed/render_filter_contract.js",
+      "bytes": 894,
+      "sha256": "84413e5f4f3deb28cb0a2fb9870a1678e18dcca30db8f7c328ecdd411ae7dedc"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/baseline/cases/packed/render_schedule.js",
+      "bytes": 541,
+      "sha256": "b4d3af2bd020d3f79b1782c58a988cc589c7a5ca52ced23ee5e262247f8e9fef"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/baseline/cases/packed/viewer.js",
+      "bytes": 17726,
+      "sha256": "f6bedbd9bfe7230959c456f3246d0eda6e29f8c85ee2d33183fbf05ef653e2aa"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/shared-build/vendor/OrbitControls.js",
+      "bytes": 38703,
+      "sha256": "b97879c748170baadeb3fb84cea1ffdf4674e283dc06042f34e2acb95a76042c"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/shared-build/vendor/SPARK-LICENSE.txt",
+      "bytes": 1088,
+      "sha256": "51829693e5dccd9ca1daa093991faac3aaa93238eb8fd5f5cb4130af85791d64"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/shared-build/vendor/THREE-LICENSE.txt",
+      "bytes": 1081,
+      "sha256": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/shared-build/vendor/postprocessing/Pass.js",
+      "bytes": 4218,
+      "sha256": "444b409c235ead986893c472e720da1b779a56985c7d10b279c7944b52bd61c5"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/shared-build/vendor/spark.module.js",
+      "bytes": 2813340,
+      "sha256": "24ecedb0ccecb0bc5a6feff3eb3d05be920c5ba8816f8c4fd3e069a61166189d"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/shared-build/vendor/three.core.js",
+      "bytes": 1403455,
+      "sha256": "eb077d2417f61d3e6d9264c317cabc4ea35769ed6b0ab533067292a550784c20"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/shared-build/vendor/three.module.js",
+      "bytes": 603113,
+      "sha256": "c8211c69345d2e9949dc7a8ac969380497aa0600a5a8ac6a459c8cd02dd9cb8a"
     },
     {
       "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_validation.js",
@@ -995,8 +1080,8 @@
     },
     {
       "path": "payload/02_code/gaussian_pipeline_optimization_v1_20261005/run_metric_refinement.py",
-      "bytes": 30673,
-      "sha256": "518ba288240c61f01a3da908af13b22c2d33fed45a60ed5ffdb6a6611c401a1e"
+      "bytes": 34647,
+      "sha256": "deb6e098062379863a2f6fd2bd0c4215a3120233fa428c6687aae7a44d976064"
     },
     {
       "path": "payload/02_code/gaussian_pipeline_optimization_v1_20261005/run_native_lightglue.py",
@@ -6785,8 +6870,8 @@
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/README.md",
-      "bytes": 25899,
-      "sha256": "01cb638e026437c750ea995e9eba3ee0345533ea4dec5f1be0aa2d75ed7239d8"
+      "bytes": 25643,
+      "sha256": "eea6fa196f18a8ec55ece6a5d10c2fd3fb03fbd635572d55fcf82e35cc1a8f49"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/RUN_BOX1.ps1",
@@ -6810,8 +6895,8 @@
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/audit_target_run.py",
-      "bytes": 39163,
-      "sha256": "343bf3b3a2e5dfb68e065a238abe2d825d1f99e905d5df984dd3a4e68483e985"
+      "bytes": 40555,
+      "sha256": "428926355a9f1c81e6de907408cf2024ee3904331e528a336b058d98d03b7262"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/build_viewer.py",
@@ -6974,6 +7059,11 @@
       "sha256": "e50ad99274226387f87e73b8af31c15cb294db2c3762064fea5aee7b3808052f"
     },
     {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/fixtures/lio_local_map_pre_floor_constraint.py",
+      "bytes": 2454,
+      "sha256": "0a35f86f73fb8754276c23e93c121c8d88beda2eef62935f62dbf4fced17ce24"
+    },
+    {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/floor_motion_constraint.py",
       "bytes": 9134,
       "sha256": "e6e98ad9759210722fb165fcaec9d6d0557a54af52b283a9f57884737dc885f2"
@@ -7025,18 +7115,18 @@
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/joint_camera_admission.py",
-      "bytes": 6609,
-      "sha256": "6d2c02d90d963cbd1597f4f852858b873e876d35a0fa7eba6d51c3410a34c02c"
+      "bytes": 9921,
+      "sha256": "298d1f9f8c6498a2967e3c250da1737eb85ff937b1f3adc36f54982f7186ba87"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/manual_retry.py",
-      "bytes": 3285,
-      "sha256": "37af191ee2e8dd1e171a5e113c37fdb37a623bf2e6af17a160848f0cc307ead4"
+      "bytes": 7568,
+      "sha256": "51876d5e82f13f6facf80a9743e22a330df8c84e847329ee0dc524c4ddfc7e7e"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/metric_component_alignment_recovery.py",
-      "bytes": 21630,
-      "sha256": "a11db444cfeb454ad54586c62de5477e1b7cafe5b0dd691fe5ecf2aca8832d70"
+      "bytes": 24112,
+      "sha256": "0c35654a48cbd8bb9451b126d3ddfcb78276a2a180e809e17b5e98a8913c9d46"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/metric_geometry_recovery.py",
@@ -7050,8 +7140,8 @@
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/metric_recovery_accounting.py",
-      "bytes": 2567,
-      "sha256": "1dbf1cfcb65a027a76142ee5a721452ece5c5d43e6670ab920cb3c8ccfe6105d"
+      "bytes": 5736,
+      "sha256": "2526581c574a82bebca035c9dcd9919aa1b94638f96bc855aaaf6b0b18899bbc"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/metric_retriangulation_recovery.py",
@@ -7205,13 +7295,13 @@
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/run_target_delivery.py",
-      "bytes": 11275,
-      "sha256": "8ab1db878cae2567debb2a15905bdf630c10f898207d8f1653bf08448ca43444"
+      "bytes": 12272,
+      "sha256": "f222da9e5558b73f41614461b62c963aef70693987632098ffbff64c706c66cb"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/run_target_pipeline.py",
-      "bytes": 9917,
-      "sha256": "801c3693394a173e4da693b96c3d2080480bb04f79733f396717367477ebe7e3"
+      "bytes": 11377,
+      "sha256": "5e650c9a0728df1bfca04f531744f9028c7da58b8ce2f7fcd7d7072c784fdc4a"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/sensor_backend.py",
@@ -7280,8 +7370,8 @@
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/test_audit_recovery_accounting.py",
-      "bytes": 25743,
-      "sha256": "4e55b84b78d1450e65c3af36aaaa91882f9714ee6a3aa44bb1fc2b4103c9f961"
+      "bytes": 29809,
+      "sha256": "8aebcbfdc70b9ad4b17899287b29a817277063b70a590e36fbefc9c8f9cbf68b"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/test_camera_backend_cache.py",
@@ -7325,8 +7415,8 @@
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/test_floor_motion_constraint.py",
-      "bytes": 14659,
-      "sha256": "0cce960e0df1a270b1a47fd43280cee377fa98216015ae9b6a057ef2ce63a9d5"
+      "bytes": 14597,
+      "sha256": "2eabad124b470412c9227ff1dfc6b960acf4e94454b0606c986a76e9cfb7b777"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/test_gpu_interrupted_recovery.py",
@@ -7374,9 +7464,19 @@
       "sha256": "fbb2f8a5246df9d36ea0e9e3c09848e283ae914de1d65cd640b4d00b48c1ba8b"
     },
     {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_manual_retry.py",
+      "bytes": 7074,
+      "sha256": "00f6102dc45f26ade377837572775324a17e225f06560e2d8b27e26b8af08215"
+    },
+    {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/test_metric_component_alignment_recovery.py",
-      "bytes": 6264,
-      "sha256": "850d00a27310aca511025d343923a4694bf01f7263f64251ab581f2480fe074b"
+      "bytes": 9436,
+      "sha256": "acec90029cdd753ba477243d110bc76f2620bfdd9a07b74ec059cca279a1ceb7"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_metric_component_reference.py",
+      "bytes": 3008,
+      "sha256": "ba22226a9a79e130d6d24b8b7fc246fc06d5dae10237b398ccec734cb7402bde"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/test_metric_geometry_recovery.py",
@@ -7429,6 +7529,16 @@
       "sha256": "028e9835588f9ea55f90b47b1d4c012af968d6b01c2f8e2ee699cb98109b6d93"
     },
     {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_pack_export_receipt.py",
+      "bytes": 889,
+      "sha256": "93202513238d1ea9464c5b0192fe71f48175c8c801a5cbfbaf4e7c6a64e0b26e"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_packaged_viewer_template.py",
+      "bytes": 2556,
+      "sha256": "7b44a2fff687e37cbca29ea9129e6a4a2ad9ab90f82fc0060777905723354977"
+    },
+    {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/test_partial_pnp_recovery_input.py",
       "bytes": 4365,
       "sha256": "f39b88bbdbfda70ee220403ed16f18c12b105add21b809035e04c3f6c0234e79"
@@ -7442,6 +7552,11 @@
       "path": "payload/02_code/reconstruction_dual_v1_20261009/test_process_ownership.py",
       "bytes": 2668,
       "sha256": "8bf9500abd945fc53c4228580d811db9cec7aab5f8b98b117b9b77acecc82f0a"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_reference_source_snapshot.py",
+      "bytes": 1567,
+      "sha256": "04fdb590d10ecb6dbdb8cc34630a2e37f63bcdb235c71ff6c885d79d99a7c9a8"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/test_required_registration_policy.py",
@@ -7482,6 +7597,11 @@
       "path": "payload/02_code/reconstruction_dual_v1_20261009/test_temporal_recovery_input.py",
       "bytes": 7284,
       "sha256": "f97bbc9135dd8ff0377d16fb8da7c8312aaaf3e22e3c62b1f205388e7f0e3356"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_training_candidate_extent.py",
+      "bytes": 3285,
+      "sha256": "6e1907f9f0d1d49e73f2dfc0258e77aa7baa2f8bf9d7424fbecbe6ca233b161a"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/test_unique_feature_tracks.py",
@@ -8077,6 +8197,16 @@
       "candidate_sha256": "918dbd59ab2f11c063905adfb31853dfc8bef0e2d43939a3c6a5d411f0525343"
     },
     {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/build_raw_viewer.py",
+      "accepted_sha256": "ab5b1fa4251bc76ac8419b2734dde7032f6f1f0430b88f5a53542c7633f1adbb",
+      "candidate_sha256": "7e470e8410c42f9062cd07d0db999bfdcf54cd27b64066fcbea1b4091f55490b"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/pack_export.js",
+      "accepted_sha256": "338bde4af2e33961dc79052b9e4e266b382b3ff26a7290cdf3137545bdf5182c",
+      "candidate_sha256": "28e6ab5312e46a3cc511b2d9fc63cc212fcad225581d93ee96dcd0cf1af9a7f0"
+    },
+    {
       "path": "payload/02_code/gaussian_full_raw_ab_20261008/run_native_stage.py",
       "accepted_sha256": "e72580e85d0103c1842d9dfe4dc6923e6ae255235a5e78ee742c140080ff260d",
       "candidate_sha256": "473f2fb541b7a03b7f15b62d809c8fe30ef6d47c9c0ab246eb209c4477ca8d9e"
@@ -8084,7 +8214,12 @@
     {
       "path": "payload/02_code/gaussian_pipeline_optimization_v1_20261005/run_metric_refinement.py",
       "accepted_sha256": "bd102792056a79af81b7073aaddc08e56cf869dd9385892d652c135736773662",
-      "candidate_sha256": "518ba288240c61f01a3da908af13b22c2d33fed45a60ed5ffdb6a6611c401a1e"
+      "candidate_sha256": "deb6e098062379863a2f6fd2bd0c4215a3120233fa428c6687aae7a44d976064"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/audit_target_run.py",
+      "accepted_sha256": "343bf3b3a2e5dfb68e065a238abe2d825d1f99e905d5df984dd3a4e68483e985",
+      "candidate_sha256": "428926355a9f1c81e6de907408cf2024ee3904331e528a336b058d98d03b7262"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/camera_support_bridge.py",
@@ -8095,6 +8230,21 @@
       "path": "payload/02_code/reconstruction_dual_v1_20261009/common.py",
       "accepted_sha256": "8d7271c6c7b34d3e17ba7bfeb03e42f0c7c1e4d05cf0f5a56824e2d770900fae",
       "candidate_sha256": "bf4a8326f34c5171bd52eac88695823b128af49c5a4f12fc25c4764076acafef"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/joint_camera_admission.py",
+      "accepted_sha256": "6d2c02d90d963cbd1597f4f852858b873e876d35a0fa7eba6d51c3410a34c02c",
+      "candidate_sha256": "298d1f9f8c6498a2967e3c250da1737eb85ff937b1f3adc36f54982f7186ba87"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/manual_retry.py",
+      "accepted_sha256": "37af191ee2e8dd1e171a5e113c37fdb37a623bf2e6af17a160848f0cc307ead4",
+      "candidate_sha256": "51876d5e82f13f6facf80a9743e22a330df8c84e847329ee0dc524c4ddfc7e7e"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/metric_recovery_accounting.py",
+      "accepted_sha256": "1dbf1cfcb65a027a76142ee5a721452ece5c5d43e6670ab920cb3c8ccfe6105d",
+      "candidate_sha256": "2526581c574a82bebca035c9dcd9919aa1b94638f96bc855aaaf6b0b18899bbc"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/package_delivery.py",
@@ -8114,7 +8264,7 @@
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/README.md",
       "accepted_sha256": "2650cae530a3b0ad979445e05df9bb6bed3ff21c125c40006f18bddbc6cc0fea",
-      "candidate_sha256": "01cb638e026437c750ea995e9eba3ee0345533ea4dec5f1be0aa2d75ed7239d8"
+      "candidate_sha256": "eea6fa196f18a8ec55ece6a5d10c2fd3fb03fbd635572d55fcf82e35cc1a8f49"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/register_raw_lidar.py",
@@ -8135,6 +8285,26 @@
       "path": "payload/02_code/reconstruction_dual_v1_20261009/run_supported_sparse.py",
       "accepted_sha256": "f1e04d73711f289a13bb608984ff1ecddaedddd11a94acf1b6983189347d238d",
       "candidate_sha256": "b5e84c32f0a7b52a78cf5f0568f5940c2167eade52e2a6db8f627d702297c0d6"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/run_target_delivery.py",
+      "accepted_sha256": "8ab1db878cae2567debb2a15905bdf630c10f898207d8f1653bf08448ca43444",
+      "candidate_sha256": "f222da9e5558b73f41614461b62c963aef70693987632098ffbff64c706c66cb"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/run_target_pipeline.py",
+      "accepted_sha256": "801c3693394a173e4da693b96c3d2080480bb04f79733f396717367477ebe7e3",
+      "candidate_sha256": "5e650c9a0728df1bfca04f531744f9028c7da58b8ce2f7fcd7d7072c784fdc4a"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_audit_recovery_accounting.py",
+      "accepted_sha256": "4e55b84b78d1450e65c3af36aaaa91882f9714ee6a3aa44bb1fc2b4103c9f961",
+      "candidate_sha256": "8aebcbfdc70b9ad4b17899287b29a817277063b70a590e36fbefc9c8f9cbf68b"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_floor_motion_constraint.py",
+      "accepted_sha256": "0cce960e0df1a270b1a47fd43280cee377fa98216015ae9b6a057ef2ce63a9d5",
+      "candidate_sha256": "2eabad124b470412c9227ff1dfc6b960acf4e94454b0606c986a76e9cfb7b777"
     }
   ],
   "declared_added_files": [
@@ -8144,9 +8314,99 @@
       "sha256": "21c331656eafd545be0f00d163c839cb72b44cd98bd82bc25ec9e3028f6903c0"
     },
     {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/baseline/cases/packed/calibrated_camera.js",
+      "bytes": 2285,
+      "sha256": "94575fdad267b8adc253b48450615e4deff0c46b203bc058c70ad9cbebfdd239"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/baseline/cases/packed/index.html",
+      "bytes": 7690,
+      "sha256": "8003c66b7ece984cb212154fcad6d398e43925540c2583be65166fb6ba64a0cd"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/baseline/cases/packed/lazy_models.js",
+      "bytes": 1778,
+      "sha256": "0e7e5b817b856f6ac6bd6ab79f85df8cc65417a11accc11509b48a5298228f59"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/baseline/cases/packed/motion_resolution.js",
+      "bytes": 908,
+      "sha256": "08481b4d986116a387adab6474b20524ecf70e6a3038987a17db408570728b00"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/baseline/cases/packed/packed_splat_asset.js",
+      "bytes": 7064,
+      "sha256": "cefd324f5ab829405711aa4ad20c571010e4bbd4246bdbd3dec565f453bf569e"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/baseline/cases/packed/persistent_asset_cache.js",
+      "bytes": 2616,
+      "sha256": "c0d2376d65de94cfa4a630b92024accbdbff06893acddd1614cb2cb71b02c0b3"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/baseline/cases/packed/render_filter_contract.js",
+      "bytes": 894,
+      "sha256": "84413e5f4f3deb28cb0a2fb9870a1678e18dcca30db8f7c328ecdd411ae7dedc"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/baseline/cases/packed/render_schedule.js",
+      "bytes": 541,
+      "sha256": "b4d3af2bd020d3f79b1782c58a988cc589c7a5ca52ced23ee5e262247f8e9fef"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/baseline/cases/packed/viewer.js",
+      "bytes": 17726,
+      "sha256": "f6bedbd9bfe7230959c456f3246d0eda6e29f8c85ee2d33183fbf05ef653e2aa"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/shared-build/vendor/OrbitControls.js",
+      "bytes": 38703,
+      "sha256": "b97879c748170baadeb3fb84cea1ffdf4674e283dc06042f34e2acb95a76042c"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/shared-build/vendor/postprocessing/Pass.js",
+      "bytes": 4218,
+      "sha256": "444b409c235ead986893c472e720da1b779a56985c7d10b279c7944b52bd61c5"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/shared-build/vendor/SPARK-LICENSE.txt",
+      "bytes": 1088,
+      "sha256": "51829693e5dccd9ca1daa093991faac3aaa93238eb8fd5f5cb4130af85791d64"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/shared-build/vendor/spark.module.js",
+      "bytes": 2813340,
+      "sha256": "24ecedb0ccecb0bc5a6feff3eb3d05be920c5ba8816f8c4fd3e069a61166189d"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/shared-build/vendor/THREE-LICENSE.txt",
+      "bytes": 1081,
+      "sha256": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/shared-build/vendor/three.core.js",
+      "bytes": 1403455,
+      "sha256": "eb077d2417f61d3e6d9264c317cabc4ea35769ed6b0ab533067292a550784c20"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/shared-build/vendor/three.module.js",
+      "bytes": 603113,
+      "sha256": "c8211c69345d2e9949dc7a8ac969380497aa0600a5a8ac6a459c8cd02dd9cb8a"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/SOURCE_PROVENANCE.json",
+      "bytes": 796,
+      "sha256": "17d910c08dc97948f984f42d101e74f3031231957c328d028cd1a5b629ba40f6"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/fixtures/lio_local_map_pre_floor_constraint.py",
+      "bytes": 2454,
+      "sha256": "0a35f86f73fb8754276c23e93c121c8d88beda2eef62935f62dbf4fced17ce24"
+    },
+    {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/metric_component_alignment_recovery.py",
-      "bytes": 21630,
-      "sha256": "a11db444cfeb454ad54586c62de5477e1b7cafe5b0dd691fe5ecf2aca8832d70"
+      "bytes": 24112,
+      "sha256": "0c35654a48cbd8bb9451b126d3ddfcb78276a2a180e809e17b5e98a8913c9d46"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/metric_retriangulation_recovery.py",
@@ -8159,9 +8419,19 @@
       "sha256": "c5b914d93ac37eae60a2e66e423fc0a2da86b92c2877e7922472c32ee1112553"
     },
     {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_manual_retry.py",
+      "bytes": 7074,
+      "sha256": "00f6102dc45f26ade377837572775324a17e225f06560e2d8b27e26b8af08215"
+    },
+    {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/test_metric_component_alignment_recovery.py",
-      "bytes": 6264,
-      "sha256": "850d00a27310aca511025d343923a4694bf01f7263f64251ab581f2480fe074b"
+      "bytes": 9436,
+      "sha256": "acec90029cdd753ba477243d110bc76f2620bfdd9a07b74ec059cca279a1ceb7"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_metric_component_reference.py",
+      "bytes": 3008,
+      "sha256": "ba22226a9a79e130d6d24b8b7fc246fc06d5dae10237b398ccec734cb7402bde"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/test_metric_retriangulation_recovery.py",
@@ -8169,9 +8439,29 @@
       "sha256": "126b93f6fbf8766b690dba3f35d9e41a5ef945ca84766d95c16ecd8e2250423d"
     },
     {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_pack_export_receipt.py",
+      "bytes": 889,
+      "sha256": "93202513238d1ea9464c5b0192fe71f48175c8c801a5cbfbaf4e7c6a64e0b26e"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_packaged_viewer_template.py",
+      "bytes": 2556,
+      "sha256": "7b44a2fff687e37cbca29ea9129e6a4a2ad9ab90f82fc0060777905723354977"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_reference_source_snapshot.py",
+      "bytes": 1567,
+      "sha256": "04fdb590d10ecb6dbdb8cc34630a2e37f63bcdb235c71ff6c885d79d99a7c9a8"
+    },
+    {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/test_runtime_browser.py",
       "bytes": 4113,
       "sha256": "8939b079c1d110be9ae52ee5b850919d5022cedcdee882fa179e917e32e93573"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_training_candidate_extent.py",
+      "bytes": 3285,
+      "sha256": "6e1907f9f0d1d49e73f2dfc0258e77aa7baa2f8bf9d7424fbecbe6ca233b161a"
     }
   ],
   "delta_errors": []

@@ -2,149 +2,313 @@
   "schema": "offline_dual_baseline_delta_v1",
   "base_package_id": "offline_dual_reconstruction_v1_20261014",
   "base_source_version": "bcf197d198d6e9ff2aef2d2dd7abfb6a025cb3f06df4739beb1a4d4190dc3dfd",
-  "candidate_stage": "prerelease_metric_recovery_development_update",
+  "candidate_stage": "prerelease_assisted_single_recording_dual_delivery",
+  "change_groups": [
+    {
+      "incidents": [
+        "RA-024",
+        "RA-025"
+      ],
+      "purpose": "Use invariant-checked component metric gauge recovery while preserving the full registered camera denominator and nontraining witnesses."
+    },
+    {
+      "incidents": [
+        "RA-026"
+      ],
+      "purpose": "Use extended-length Windows I/O for target source snapshots and preserve reference-source identity checks."
+    },
+    {
+      "incidents": [
+        "RA-027"
+      ],
+      "purpose": "Bundle the self-contained offline free-flight viewer template, fixed browser assets, source provenance and third-party license texts."
+    },
+    {
+      "incidents": [
+        "RA-028"
+      ],
+      "purpose": "Drain and validate the native packing acknowledgement without weakening the zero-failed-request contract."
+    },
+    {
+      "incidents": [
+        "RA-029"
+      ],
+      "purpose": "Stop only the run-owned preview service before retry process-tree validation and retain explicit manual-retry accounting."
+    },
+    {
+      "incidents": [
+        "RA-030"
+      ],
+      "purpose": "Account for physical retriangulation recovery and component Sim3 metric alignment separately in reports and unassisted acceptance."
+    },
+    {
+      "incidents": [
+        "RA-008",
+        "RA-009",
+        "RA-010",
+        "RA-012",
+        "RA-017",
+        "RA-018",
+        "RA-019"
+      ],
+      "purpose": "Retain earlier declared offline runtime, long-path, metric recovery and regression changes from the prerelease development lineage."
+    }
+  ],
   "modified_files": [
-    {
-      "path": "payload/02_code/reconstruction_dual_v1_20261009/camera_support_bridge.py",
-      "base_sha256": "d9bd1ff04459d51ef52081553c8a9181f05b2ef99f884be931c0874ff96f35ea",
-      "candidate_sha256": "0c78a6178f3e1e83c75db4bb662bc2fb978466dc51ea18b2f1f0257013ea89b0",
-      "incidents": ["RA-010"],
-      "purpose": "Bind the preserved camera support tools through an extended Windows path."
-    },
-    {
-      "path": "payload/02_code/reconstruction_dual_v1_20261009/common.py",
-      "base_sha256": "8d7271c6c7b34d3e17ba7bfeb03e42f0c7c1e4d05cf0f5a56824e2d770900fae",
-      "candidate_sha256": "bf4a8326f34c5171bd52eac88695823b128af49c5a4f12fc25c4764076acafef",
-      "incidents": ["RA-008", "RA-010"],
-      "purpose": "Provide one fail-closed helper for extended-length Python import paths."
-    },
-    {
-      "path": "payload/02_code/reconstruction_dual_v1_20261009/package_delivery.py",
-      "base_sha256": "6e27ec714299789d312958c69e4e9de4dbca69e530da4967d67981565403dff4",
-      "candidate_sha256": "993deb417a8d41afa226693634ce25363cc348b3ecc801136de07b60c086082c",
-      "incidents": ["RA-001", "RA-002"],
-      "purpose": "Allow a complete explicit offline browser binding without requiring a stale local binding file."
-    },
-    {
-      "path": "payload/02_code/reconstruction_dual_v1_20261009/preflight.py",
-      "base_sha256": "7167253b92751e6f909e68a4b5b602d260863b9e6af50d3149058d4ff642da6f",
-      "candidate_sha256": "c495796348bccfb7243b39d693076c74d7be68650fbe7701f5830e0221005048",
-      "incidents": ["RA-001", "RA-002", "RA-003", "RA-008", "RA-009", "RA-010", "PACKAGING-10"],
-      "purpose": "Verify actual browser launch with explicit binary diagnostic decoding, long-path imports and native quality runtime behavior."
-    },
-    {
-      "path": "payload/02_code/reconstruction_dual_v1_20261009/register_raw_lidar.py",
-      "base_sha256": "13396ca7962e7030b56510cd97de24b21621db523a2889766094e68379478c20",
-      "candidate_sha256": "6643e8c3d2d135bb6f20533aedc33b6cbceaece35daedd69c1b2662b54697742",
-      "incidents": ["RA-008"],
-      "purpose": "Import raw LiDAR support code through an extended Windows path."
-    },
-    {
-      "path": "payload/02_code/reconstruction_dual_v1_20261009/run_initial_safe.py",
-      "base_sha256": "143de11237ecb6900d69e0c40c2aaf5b960fab4ef6b0ad29e67e5dad4c4b840e",
-      "candidate_sha256": "0519946244320615dca85c699fe12f9c06d151bd483526e2fc62eca2edc02484",
-      "incidents": ["RA-008"],
-      "purpose": "Bind the preserved initial camera decoder before loading the legacy frontend."
-    },
-    {
-      "path": "payload/02_code/reconstruction_dual_v1_20261009/run_supported_sparse.py",
-      "base_sha256": "f1e04d73711f289a13bb608984ff1ecddaedddd11a94acf1b6983189347d238d",
-      "candidate_sha256": "b5e84c32f0a7b52a78cf5f0568f5940c2167eade52e2a6db8f627d702297c0d6",
-      "incidents": ["RA-010"],
-      "purpose": "Bind and verify pose-gap camera tools before invoking sparse augmentation."
-    },
     {
       "path": "payload/02_code/box2_lio_guided_sfm_v1_20261002/run_prior_ba.py",
       "base_sha256": "871a0a56209b136c60dfd46c79a1dfbcbf07bfcab1531f65e75113466444e1b4",
-      "candidate_sha256": "918dbd59ab2f11c063905adfb31853dfc8bef0e2d43939a3c6a5d411f0525343",
-      "incidents": ["RA-017"],
-      "purpose": "Report registered zero-observation cameras without attempting an empty projection."
+      "candidate_sha256": "918dbd59ab2f11c063905adfb31853dfc8bef0e2d43939a3c6a5d411f0525343"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/build_raw_viewer.py",
+      "base_sha256": "ab5b1fa4251bc76ac8419b2734dde7032f6f1f0430b88f5a53542c7633f1adbb",
+      "candidate_sha256": "7e470e8410c42f9062cd07d0db999bfdcf54cd27b64066fcbea1b4091f55490b"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/pack_export.js",
+      "base_sha256": "338bde4af2e33961dc79052b9e4e266b382b3ff26a7290cdf3137545bdf5182c",
+      "candidate_sha256": "28e6ab5312e46a3cc511b2d9fc63cc212fcad225581d93ee96dcd0cf1af9a7f0"
     },
     {
       "path": "payload/02_code/gaussian_full_raw_ab_20261008/run_native_stage.py",
       "base_sha256": "e72580e85d0103c1842d9dfe4dc6923e6ae255235a5e78ee742c140080ff260d",
-      "candidate_sha256": "473f2fb541b7a03b7f15b62d809c8fe30ef6d47c9c0ab246eb209c4477ca8d9e",
-      "incidents": ["RA-019"],
-      "purpose": "Allow only the invariant-checked component metric model through the existing export boundary."
+      "candidate_sha256": "473f2fb541b7a03b7f15b62d809c8fe30ef6d47c9c0ab246eb209c4477ca8d9e"
     },
     {
       "path": "payload/02_code/gaussian_pipeline_optimization_v1_20261005/run_metric_refinement.py",
       "base_sha256": "bd102792056a79af81b7073aaddc08e56cf869dd9385892d652c135736773662",
-      "candidate_sha256": "518ba288240c61f01a3da908af13b22c2d33fed45a60ed5ffdb6a6611c401a1e",
-      "incidents": ["RA-012", "RA-017", "RA-018", "RA-019"],
-      "purpose": "Preserve the failed all-prior BA and select only a fail-closed visual-component metric gauge candidate."
+      "candidate_sha256": "deb6e098062379863a2f6fd2bd0c4215a3120233fa428c6687aae7a44d976064"
     },
     {
-      "path": "payload/02_code/reconstruction_dual_v1_20261009/README.md",
-      "base_sha256": "2650cae530a3b0ad979445e05df9bb6bed3ff21c125c40006f18bddbc6cc0fea",
-      "candidate_sha256": "01cb638e026437c750ea995e9eba3ee0345533ea4dec5f1be0aa2d75ed7239d8",
-      "incidents": ["RA-012", "RA-019"],
-      "purpose": "Document the rejected retriangulation route, component metric contract and remaining cold-run boundary."
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/audit_target_run.py",
+      "base_sha256": "343bf3b3a2e5dfb68e065a238abe2d825d1f99e905d5df984dd3a4e68483e985",
+      "candidate_sha256": "428926355a9f1c81e6de907408cf2024ee3904331e528a336b058d98d03b7262"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/camera_support_bridge.py",
+      "base_sha256": "d9bd1ff04459d51ef52081553c8a9181f05b2ef99f884be931c0874ff96f35ea",
+      "candidate_sha256": "0c78a6178f3e1e83c75db4bb662bc2fb978466dc51ea18b2f1f0257013ea89b0"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/common.py",
+      "base_sha256": "8d7271c6c7b34d3e17ba7bfeb03e42f0c7c1e4d05cf0f5a56824e2d770900fae",
+      "candidate_sha256": "bf4a8326f34c5171bd52eac88695823b128af49c5a4f12fc25c4764076acafef"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/joint_camera_admission.py",
+      "base_sha256": "6d2c02d90d963cbd1597f4f852858b873e876d35a0fa7eba6d51c3410a34c02c",
+      "candidate_sha256": "298d1f9f8c6498a2967e3c250da1737eb85ff937b1f3adc36f54982f7186ba87"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/manual_retry.py",
+      "base_sha256": "37af191ee2e8dd1e171a5e113c37fdb37a623bf2e6af17a160848f0cc307ead4",
+      "candidate_sha256": "51876d5e82f13f6facf80a9743e22a330df8c84e847329ee0dc524c4ddfc7e7e"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/metric_recovery_accounting.py",
+      "base_sha256": "1dbf1cfcb65a027a76142ee5a721452ece5c5d43e6670ab920cb3c8ccfe6105d",
+      "candidate_sha256": "2526581c574a82bebca035c9dcd9919aa1b94638f96bc855aaaf6b0b18899bbc"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/package_delivery.py",
+      "base_sha256": "6e27ec714299789d312958c69e4e9de4dbca69e530da4967d67981565403dff4",
+      "candidate_sha256": "993deb417a8d41afa226693634ce25363cc348b3ecc801136de07b60c086082c"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/preflight.py",
+      "base_sha256": "7167253b92751e6f909e68a4b5b602d260863b9e6af50d3149058d4ff642da6f",
+      "candidate_sha256": "c495796348bccfb7243b39d693076c74d7be68650fbe7701f5830e0221005048"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/prepare_camera_backend.py",
       "base_sha256": "772c49603bf6b285d3c1b6570354dd20c80e6a0b37c96e4b9f93a5c07c7ea8b8",
-      "candidate_sha256": "895423bf4cb33f0aff5848525b00c136cdea21d3c2b9322beb416fb3eb020e91",
-      "incidents": ["RA-012"],
-      "purpose": "Expose the most downstream same-run matching database and image root to metric recovery."
+      "candidate_sha256": "895423bf4cb33f0aff5848525b00c136cdea21d3c2b9322beb416fb3eb020e91"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/README.md",
+      "base_sha256": "2650cae530a3b0ad979445e05df9bb6bed3ff21c125c40006f18bddbc6cc0fea",
+      "candidate_sha256": "eea6fa196f18a8ec55ece6a5d10c2fd3fb03fbd635572d55fcf82e35cc1a8f49"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/register_raw_lidar.py",
+      "base_sha256": "13396ca7962e7030b56510cd97de24b21621db523a2889766094e68379478c20",
+      "candidate_sha256": "6643e8c3d2d135bb6f20533aedc33b6cbceaece35daedd69c1b2662b54697742"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/run_initial_safe.py",
+      "base_sha256": "143de11237ecb6900d69e0c40c2aaf5b960fab4ef6b0ad29e67e5dad4c4b840e",
+      "candidate_sha256": "0519946244320615dca85c699fe12f9c06d151bd483526e2fc62eca2edc02484"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/run_native_supported.py",
       "base_sha256": "88075ee4a8035f2571ada7d37f9ad2e892f13adbd0f2947e79a1290afb8f46c2",
-      "candidate_sha256": "6beb06536f3f26e05dcb57c781943f7cf1a27bfa4b2b2889e554e5c421d62098",
-      "incidents": ["RA-012", "RA-018", "RA-019"],
-      "purpose": "Select component metric gauge recovery after native visual BA without weakening downstream admission."
+      "candidate_sha256": "6beb06536f3f26e05dcb57c781943f7cf1a27bfa4b2b2889e554e5c421d62098"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/run_supported_sparse.py",
+      "base_sha256": "f1e04d73711f289a13bb608984ff1ecddaedddd11a94acf1b6983189347d238d",
+      "candidate_sha256": "b5e84c32f0a7b52a78cf5f0568f5940c2167eade52e2a6db8f627d702297c0d6"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/run_target_delivery.py",
+      "base_sha256": "8ab1db878cae2567debb2a15905bdf630c10f898207d8f1653bf08448ca43444",
+      "candidate_sha256": "f222da9e5558b73f41614461b62c963aef70693987632098ffbff64c706c66cb"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/run_target_pipeline.py",
+      "base_sha256": "801c3693394a173e4da693b96c3d2080480bb04f79733f396717367477ebe7e3",
+      "candidate_sha256": "5e650c9a0728df1bfca04f531744f9028c7da58b8ce2f7fcd7d7072c784fdc4a"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_audit_recovery_accounting.py",
+      "base_sha256": "4e55b84b78d1450e65c3af36aaaa91882f9714ee6a3aa44bb1fc2b4103c9f961",
+      "candidate_sha256": "8aebcbfdc70b9ad4b17899287b29a817277063b70a590e36fbefc9c8f9cbf68b"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_floor_motion_constraint.py",
+      "base_sha256": "0cce960e0df1a270b1a47fd43280cee377fa98216015ae9b6a057ef2ce63a9d5",
+      "candidate_sha256": "2eabad124b470412c9227ff1dfc6b960acf4e94454b0606c986a76e9cfb7b777"
     }
   ],
   "added_files": [
     {
-      "path": "payload/02_code/reconstruction_dual_v1_20261009/native_quality_runtime.py",
-      "candidate_sha256": "c5b914d93ac37eae60a2e66e423fc0a2da86b92c2877e7922472c32ee1112553",
-      "incidents": ["RA-009"],
-      "purpose": "Load and behavior-check the three required offline native image-quality libraries."
-    },
-    {
-      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_runtime_browser.py",
-      "candidate_sha256": "8939b079c1d110be9ae52ee5b850919d5022cedcdee882fa179e917e32e93573",
-      "incidents": ["RA-003", "RA-008", "RA-009", "RA-010", "PACKAGING-10"],
-      "purpose": "Regression tests for non-ASCII diagnostic decoding, long-path imports and native runtime equivalence."
-    },
-    {
       "path": "payload/02_code/box2_lio_guided_sfm_v1_20261002/test_run_prior_ba_metrics.py",
-      "candidate_sha256": "21c331656eafd545be0f00d163c839cb72b44cd98bd82bc25ec9e3028f6903c0",
-      "incidents": ["RA-017"],
-      "purpose": "Regress registered images that legitimately have zero sparse observations."
+      "candidate_sha256": "21c331656eafd545be0f00d163c839cb72b44cd98bd82bc25ec9e3028f6903c0"
     },
     {
-      "path": "payload/02_code/reconstruction_dual_v1_20261009/metric_retriangulation_recovery.py",
-      "candidate_sha256": "64aa1f7d59b3a7b21a4ebf81814f38218aefcf6928e1c1db76f470e3837f225a",
-      "incidents": ["RA-012", "RA-018", "RA-019"],
-      "purpose": "Rebuild metric points from same-run matches around coarse camera centers with verified active prior factors."
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/baseline/cases/packed/calibrated_camera.js",
+      "candidate_sha256": "94575fdad267b8adc253b48450615e4deff0c46b203bc058c70ad9cbebfdd239"
     },
     {
-      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_metric_retriangulation_recovery.py",
-      "candidate_sha256": "126b93f6fbf8766b690dba3f35d9e41a5ef945ca84766d95c16ecd8e2250423d",
-      "incidents": ["RA-012", "RA-018", "RA-019"],
-      "purpose": "Regress center replacement, active factors, bounded pruning, input routing and source database immutability."
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/baseline/cases/packed/index.html",
+      "candidate_sha256": "8003c66b7ece984cb212154fcad6d398e43925540c2583be65166fb6ba64a0cd"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/baseline/cases/packed/lazy_models.js",
+      "candidate_sha256": "0e7e5b817b856f6ac6bd6ab79f85df8cc65417a11accc11509b48a5298228f59"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/baseline/cases/packed/motion_resolution.js",
+      "candidate_sha256": "08481b4d986116a387adab6474b20524ecf70e6a3038987a17db408570728b00"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/baseline/cases/packed/packed_splat_asset.js",
+      "candidate_sha256": "cefd324f5ab829405711aa4ad20c571010e4bbd4246bdbd3dec565f453bf569e"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/baseline/cases/packed/persistent_asset_cache.js",
+      "candidate_sha256": "c0d2376d65de94cfa4a630b92024accbdbff06893acddd1614cb2cb71b02c0b3"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/baseline/cases/packed/render_filter_contract.js",
+      "candidate_sha256": "84413e5f4f3deb28cb0a2fb9870a1678e18dcca30db8f7c328ecdd411ae7dedc"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/baseline/cases/packed/render_schedule.js",
+      "candidate_sha256": "b4d3af2bd020d3f79b1782c58a988cc589c7a5ca52ced23ee5e262247f8e9fef"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/baseline/cases/packed/viewer.js",
+      "candidate_sha256": "f6bedbd9bfe7230959c456f3246d0eda6e29f8c85ee2d33183fbf05ef653e2aa"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/shared-build/vendor/OrbitControls.js",
+      "candidate_sha256": "b97879c748170baadeb3fb84cea1ffdf4674e283dc06042f34e2acb95a76042c"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/shared-build/vendor/postprocessing/Pass.js",
+      "candidate_sha256": "444b409c235ead986893c472e720da1b779a56985c7d10b279c7944b52bd61c5"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/shared-build/vendor/SPARK-LICENSE.txt",
+      "candidate_sha256": "51829693e5dccd9ca1daa093991faac3aaa93238eb8fd5f5cb4130af85791d64"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/shared-build/vendor/spark.module.js",
+      "candidate_sha256": "24ecedb0ccecb0bc5a6feff3eb3d05be920c5ba8816f8c4fd3e069a61166189d"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/shared-build/vendor/THREE-LICENSE.txt",
+      "candidate_sha256": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/shared-build/vendor/three.core.js",
+      "candidate_sha256": "eb077d2417f61d3e6d9264c317cabc4ea35769ed6b0ab533067292a550784c20"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/release/shared-build/vendor/three.module.js",
+      "candidate_sha256": "c8211c69345d2e9949dc7a8ac969380497aa0600a5a8ac6a459c8cd02dd9cb8a"
+    },
+    {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/viewer_template_v1/SOURCE_PROVENANCE.json",
+      "candidate_sha256": "17d910c08dc97948f984f42d101e74f3031231957c328d028cd1a5b629ba40f6"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/fixtures/lio_local_map_pre_floor_constraint.py",
+      "candidate_sha256": "0a35f86f73fb8754276c23e93c121c8d88beda2eef62935f62dbf4fced17ce24"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/metric_component_alignment_recovery.py",
-      "candidate_sha256": "a11db444cfeb454ad54586c62de5477e1b7cafe5b0dd691fe5ecf2aca8832d70",
-      "incidents": ["RA-012", "RA-019"],
-      "purpose": "Isolate strongly supported visual-track components and establish their metric gauges without changing retained reprojections."
+      "candidate_sha256": "0c35654a48cbd8bb9451b126d3ddfcb78276a2a180e809e17b5e98a8913c9d46"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/metric_retriangulation_recovery.py",
+      "candidate_sha256": "64aa1f7d59b3a7b21a4ebf81814f38218aefcf6928e1c1db76f470e3837f225a"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/native_quality_runtime.py",
+      "candidate_sha256": "c5b914d93ac37eae60a2e66e423fc0a2da86b92c2877e7922472c32ee1112553"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_manual_retry.py",
+      "candidate_sha256": "00f6102dc45f26ade377837572775324a17e225f06560e2d8b27e26b8af08215"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/test_metric_component_alignment_recovery.py",
-      "candidate_sha256": "850d00a27310aca511025d343923a4694bf01f7263f64251ab581f2480fe074b",
-      "incidents": ["RA-012", "RA-019"],
-      "purpose": "Regress component separation, metric gauge invariance, source immutability and fail-closed minimum support."
+      "candidate_sha256": "acec90029cdd753ba477243d110bc76f2620bfdd9a07b74ec059cca279a1ceb7"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_metric_component_reference.py",
+      "candidate_sha256": "ba22226a9a79e130d6d24b8b7fc246fc06d5dae10237b398ccec734cb7402bde"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_metric_retriangulation_recovery.py",
+      "candidate_sha256": "126b93f6fbf8766b690dba3f35d9e41a5ef945ca84766d95c16ecd8e2250423d"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_pack_export_receipt.py",
+      "candidate_sha256": "93202513238d1ea9464c5b0192fe71f48175c8c801a5cbfbaf4e7c6a64e0b26e"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_packaged_viewer_template.py",
+      "candidate_sha256": "7b44a2fff687e37cbca29ea9129e6a4a2ad9ab90f82fc0060777905723354977"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_reference_source_snapshot.py",
+      "candidate_sha256": "04fdb590d10ecb6dbdb8cc34630a2e37f63bcdb235c71ff6c885d79d99a7c9a8"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_runtime_browser.py",
+      "candidate_sha256": "8939b079c1d110be9ae52ee5b850919d5022cedcdee882fa179e917e32e93573"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_training_candidate_extent.py",
+      "candidate_sha256": "6e1907f9f0d1d49e73f2dfc0258e77aa7baa2f8bf9d7424fbecbe6ca233b161a"
     }
   ],
   "bundled_runtime_manifest": "payload/04_outputs/gaussian_pipeline_optimization_v3_20261005/RUNTIME_MANIFEST.json",
   "end_to_end_acceptance": {
     "passed": false,
-    "blocking_incident": "RA-019",
-    "completed_recordings": 0,
-    "required_recordings": 4
+    "blocking_incident": "four_recording_unassisted_acceptance_pending",
+    "assisted_completed_recordings": 1,
+    "unassisted_completed_recordings": 0,
+    "required_recordings": 4,
+    "assisted_recording": "c0_july",
+    "assisted_run_status": "dual_target_outputs_complete",
+    "manual_or_developer_interventions": 5,
+    "native_failure_process_records": 6,
+    "controller_attempts": 6,
+    "independent_geometry_accuracy_verified": false
   }
 }
