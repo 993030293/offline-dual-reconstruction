@@ -5,7 +5,7 @@
 1. **3D Gaussian Splatting（3DGS）**：用于自由视点渲染、采集路径回放和交互预览。
 2. **PGSR 几何分支**：用于表面网格、表面采样点云和可自由移动的几何预览。
 
-> 当前版本不是稳定发行版。提交 `e0df16f` 已从一份原始 `c0_july` 录制以一次内部控制器尝试生成 3DGS、PGSR 表面网格、表面采样点云及两类离线预览，因此算法级冷启动为 **1/4**；但它没有经过当前 Git 根生产入口。提交 `2ab2a5c` 的首个根入口冷启动又在生产预检暴露 RA-035 本机浏览器绑定缺口，尚未读取视频主体，当前包入口完整通过仍为 **0/4**。失败目录均保留，不能用修复后的结果追溯覆盖。详见 [当前验证状态](docs/VALIDATION_STATUS.md)和[正式验收轮次](docs/FORMAL_ACCEPTANCE_ROUNDS.md)。
+> 当前版本不是稳定发行版。提交 `e0df16f` 已从一份原始 `c0_july` 录制以一次内部控制器尝试生成 3DGS、PGSR 表面网格、表面采样点云及两类离线预览，因此算法级冷启动为 **1/4**；但它没有经过当前 Git 根生产入口。`2ab2a5c` 和 `b1f7ff4` 的干净副本预检先后暴露 RA-035 浏览器绑定和 RA-036 目标几何运行时配置缺口，均尚未读取视频主体，当前包入口完整通过仍为 **0/4**。失败目录均保留，不能用修复后的结果追溯覆盖。详见 [当前验证状态](docs/VALIDATION_STATUS.md)和[正式验收轮次](docs/FORMAL_ACCEPTANCE_ROUNDS.md)。
 
 ## 当前证据边界
 
@@ -13,7 +13,7 @@
 |---|---|
 | 历史参考包 | 2026-10-14 的源码身份 `bcf197d...c3dfd`，曾在同一工作站完成四份私有录制；它是历史证据，不等于当前提交通过 |
 | 当前候选关系 | 历史参考包、首个 Git 失败基线及后续开发修复均由提交记录区分；逐文件差异记录在 `provenance/BASELINE_DELTA.json` |
-| 静态与局部回归 | 当前完整测试套件 443/443 通过；RA-035 工作树的根入口回归 6/6、七项运行时合同和完整离线依赖预检通过，仍须提交并在干净副本复核 |
+| 静态与局部回归 | 当前完整测试套件 443/443 通过；`b1f7ff4` 干净副本的入口回归 6/6 和七项运行时合同通过，但完整预检受 RA-036 阻断；RA-036 工作树的八项合同、7 项回归和根预检已通过，待后续提交干净复核 |
 | 当前端到端结果 | `e0df16f` 的 `c0_july` 从原始输入以一次内部控制器尝试达到 `dual_target_outputs_complete`，算法级冷启动 1/4；当前 Git 包根入口 0/4 |
 | 当前预览验收 | 当前候选新生成的 3DGS 与 PGSR 页面均完成真实浏览器交互检查；加载、旋转、平移、缩放、自由飞行、升降、场景切换和路径回放无页面/控制台/请求错误 |
 | 离线边界 | 正式算法不需要 LLM、VLM、云 API 或运行时下载 |
@@ -82,7 +82,7 @@ git -c core.longpaths=true clone https://github.com/993030293/offline-dual-recon
 & .\PREFLIGHT.ps1 -OutputRoot 'D:\offline_dual_preflight'
 ```
 
-`BIND_RUNTIME.ps1` 除了建立六项本机目录连接，还会从冻结声明生成被 Git 忽略的 `OFFLINE_RUNTIME.local.json`，并核对 Node、Playwright 和已安装 Chromium 的离线运行边界。只通过仓库内容校验而没有通过根 `PREFLIGHT.ps1`，不能启动正式视频验收。预检输出目录必须尚不存在。从原始 MCAP 完整运行：
+`BIND_RUNTIME.ps1` 除了建立六项本机目录连接，还会从冻结声明生成两个被 Git 忽略的配置：主流程的 `OFFLINE_RUNTIME.local.json` 和目标几何子包的 `config/local_runtime.json`。它会核对 Node、Playwright、已安装 Chromium、COLMAP、两个 Windows Python、rosbags、包内标定和 WSL PGSR 边界。默认不会覆盖不匹配的现有本机配置；审核冻结路径后才可显式使用 `-RefreshLocalBindings`。只通过仓库内容校验而没有通过根 `PREFLIGHT.ps1`，不能启动正式视频验收。预检输出目录必须尚不存在。从原始 MCAP 完整运行：
 
 ```powershell
 & .\RUN.ps1 `

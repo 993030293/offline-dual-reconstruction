@@ -77,3 +77,7 @@ RA-031 的目标子阶段在同一冷启动中以 188.282 秒外层时间完成�
 随后从该干净副本的根 `RUN.ps1` 启动 `c0_july`，输出根为 `D:\lidar_camera_release_acceptance\formal_candidate_2ab2a5c_round3_20261113\c0_july`。控制器尝试次数 1，根入口总计约 1.832 秒；生产 `preflight` 子进程在约 0.547 秒内失败，直接异常是干净副本缺少被 Git 忽略的 `OFFLINE_RUNTIME.local.json`。该轮没有读取视频主体，没有进入传感器解码、选帧、SfM、3DGS 或 PGSR。`STATE.json` 为 `failed_delivery`，`PACKAGE_ENTRY_RESULT.json` 为 `package_entry_failed`，失败目录保持不续跑。
 
 根因是 `BIND_RUNTIME.ps1` 只创建了六项目录连接，没有生成生产预检读取的离线浏览器本机配置；当时的 `VERIFY_PACKAGE -RequireRuntime` 也没有检查这一合同。该问题与发布台账第 9 项的历史人工绑定缺口同类，说明旧处理没有真正固化到安装入口。Round 3 正式成功数为 0/4。下一轮必须绑定包含 RA-035 修复的后续提交，在新的干净副本中先通过根 `PREFLIGHT.ps1`，再用新的空目录从原始录制第一步重新运行。`d6c0905`、`2ab2a5c` 的原始失败和 GitHub 网络推送失败均保留，不追溯为成功。
+
+### Round 4 启动前门槛：`b1f7ff4`
+
+`b1f7ff4` 在独立副本 `C:\odr-b1f7ff4` 中成功生成主流程浏览器本机配置，七项运行时合同和 6 项入口回归通过；但根 `PREFLIGHT.ps1` 随后因目标几何子包缺少第二份被 Git 排除的 `config/local_runtime.json` 而失败。该预检没有读取视频，也没有创建正式 Round 4 视频输出，所以不计控制器尝试或正式轮次成功。它证明 RA-035 只闭环了浏览器子合同，完整安装仍受 RA-036 阻断。RA-036 工作树已通过八项运行时合同、7 项入口回归和根预检，实际导入目标几何依赖并核对 WSL CUDA；下一次视频启动仍必须等待后续提交在全新干净副本中复核同样门槛。

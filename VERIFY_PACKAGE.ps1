@@ -94,6 +94,67 @@ if ($RequireRuntime) {
     if (-not $browserMatches) {
         $runtimeFailures += $localBindingPath
     }
+    $target = $binding.target_geometry_runtime
+    $targetConfigPath = $null
+    $targetMatches = $false
+    $targetDependencyFailures = @()
+    if ($null -ne $target) {
+        $targetPackage = [IO.Path]::GetFullPath((Join-Path (Join-Path $packageRoot 'payload') ([string]$target.package_relative)))
+        $targetConfigPath = Join-Path $targetPackage 'config\local_runtime.json'
+        if (Test-Path -LiteralPath $targetConfigPath -PathType Leaf) {
+            try {
+                $targetLocal = Get-Content -LiteralPath $targetConfigPath -Raw | ConvertFrom-Json
+                $expectedTargetPaths = [ordered]@{
+                    colmap = [IO.Path]::GetFullPath((Join-Path $binding.supported_runtime_root ([string]$target.colmap_source)))
+                    extrinsic_json = [IO.Path]::GetFullPath((Join-Path (Join-Path $packageRoot 'payload') ([string]$target.extrinsic_payload_relative)))
+                    sfm_python = [IO.Path]::GetFullPath((Join-Path $binding.supported_runtime_root ([string]$target.sfm_python_source)))
+                    generic_python = [IO.Path]::GetFullPath((Join-Path $binding.supported_runtime_root ([string]$target.generic_python_source)))
+                    rosbags_vendor = [IO.Path]::GetFullPath((Join-Path $binding.supported_runtime_root ([string]$target.rosbags_vendor_source)))
+                }
+                foreach ($entry in $expectedTargetPaths.GetEnumerator()) {
+                    $pathType = if ($entry.Key -eq 'rosbags_vendor') { 'Container' } else { 'Leaf' }
+                    if (-not (Test-Path -LiteralPath $entry.Value -PathType $pathType)) {
+                        $targetDependencyFailures += $entry.Value
+                    }
+                }
+                $targetMatches = (
+                    [string]$targetLocal.schema_version -eq [string]$target.schema_version -and
+                    [IO.Path]::GetFullPath([string]$targetLocal.colmap) -eq $expectedTargetPaths.colmap -and
+                    [IO.Path]::GetFullPath([string]$targetLocal.extrinsic_json) -eq $expectedTargetPaths.extrinsic_json -and
+                    [IO.Path]::GetFullPath([string]$targetLocal.sfm_python) -eq $expectedTargetPaths.sfm_python -and
+                    [IO.Path]::GetFullPath([string]$targetLocal.generic_python) -eq $expectedTargetPaths.generic_python -and
+                    [IO.Path]::GetFullPath([string]$targetLocal.rosbags_vendor) -eq $expectedTargetPaths.rosbags_vendor -and
+                    [string]$targetLocal.wsl_distro -eq [string]$target.wsl_distro -and
+                    [string]$targetLocal.pgsr_source_wsl -eq [string]$target.pgsr_source_wsl -and
+                    [string]$targetLocal.pgsr_python_wsl -eq [string]$target.pgsr_python_wsl -and
+                    [int]$targetLocal.reliable_lidar.candidate_count -eq [int]$target.reliable_lidar.candidate_count -and
+                    [int]$targetLocal.reliable_lidar.image_count -eq [int]$target.reliable_lidar.image_count -and
+                    [double]$targetLocal.reliable_lidar.start_fraction -eq [double]$target.reliable_lidar.start_fraction -and
+                    [double]$targetLocal.reliable_lidar.end_fraction -eq [double]$target.reliable_lidar.end_fraction -and
+                    [int]$targetLocal.legacy_pgsr.candidate_count -eq [int]$target.legacy_pgsr.candidate_count -and
+                    [int]$targetLocal.legacy_pgsr.image_count -eq [int]$target.legacy_pgsr.image_count -and
+                    $targetDependencyFailures.Count -eq 0
+                )
+            } catch {
+                $targetMatches = $false
+            }
+        }
+    }
+    $runtimeChecks += [ordered]@{
+        kind = 'target_geometry_runtime_binding'
+        path = $targetConfigPath
+        exists = [bool]($targetConfigPath -and (Test-Path -LiteralPath $targetConfigPath -PathType Leaf))
+        target_matches = $targetMatches
+        dependency_failures = $targetDependencyFailures
+        runtime_download_allowed = $false
+    }
+    if (-not $targetMatches) {
+        if ($targetConfigPath) {
+            $runtimeFailures += $targetConfigPath
+        } else {
+            $runtimeFailures += 'config/runtime.binding.json#target_geometry_runtime'
+        }
+    }
 }
 
 $result = [ordered]@{

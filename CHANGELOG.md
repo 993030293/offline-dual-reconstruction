@@ -20,6 +20,9 @@
 - `2ab2a5c` 的首个根入口冷启动在生产预检发现干净副本未生成 `OFFLINE_RUNTIME.local.json`；失败目录保留，未读取视频主体；
 - 运行时冻结配置现声明已验证的离线 Node/Playwright，`BIND_RUNTIME.ps1` 负责生成并核对本机浏览器配置，`VERIFY_PACKAGE -RequireRuntime` 将其作为第七项必需检查。
 - RA-035 工作树已通过 6 项入口回归和根 `PREFLIGHT.ps1`，实际启动本地 Chromium、核对 WSL CUDA 与原生依赖，且没有下载或网络模型调用；正式结论仍等待后续提交的干净副本复核。
+- `b1f7ff4` 干净副本复核推翻了“完整预检已闭环”的工作树结论：目标几何子包的 `config/local_runtime.json` 仍依赖人工残留，根预检明确失败；
+- RA-036 将目标几何子包的 COLMAP、Windows Python、rosbags、包内标定和 WSL PGSR 配置纳入第八项冻结运行时合同；默认不覆盖不匹配旧配置，只有显式刷新才替换。
+- 旧目标配置的原文已独立备份；默认绑定按预期失败，显式刷新回执记录 `replaced=true`；工作树随后通过八项检查、7 项入口回归和根预检，正式结论仍等待后续提交的干净副本。
 
 ### Boundary
 
