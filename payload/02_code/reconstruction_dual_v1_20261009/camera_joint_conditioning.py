@@ -15,6 +15,13 @@ from camera_visual_recovery import fixed_camera_invariants
 from common import ROOT, atomic_json, read_json
 
 
+NATIVE_JOINT_BA_ITERATIONS = 60
+NATIVE_JOINT_BA_SOFT_SECONDS = 180
+# Native solver teardown, cold model serialization, filtering, and receipt publication
+# happen after the solver's soft limit and require their own bounded watchdog window.
+NATIVE_JOINT_STAGE_HARD_SECONDS = 4 * NATIVE_JOINT_BA_SOFT_SECONDS
+
+
 def load_helpers():
     path = ROOT / '02_code/box2_lio_guided_sfm_v1_20261002/common.py'
     spec = importlib.util.spec_from_file_location('dual_native_visual_joint_helpers', path)
@@ -23,7 +30,8 @@ def load_helpers():
     return helpers
 
 
-def joint_problem(model, helpers, iterations=60, solver_seconds=180):
+def joint_problem(model, helpers, iterations=NATIVE_JOINT_BA_ITERATIONS,
+        solver_seconds=NATIVE_JOINT_BA_SOFT_SECONDS):
     config = helpers.ba_config(model)
     config.fix_gauge(pycolmap.BundleAdjustmentGauge.THREE_POINTS)
     options = helpers.ba_options(iterations)
@@ -64,8 +72,11 @@ def run(source, initial, role_path, output):
         helpers = load_helpers()
         adjuster, variables, residuals = joint_problem(model, helpers)
         atomic_json(output / 'CONTRACT.json', {'source_model': str(source), 'source_identity': identity,
-            'initialization_roles': seeded['initialization_roles'], 'native_joint_BA_iterations': 60,
-            'native_joint_BA_soft_seconds': 180, 'fixed_intrinsics': True,
+            'initialization_roles': seeded['initialization_roles'],
+            'native_joint_BA_iterations': NATIVE_JOINT_BA_ITERATIONS,
+            'native_joint_BA_soft_seconds': NATIVE_JOINT_BA_SOFT_SECONDS,
+            'native_joint_stage_hard_seconds': NATIVE_JOINT_STAGE_HARD_SECONDS,
+            'fixed_intrinsics': True,
             'native_all_map_geometry_filter_before_metric_input_freeze': True,
             'previous_failure_models_or_point_lists_read': False,
             'final_common_metric_reference_and_guards_unchanged': True,

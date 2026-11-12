@@ -10,7 +10,8 @@ import numpy as np
 import pycolmap
 
 from camera_initialization_roles import NATIVE_POINT_REBUILD_INPUT_STATUS, point_support_roles
-from camera_joint_conditioning import joint_problem, load_helpers, run as joint_run
+from camera_joint_conditioning import (NATIVE_JOINT_BA_SOFT_SECONDS,
+    NATIVE_JOINT_STAGE_HARD_SECONDS, joint_problem, load_helpers, run as joint_run)
 from camera_point_rebuild import run as rebuild_run
 import camera_point_rebuild
 from camera_required_relocalization import low_support_targets, run as relocalization_run
@@ -57,6 +58,11 @@ class NativeVisualConditioningTests(unittest.TestCase):
         atomic_json(path, value)
         return path
 
+    def test_joint_hard_watchdog_preserves_bounded_post_solver_window(self):
+        self.assertEqual(NATIVE_JOINT_STAGE_HARD_SECONDS, 4 * NATIVE_JOINT_BA_SOFT_SECONDS)
+        self.assertGreater(NATIVE_JOINT_STAGE_HARD_SECONDS - NATIVE_JOINT_BA_SOFT_SECONDS,
+            NATIVE_JOINT_BA_SOFT_SECONDS)
+
     def test_actual_native_missing_camera_registration_and_fixed_pose_point_rebuild(self):
         missing = max(self.model.images.values(), key=lambda image: image.image_id)
         self.model.deregister_frame(missing.frame_id)
@@ -101,6 +107,10 @@ class NativeVisualConditioningTests(unittest.TestCase):
         self.assertTrue(result['full_metric_evaluation_still_required'])
         self.assertFalse(result['training_admission_granted'])
         self.assertTrue(np.isfinite(result['actual_pose_maximum_component_delta']))
+        contract = read_json(self.root / 'joint/CONTRACT.json')
+        self.assertEqual(contract['native_joint_BA_iterations'], 60)
+        self.assertEqual(contract['native_joint_BA_soft_seconds'], NATIVE_JOINT_BA_SOFT_SECONDS)
+        self.assertEqual(contract['native_joint_stage_hard_seconds'], NATIVE_JOINT_STAGE_HARD_SECONDS)
         for key, camera in self.model.cameras.items():
             self.assertTrue(np.array_equal(camera.params, actual.cameras[key].params))
         self.assertEqual(model_identity(self.source), identity)

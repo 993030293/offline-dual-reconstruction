@@ -14,6 +14,7 @@ from common import HERE, atomic_json, read_json
 from camera_support_recovery import model_identity, coarse_consistency
 from camera_initialization_roles import SENSOR_INITIALIZATION_PROTOCOL
 from camera_visual_recovery import qualified_coarse_names
+from camera_joint_conditioning import NATIVE_JOINT_STAGE_HARD_SECONDS
 
 
 def fingerprint(path):
@@ -177,7 +178,7 @@ def prepare(source, initial, raw, output, adopted=None, verified_metric=None):
             conditioned = stage('joint_visual_conditioning', 'camera_joint_conditioning.py',
                 ['--source-model', prepared['model'], '--initial-frames', initial,
                     '--camera-role-result', prepared_path / 'RESULT.json', '--output', conditioned_path],
-                360, conditioned_path / 'RESULT.json')
+                NATIVE_JOINT_STAGE_HARD_SECONDS, conditioned_path / 'RESULT.json')
             final_path = output / 'final_point_preparation'
             prepared = stage('final_point_preparation', 'prepare_metric_support.py',
                 ['--source-model', conditioned['model'], '--initial-frames', initial, '--output', final_path,

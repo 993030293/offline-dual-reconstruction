@@ -43,6 +43,12 @@
     },
     {
       "incidents": [
+        "RA-031"
+      ],
+      "purpose": "Keep the native joint BA solver budget unchanged while giving bounded post-solver filtering, cold model serialization and receipt publication their own outer watchdog window."
+    },
+    {
+      "incidents": [
         "RA-008",
         "RA-009",
         "RA-010",
@@ -86,6 +92,11 @@
       "candidate_sha256": "428926355a9f1c81e6de907408cf2024ee3904331e528a336b058d98d03b7262"
     },
     {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/camera_joint_conditioning.py",
+      "base_sha256": "33cf1c7eeaab32b3715c89f89f17fb84239ce8ebeeb0eb83f2dca9c922fbf13a",
+      "candidate_sha256": "2f311ef53760a2618631271ce12178a466349cc8efb2879c705dbb3a057ce001"
+    },
+    {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/camera_support_bridge.py",
       "base_sha256": "d9bd1ff04459d51ef52081553c8a9181f05b2ef99f884be931c0874ff96f35ea",
       "candidate_sha256": "0c78a6178f3e1e83c75db4bb662bc2fb978466dc51ea18b2f1f0257013ea89b0"
@@ -123,7 +134,7 @@
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/prepare_camera_backend.py",
       "base_sha256": "772c49603bf6b285d3c1b6570354dd20c80e6a0b37c96e4b9f93a5c07c7ea8b8",
-      "candidate_sha256": "895423bf4cb33f0aff5848525b00c136cdea21d3c2b9322beb416fb3eb020e91"
+      "candidate_sha256": "65732191e6f2d7bc310ca3fa994c1c8c9d11cf50fd8aa5e8c58be25fa400921c"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/README.md",
@@ -164,6 +175,11 @@
       "path": "payload/02_code/reconstruction_dual_v1_20261009/test_audit_recovery_accounting.py",
       "base_sha256": "4e55b84b78d1450e65c3af36aaaa91882f9714ee6a3aa44bb1fc2b4103c9f961",
       "candidate_sha256": "8aebcbfdc70b9ad4b17899287b29a817277063b70a590e36fbefc9c8f9cbf68b"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_camera_native_visual_conditioning.py",
+      "base_sha256": "6420054e14715897527f55ee659024a840839e2cbcc118c531bceb432dee05ab",
+      "candidate_sha256": "595b8969590f5da8bd357fa4256daa104c4d42f1d04fa10e002b782288edea82"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/test_floor_motion_constraint.py",

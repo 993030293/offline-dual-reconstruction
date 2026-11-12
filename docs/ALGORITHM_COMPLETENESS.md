@@ -6,7 +6,7 @@
 
 ## 已保留
 
-1. 历史参考包的完整 `payload/02_code` 源码树，以及 `provenance/BASELINE_DELTA.json` 当前声明并逐文件绑定的 23 个修改文件和 31 个新增文件；排除 Python 字节码缓存和机器专属 `OFFLINE_RUNTIME.local.json`。数量只适用于本次清单，后续源码变更必须重新生成并更新。
+1. 历史参考包的完整 `payload/02_code` 源码树，以及 `provenance/BASELINE_DELTA.json` 当前声明并逐文件绑定的 25 个修改文件和 31 个新增文件；排除 Python 字节码缓存和机器专属 `OFFLINE_RUNTIME.local.json`。数量只适用于本次清单，后续源码变更必须重新生成并更新。
 2. `e26_video_to_target_m3_nollm_v1r23_20260927_installed_candidate` 的代码、配置、合同、几何模块、脚本、测试和第三方通知。
 3. 历史参考包的正式入口、预检、绑定和包规范原文，放在 `docs/accepted_package/` 供追溯；它们不作为当前候选通过的证据。
 4. PGSR 基线提交 `de24f1a38b350387e8d8fe381b2cd70c1ae946e7` 上的四文件补丁，包括新增的 `utils/projective_validity.py`。

@@ -3,12 +3,12 @@
   "candidate_id": "offline_dual_reconstruction_github_v0_1_20261110",
   "release_stage": "prerelease_assisted_single_recording_dual_delivery",
   "historical_accepted_source_version": "bcf197d198d6e9ff2aef2d2dd7abfb6a025cb3f06df4739beb1a4d4190dc3dfd",
-  "candidate_algorithm_source_version": "73c47aabff66b5bafffbd098337b6c9d93c7f72410a348dfbdab3b8dc434de23",
+  "candidate_algorithm_source_version": "c76fe7b92ea9a5eccb024337053476a6e9d070296fa0bb1f868c17ed1f67296c",
   "candidate_algorithm_file_count": 1635,
   "manifest_self_excluded": true,
   "generated_verify_result_excluded": true,
-  "file_count": 1673,
-  "total_bytes": 16283015,
+  "file_count": 1674,
+  "total_bytes": 16293243,
   "files": [
     {
       "path": ".gitattributes",
@@ -32,8 +32,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 6679,
-      "sha256": "3ae67fc97088fc509fce7ec93e2207e8bcebd921718f3ca44d1aabec6ef1e58d"
+      "bytes": 6876,
+      "sha256": "53cb2d081bd218fbc4fdbbcc7e48b7385d1ec53ab81a07681035768ca76ea7e0"
     },
     {
       "path": "THIRD_PARTY.md",
@@ -43,7 +43,12 @@
     {
       "path": "docs/ALGORITHM_COMPLETENESS.md",
       "bytes": 5114,
-      "sha256": "148bf6cc6754794be42c8ea0a85ca5633e39897a5c4c1c09568223a7ca409563"
+      "sha256": "9f9e6330474a4c2983ecafa6a29ab701b3bad7f4dcb13f40f129b89640344b29"
+    },
+    {
+      "path": "docs/FORMAL_ACCEPTANCE_ROUNDS.md",
+      "bytes": 3395,
+      "sha256": "a88047d11f2052fd83bc2a02f148d40549be4a91d261591a97a4ebda8a8e4452"
     },
     {
       "path": "docs/GITHUB_UPLOAD.md",
@@ -52,8 +57,8 @@
     },
     {
       "path": "docs/PACKAGING_FAILURE_LEDGER.md",
-      "bytes": 9834,
-      "sha256": "31ce17f72dc6f317d83288e37d1a35cfa5a752bd1349f12648bccbba547804a2"
+      "bytes": 10909,
+      "sha256": "a123297c9a4b2638b55b2ebf5c14281ddbde309c17ea70f2bbc6148c80f68b12"
     },
     {
       "path": "docs/PUBLICATION_BOUNDARY.md",
@@ -67,8 +72,8 @@
     },
     {
       "path": "docs/VALIDATION_STATUS.md",
-      "bytes": 11011,
-      "sha256": "78b970b51262688c7df92b11608dd979ba981c661b4cec9c9a5f9d671164994d"
+      "bytes": 13796,
+      "sha256": "8b6c55d0143f4f2a6eddc9a04bdccd94fde4c3fbb005e7be29584e247f40c67b"
     },
     {
       "path": "docs/accepted_package/BIND_RUNTIME.ps1",
@@ -7042,8 +7047,8 @@
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/camera_joint_conditioning.py",
-      "bytes": 8507,
-      "sha256": "33cf1c7eeaab32b3715c89f89f17fb84239ce8ebeeb0eb83f2dca9c922fbf13a"
+      "bytes": 9026,
+      "sha256": "2f311ef53760a2618631271ce12178a466349cc8efb2879c705dbb3a057ce001"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/camera_pnp_recovery_input.py",
@@ -7357,8 +7362,8 @@
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/prepare_camera_backend.py",
-      "bytes": 14884,
-      "sha256": "895423bf4cb33f0aff5848525b00c136cdea21d3c2b9322beb416fb3eb020e91"
+      "bytes": 14982,
+      "sha256": "65732191e6f2d7bc310ca3fa994c1c8c9d11cf50fd8aa5e8c58be25fa400921c"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/prepare_metric_support.py",
@@ -7512,8 +7517,8 @@
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/test_camera_native_visual_conditioning.py",
-      "bytes": 17293,
-      "sha256": "6420054e14715897527f55ee659024a840839e2cbcc118c531bceb432dee05ab"
+      "bytes": 17998,
+      "sha256": "595b8969590f5da8bd357fa4256daa104c4d42f1d04fa10e002b782288edea82"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/test_camera_pnp_query_cache.py",
@@ -8337,8 +8342,8 @@
     },
     {
       "path": "provenance/BASELINE_DELTA.json",
-      "bytes": 15843,
-      "sha256": "d9d4eef8f8e5fb07dc20acd66dcc3ecf1ac10ee6fccdbb840768d2ec16f6301b"
+      "bytes": 16688,
+      "sha256": "f6a09969f011d588b51e344440713adb6eb7ff84c883f3a854d8c5a6d4734824"
     },
     {
       "path": "provenance/EXTERNAL_SOURCE_LOCK.json",
@@ -8352,8 +8357,8 @@
     },
     {
       "path": "provenance/SOURCE_COPY_MAP.json",
-      "bytes": 387295,
-      "sha256": "eb5cf5bb151abdcb0beee6c955434019e77af1730641bd3f5f5d51c3b86ed075"
+      "bytes": 387904,
+      "sha256": "2f8f2dabc6a98c27a6b4cc03243d70340659709abaace6f9accfb88faf4a6679"
     },
     {
       "path": "tools/build_publication_manifest.py",
