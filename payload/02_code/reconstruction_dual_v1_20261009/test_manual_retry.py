@@ -5,7 +5,7 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from manual_retry import archive_failed_front
+from manual_retry import archive_failed_delivery_stage, archive_failed_front
 
 
 def write(path, value=None):
@@ -56,6 +56,33 @@ class ManualRetryTests(unittest.TestCase):
         receipt = json.loads((archive / "RETRY.json").read_text())
         self.assertEqual(receipt["outer_failure_boundary"], "shared")
         self.assertEqual(receipt["invalidated_front_leafs"], ["metric", "roles", "export"])
+        self.assertFalse(receipt["single_unassisted_cold_start_claim_allowed"])
+
+    def test_target_input_failure_archives_partial_target_and_preserves_shared(self):
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        root = Path(temporary.name)
+        write(root / "STATE.json", {
+            "status": "failed_delivery",
+            "current_stage": "target_inputs",
+            "stages": [{"stage": "shared"}],
+        })
+        write(root / "stages/shared/COMPLETED.json", {"status": "completed"})
+        write(root / "stages/target_inputs/PROCESS.json", process("failed_child"))
+        write(root / "stages/target_inputs/run.log")
+        write(root / "target/PARTIAL.json", {"status": "failed"})
+        write(root / "shared/RESULT.json", {"status": "preserved"})
+
+        archive = archive_failed_delivery_stage(
+            root, "target_inputs", "fixture long-path repair"
+        )
+
+        self.assertFalse((root / "stages/target_inputs").exists())
+        self.assertFalse((root / "target").exists())
+        self.assertTrue((root / "stages/shared/COMPLETED.json").is_file())
+        self.assertTrue((root / "shared/RESULT.json").is_file())
+        receipt = json.loads((archive / "RETRY.json").read_text())
+        self.assertEqual(receipt["outer_failure_boundary"], "target_inputs")
         self.assertFalse(receipt["single_unassisted_cold_start_claim_allowed"])
 
 

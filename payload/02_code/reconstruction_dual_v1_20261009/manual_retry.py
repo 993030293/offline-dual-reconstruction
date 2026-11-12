@@ -13,6 +13,7 @@ ORDER = ('preflight', 'raw_times', 'front', 'shared', 'target_inputs', 'gaussian
 FRONT = ('initial', 'sfm', 'recovery', 'temporal', 'pose_gap', 'metric',
          'metric_sim3_renderer_recovery', 'roles', 'export')
 DOWNSTREAM_FRONT_RETRY = ('metric', 'roles', 'export')
+DOWNSTREAM_DELIVERY_RETRY = ('target_inputs',)
 
 
 def require_stopped(receipt):
@@ -92,4 +93,49 @@ def archive_failed_front(root, case, leaf, note):
         'invalidated_front_leafs': invalidated_front_leafs,
         'successful_upstream_same_raw_run_reused': True, 'moved_failed_evidence': moved,
         'single_unassisted_cold_start_claim_allowed': False})
+    return archive
+
+
+def archive_failed_delivery_stage(root, stage, note):
+    """Archive a supported failed delivery stage and its partial outputs."""
+    root = Path(root).resolve(strict=True)
+    state = read_json(root / 'STATE.json')
+    if (not state['status'].startswith('failed') or state.get('current_stage') != stage
+            or stage not in DOWNSTREAM_DELIVERY_RETRY or not note):
+        raise ValueError('Manual delivery retry requires its recorded failed boundary and a repair note')
+    failed = root / 'stages' / stage
+    process = failed / 'PROCESS.json'
+    if ((failed / 'COMPLETED.json').exists() or not process.is_file()
+            or not read_json(process)['status'].startswith('failed')):
+        raise ValueError('Only an explicitly failed delivery stage can be archived')
+    for label in ORDER[ORDER.index(stage) + 1:]:
+        if (root / 'stages' / label / 'COMPLETED.json').is_file():
+            raise ValueError('A downstream completed stage prevents delivery-stage retry')
+    require_stopped(process)
+    archive = root / 'failures' / (stage + '_' + str(time.time_ns()))
+    archive.resolve().relative_to(root)
+    paths = [failed, root / 'target']
+    for path in paths:
+        path.resolve().relative_to(root)
+    archive.mkdir(parents=True, exist_ok=False)
+    for name in ('STATE.json', 'EXCEPTION_LEDGER.json', 'RUN_REPORT.md'):
+        path = root / name
+        if path.is_file():
+            shutil.copyfile(path, archive / ('PRIOR_' + name))
+    moved = []
+    for path in paths:
+        if path.exists():
+            destination = archive / 'retained' / path.relative_to(root)
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.move(str(path), str(destination))
+            moved.append({'original': str(path), 'retained': str(destination)})
+    atomic_json(archive / 'RETRY.json', {
+        'status': 'explicit_assistant_or_operator_retry',
+        'repair_note': note,
+        'algorithm_autonomous_recovery': False,
+        'outer_failure_boundary': stage,
+        'successful_upstream_same_raw_run_reused': True,
+        'moved_failed_evidence': moved,
+        'single_unassisted_cold_start_claim_allowed': False,
+    })
     return archive

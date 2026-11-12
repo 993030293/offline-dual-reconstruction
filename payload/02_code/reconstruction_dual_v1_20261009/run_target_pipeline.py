@@ -14,6 +14,59 @@ from target_prepare import PACKAGE
 from surface_roi_policy import POLICY_VERSION as ROI_TRIM_POLICY_VERSION
 
 
+def filesystem_io_path(path):
+    """Return an absolute path that retains long-path access on Windows."""
+    absolute = os.path.abspath(os.fspath(path))
+    if os.name != 'nt' or absolute.startswith('\\\\?\\'):
+        return Path(absolute)
+    if absolute.startswith('\\\\'):
+        return Path('\\\\?\\UNC\\' + absolute[2:])
+    return Path('\\\\?\\' + absolute)
+
+
+def reference_python_sources(package):
+    """Enumerate executable reference sources without losing long paths."""
+    package = Path(package)
+    sources = []
+    for relative_root in (Path('code'), Path('ground/code')):
+        canonical_root = package / relative_root
+        io_root = filesystem_io_path(canonical_root)
+        for io_source in io_root.rglob('*.py'):
+            relative = io_source.relative_to(io_root)
+            if '__pycache__' in relative.parts:
+                continue
+            sources.append((canonical_root / relative, relative_root / relative))
+    return sorted(sources, key=lambda item: item[1].as_posix())
+
+
+def file_sha256(path):
+    """Hash a local file through the platform-safe filesystem path."""
+    return hashlib.sha256(filesystem_io_path(path).read_bytes()).hexdigest()
+
+
+def capture_reference_sources(package, target):
+    """Freeze all bound Python sources before target processing begins."""
+    sources = []
+    for source, relative in reference_python_sources(package):
+        snapshot = Path(target) / 'reference_sources' / relative
+        io_snapshot = filesystem_io_path(snapshot)
+        io_snapshot.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(filesystem_io_path(source), io_snapshot)
+        sources.append({
+            'source': str(source),
+            'snapshot': str(snapshot),
+            'sha256': file_sha256(snapshot),
+        })
+    return sources
+
+
+def verify_reference_sources(manifest):
+    """Fail closed if any frozen implementation source changed."""
+    for item in manifest['sources']:
+        if file_sha256(item['source']) != item['sha256']:
+            raise ValueError('The bound reference implementation changed')
+
+
 def m3_registered_scan_arguments(root, raw):
     """Pass the same full scan source used by anchors, before ground cropping."""
     from sensor_backend import checked_generated_source
@@ -76,18 +129,9 @@ def main():
             'legacy_all_frame_coverage_claimed': args.profile == 'ReliableLidar',
             'independent_geometry_accuracy_claimed': False})
         state = {'status': 'running', 'stages': [], 'started_unix': time.time()}
-        sources = []
-        for source in sorted((PACKAGE / 'code').rglob('*.py')) + sorted((PACKAGE / 'ground/code').rglob('*.py')):
-            relative = source.relative_to(PACKAGE)
-            snapshot = target / 'reference_sources' / relative
-            snapshot.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(source, snapshot)
-            sources.append({'source': str(source), 'snapshot': str(snapshot),
-                            'sha256': hashlib.sha256(snapshot.read_bytes()).hexdigest()})
+        sources = capture_reference_sources(PACKAGE, target)
         atomic_json(target / 'REFERENCE_SOURCE_MANIFEST.json', {'sources': sources, 'captured_before_execution': True})
-    for item in read_json(target / 'REFERENCE_SOURCE_MANIFEST.json')['sources']:
-        if hashlib.sha256(Path(item['source']).read_bytes()).hexdigest() != item['sha256']:
-            raise ValueError('The bound reference implementation changed')
+    verify_reference_sources(read_json(target / 'REFERENCE_SOURCE_MANIFEST.json'))
     os.environ['PYTHONPATH'] = str(HERE / 'offline_guard') + os.pathsep + runtime['rosbags_vendor']
     state.update(controller_pid=psutil.Process().pid, controller_birth=psutil.Process().create_time())
 

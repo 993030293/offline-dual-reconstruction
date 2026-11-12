@@ -20,6 +20,7 @@ def main():
     parser.add_argument('--repair-note')
     parser.add_argument('--retry-front-stage', choices=('initial', 'sfm', 'recovery', 'temporal', 'pose_gap',
         'metric', 'metric_sim3_renderer_recovery', 'roles', 'export'))
+    parser.add_argument('--retry-stage', choices=('target_inputs',))
     parser.add_argument('--body-camera-calibration', type=Path,
         help='Explicit local camera_optical to base_link calibration when absent from raw TF')
     parser.add_argument('--stop-after', choices=('sensors', 'front', 'complete'), default='complete')
@@ -30,8 +31,11 @@ def main():
     if not re.fullmatch(r'[a-z][a-z0-9_]{0,40}', args.case):
         raise ValueError('A safe lowercase case identifier is required')
     root, raw = args.run_root.resolve(), args.raw.resolve(strict=True)
-    if args.retry_front_stage and (not args.resume or not args.repair_note):
-        raise ValueError('An explicit front retry requires resume and a recorded repair note')
+    if args.retry_front_stage and args.retry_stage:
+        raise ValueError('Only one explicit retry boundary can be selected')
+    if ((args.retry_front_stage or args.retry_stage)
+            and (not args.resume or not args.repair_note)):
+        raise ValueError('An explicit retry requires resume and a recorded repair note')
     config = {'schema': 3, 'case': args.case, 'raw': str(raw), 'raw_bytes': raw.stat().st_size,
         'raw_mtime_ns': raw.stat().st_mtime_ns, 'gaussian_iterations': args.gaussian_iterations,
         'pgsr_iterations': args.pgsr_iterations, 'point_profile': args.point_profile,
@@ -54,11 +58,19 @@ def main():
             except psutil.NoSuchProcess:
                 pass
         if state['status'].startswith('failed'):
-            if not args.retry_front_stage:
-                raise ValueError('A failed run is retained. Use a new root or an explicit recorded front-stage retry.')
-            from manual_retry import archive_failed_front
-            archive_failed_front(root, args.case, args.retry_front_stage, args.repair_note)
-            invalidated = {'front', 'shared', 'target_inputs', 'gaussian', 'pgsr', 'target_geometry', 'delivery'}
+            if args.retry_front_stage:
+                from manual_retry import archive_failed_front
+                archive_failed_front(root, args.case, args.retry_front_stage, args.repair_note)
+                invalidated = {'front', 'shared', 'target_inputs', 'gaussian', 'pgsr', 'target_geometry', 'delivery'}
+            elif args.retry_stage:
+                from manual_retry import archive_failed_delivery_stage
+                archive_failed_delivery_stage(root, args.retry_stage, args.repair_note)
+                delivery_order = ('preflight', 'sensor_backend', 'raw_motion', 'raw_registration',
+                    'raw_times', 'front', 'shared', 'target_inputs', 'gaussian', 'pgsr',
+                    'target_geometry', 'delivery')
+                invalidated = set(delivery_order[delivery_order.index(args.retry_stage):])
+            else:
+                raise ValueError('A failed run is retained. Use a new root or an explicit recorded retry.')
             state['stages'] = [row for row in state.get('stages', []) if row['stage'] not in invalidated]
     else:
         root.mkdir(parents=True, exist_ok=False)
