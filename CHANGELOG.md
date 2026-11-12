@@ -15,6 +15,8 @@
 - 仓库根目录增加当前 `RUN.ps1`、`BIND_RUNTIME.ps1`、`VERIFY_PACKAGE.ps1`、`PREFLIGHT.ps1`、`SMOKE_SENSOR.ps1` 和运行时绑定配置；
 - 本机运行时绑定/包验证回执不再被发布清单误收录，新增排除回归；
 - C1 传感器冒烟通过，显式标定只消费 `T_base_link_camera_optical` 数值子集，不消费同文件中的历史轨迹或 SfM 字段。
+- `d6c0905` 提交后的默认根验证器曾因参数绑定阶段无法使用 `$PSScriptRoot` 而失败；默认输出路径现改为在脚本主体解析，并新增无 `-Output` 参数的真实入口回归；
+- 首次推送因当前主机无法连接 `github.com:443` 未完成，远端仍保持 `e0df16f`，不得写成已推送。
 
 ### Boundary
 

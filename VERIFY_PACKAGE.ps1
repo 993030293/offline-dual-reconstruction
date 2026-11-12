@@ -1,17 +1,23 @@
 [CmdletBinding()]
 param(
-    [string]$Output = (Join-Path $PSScriptRoot 'PACKAGE_VERIFY_RESULT.json'),
+    [string]$Output,
     [switch]$RequireRuntime
 )
 
 $ErrorActionPreference = 'Stop'
 $packageRoot = $PSScriptRoot
+if ([string]::IsNullOrWhiteSpace($Output)) {
+    $Output = Join-Path $packageRoot 'PACKAGE_VERIFY_RESULT.json'
+}
+$resolvedOutput = [IO.Path]::GetFullPath($Output)
+$outputParent = Split-Path -Parent $resolvedOutput
+New-Item -ItemType Directory -Path $outputParent -Force | Out-Null
 $python = Join-Path $packageRoot 'payload\05_envs\sfm_py311_v1\Scripts\python.exe'
 if (-not (Test-Path -LiteralPath $python)) {
     throw 'Run BIND_RUNTIME.ps1 before package verification.'
 }
 
-$publicationOutput = Join-Path ([IO.Path]::GetFullPath((Split-Path -Parent $Output))) 'PUBLICATION_VERIFY_RESULT.json'
+$publicationOutput = Join-Path $outputParent 'PUBLICATION_VERIFY_RESULT.json'
 & $python (Join-Path $packageRoot 'tools\verify_publication.py') --root $packageRoot --output $publicationOutput
 if ($LASTEXITCODE -ne 0) {
     throw 'Publication content verification failed.'
@@ -63,8 +69,8 @@ $result = [ordered]@{
     runtime_language_model_required = $false
     portable_relocation_verified = $false
 }
-$result | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $Output -Encoding utf8
+$result | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $resolvedOutput -Encoding utf8
 if ($result.status -ne 'package_verified') {
     throw 'Package verification failed.'
 }
-Get-Content -LiteralPath $Output -Raw
+Get-Content -LiteralPath $resolvedOutput -Raw

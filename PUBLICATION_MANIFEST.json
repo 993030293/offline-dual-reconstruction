@@ -7,8 +7,8 @@
   "candidate_algorithm_file_count": 1635,
   "manifest_self_excluded": true,
   "generated_verify_result_excluded": true,
-  "file_count": 1680,
-  "total_bytes": 16315630,
+  "file_count": 1681,
+  "total_bytes": 16319990,
   "files": [
     {
       "path": ".gitattributes",
@@ -32,8 +32,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "bytes": 8684,
-      "sha256": "5fca17f33c086155db77adfc342fef2304e3f623ba80ca328c96b7a1adab97e1"
+      "bytes": 9020,
+      "sha256": "c334df02ce60f6f383b3400e342dbd948419b89744e4d2e8458982809e6259bb"
     },
     {
       "path": "PREFLIGHT.ps1",
@@ -62,8 +62,8 @@
     },
     {
       "path": "VERIFY_PACKAGE.ps1",
-      "bytes": 2896,
-      "sha256": "35d9a7535edc288b9e60b383bbca8051760c017818da2e5f35bfd9fd3897ad18"
+      "bytes": 3095,
+      "sha256": "5d85645718655665a47885f0ac46c0914559c6fa6a9c0d03080848f22dffe4b2"
     },
     {
       "path": "config/runtime.binding.json",
@@ -77,8 +77,8 @@
     },
     {
       "path": "docs/FORMAL_ACCEPTANCE_ROUNDS.md",
-      "bytes": 6531,
-      "sha256": "95d2ac13c84c1deb4037effa906e7eb60e2c9fc27597a03a22e2007f84e0963d"
+      "bytes": 7164,
+      "sha256": "26c78273359e99f2165ac0bb949cbdb214e6111941a7b60591ccd792eb3fe294"
     },
     {
       "path": "docs/GITHUB_UPLOAD.md",
@@ -87,8 +87,8 @@
     },
     {
       "path": "docs/PACKAGING_FAILURE_LEDGER.md",
-      "bytes": 12800,
-      "sha256": "c8c1b607924412e0ff68dccae6c551a4c1250457bc61cb68d57f0e935af4f52d"
+      "bytes": 13883,
+      "sha256": "ba22dda4a31f9ebe6c4e378275128b78c87c373e1e96cc6deea3e20a7086352a"
     },
     {
       "path": "docs/PUBLICATION_BOUNDARY.md",
@@ -102,8 +102,8 @@
     },
     {
       "path": "docs/VALIDATION_STATUS.md",
-      "bytes": 15635,
-      "sha256": "41c08e6598492b8915ca04cda6858df111560e6d3fb46cc18847ebb5f1e60e11"
+      "bytes": 16212,
+      "sha256": "d62f351b7fbc638eff7093c087d368f96798c75ac855d019566a8e5fa933e8c5"
     },
     {
       "path": "docs/accepted_package/BIND_RUNTIME.ps1",
@@ -8399,6 +8399,11 @@
       "path": "tools/test_publication_local_exclusions.py",
       "bytes": 2478,
       "sha256": "dfdc8dfbae5379b6b0134370d5c50e048c4d6aaf2f4a41ec5a49e8ad86c3ac59"
+    },
+    {
+      "path": "tools/test_root_entry_contract.py",
+      "bytes": 1532,
+      "sha256": "e0afa4359b2d47db80f824263b0f6b5ea0ab173ae4d77360337d57bc756c12a4"
     },
     {
       "path": "tools/verify_pgsr_patch.sh",
