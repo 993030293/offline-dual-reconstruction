@@ -174,6 +174,35 @@ class ComponentRecoveryTest(unittest.TestCase):
                 )
             self.assertTrue((Path(directory) / "rejected" / "FAILURE.json").is_file())
 
+    def test_verified_aligned_input_role_is_recorded_without_claiming_visual_ba(self):
+        model = fixture()
+        rows = [
+            {
+                "image_id": image.image_id,
+                "image_name": image.name,
+                "C_W_m": image.projection_center(),
+            }
+            for image in model.images.values()
+        ]
+        with tempfile.TemporaryDirectory() as directory, patch.object(
+            recovery, "_load_policy", return_value=test_policy()
+        ):
+            _, result = recovery.recover_metric_geometry(
+                model,
+                rows,
+                [],
+                Path(directory) / "verified_input",
+                HELPERS,
+                CHECKS,
+                source_role="verified_aligned_input_before_metric_BA",
+            )
+            self.assertEqual(
+                result["source_visual_geometry_authority"],
+                "verified_aligned_input_before_metric_BA",
+            )
+            self.assertFalse(result["source_visual_BA_required_and_retained_as_authority"])
+            self.assertTrue(result["verified_aligned_input_required_and_retained_as_authority"])
+
 
 if __name__ == "__main__":
     unittest.main()

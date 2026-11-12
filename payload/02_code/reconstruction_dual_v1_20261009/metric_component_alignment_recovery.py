@@ -244,6 +244,7 @@ def recover_metric_geometry(
     output,
     helpers,
     checks,
+    source_role="post_native_visual_BA_geometry",
 ):
     """Return a metric component subset without changing retained reprojections."""
     output = Path(output)
@@ -263,6 +264,12 @@ def recover_metric_geometry(
         int(point_id): point.xyz.copy()
         for point_id, point in source.points3D.items()
     }
+    allowed_source_roles = {
+        "post_native_visual_BA_geometry",
+        "verified_aligned_input_before_metric_BA",
+    }
+    if source_role not in allowed_source_roles:
+        raise ValueError("Component metric alignment received an unverified visual source role")
     rows_by_name = {row["image_name"]: row for row in prior_rows}
     if len(rows_by_name) != len(prior_rows):
         raise ValueError("Component metric priors contain duplicate image names")
@@ -280,7 +287,7 @@ def recover_metric_geometry(
     contract = {
         "protocol": RECOVERY_PROTOCOL,
         "runtime": "offline_numeric_code_no_LLM_or_VLM_or_network",
-        "source_role": "post_native_visual_BA_geometry",
+        "source_role": source_role,
         "minimum_shared_tracks_for_component_edge": minimum_shared_tracks,
         "component_edge_threshold_source": (
             "COLMAP IncrementalMapperOptions.abs_pose_min_num_inliers"
@@ -489,7 +496,13 @@ def recover_metric_geometry(
             "invalid_projection_count": after_invalid,
             "camera_radius_m": _quantiles(radii),
             "development_guard_passed": True,
-            "source_visual_BA_required_and_retained_as_authority": True,
+            "source_visual_geometry_authority": source_role,
+            "source_visual_BA_required_and_retained_as_authority": (
+                source_role == "post_native_visual_BA_geometry"
+            ),
+            "verified_aligned_input_required_and_retained_as_authority": (
+                source_role == "verified_aligned_input_before_metric_BA"
+            ),
             "source_geometry_unchanged": _source_geometry_matches(
                 source, source_poses, source_points
             ),

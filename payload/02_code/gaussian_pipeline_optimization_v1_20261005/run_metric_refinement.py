@@ -89,6 +89,46 @@ def active_prior_names(model, rows):
     }
 
 
+ACCEPTED_VISUAL_BA_ROLE = "post_native_visual_BA_geometry"
+VERIFIED_ALIGNED_INPUT_ROLE = "verified_aligned_input_before_metric_BA"
+
+
+def select_component_gauge_reference(model, results, initial_validity, fixed_identity,
+                                     input_visual_residuals):
+    """Select a fail-closed current-run visual reference for invariant gauge recovery."""
+    accepted = results.get("visual_metric_aligned", {})
+    if "model" in accepted and "metrics" in accepted:
+        if not accepted.get("factor_count_verified"):
+            raise ValueError("Accepted visual BA lacks verified visual residual activation")
+        return pycolmap.Reconstruction(accepted["model"]), {
+            "source_role": ACCEPTED_VISUAL_BA_ROLE,
+            "factor_count_verified": True,
+            "solver": accepted["solver"],
+            "solver_receipt_role": "accepted_visual_BA_geometry_authority",
+            "visual_BA_geometry_authority": True,
+            "expected_visual_residuals": accepted["expected_visual_residuals"],
+        }
+    if accepted.get("status") != "failed_projection_validation" or "solver" not in accepted:
+        raise ValueError("Component metric recovery lacks an auditable visual BA outcome")
+    current_validity = projection_validity(model)
+    if (not initial_validity.get("valid") or not current_validity["valid"]
+            or current_validity != initial_validity):
+        raise ValueError("Component metric recovery requires a projection-valid aligned input reference")
+    if observation_identity(model) != fixed_identity:
+        raise ValueError("Component metric recovery input observation identity changed after verification")
+    expected_visual_residuals = 2 * len(fixed_identity)
+    if input_visual_residuals != expected_visual_residuals:
+        raise ValueError("Component metric recovery input visual factor count is inconsistent")
+    return pycolmap.Reconstruction(model), {
+        "source_role": VERIFIED_ALIGNED_INPUT_ROLE,
+        "factor_count_verified": True,
+        "solver": accepted["solver"],
+        "solver_receipt_role": "rejected_visual_BA_diagnostic_not_geometry_authority",
+        "visual_BA_geometry_authority": False,
+        "expected_visual_residuals": input_visual_residuals,
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--model", type=Path, required=True)
@@ -213,6 +253,19 @@ def main():
         "inliers_within_0_6_m": int(np.sum(np.asarray(aligned_error) <= .6)), "old_alignment_reused": False}))
     fixed_identity = observation_identity(model)
     intrinsics = {key: camera.params.copy() for key, camera in model.cameras.items()}
+    input_visual_residuals = int(common.ba_config(model).num_residuals(model))
+    if input_visual_residuals != 2 * len(fixed_identity):
+        raise ValueError("Aligned input visual factor count differs from its observation identity")
+    atomic_json(args.output/"VISUAL_GAUGE_REFERENCE.json", {
+        "status": "verified_aligned_current_run_visual_input",
+        "source_role": VERIFIED_ALIGNED_INPUT_ROLE,
+        "projection_validity": initial_validity,
+        "observation_identity_count": len(fixed_identity),
+        "expected_visual_residuals": input_visual_residuals,
+        "visual_factor_count_verified": True,
+        "metric_BA_result_claimed": False,
+        "eligible_only_for_fail_closed_invariant_component_gauge": True,
+    })
     results = {}
     for label in ["visual_metric_aligned", "weak_position_prior"]:
         local = pycolmap.Reconstruction(model)
@@ -269,6 +322,7 @@ def main():
         physical_residuals = 0
         observations_rebuilt = False
         observations_partitioned = False
+        component_reference = None
         result_label = label
         if recovery and label == "weak_position_prior":
             radius = recovery.maximum_camera_radius(local)
@@ -286,24 +340,22 @@ def main():
                     "factor_count_verified": activated, "model_role": "unaccepted_diagnostic_do_not_train"}
                 atomic_json(folder/"ORIGINAL_CANDIDATE_FAILURE.json", common.serializable(original_failure))
                 if recovery_kind == "visual_track_component_metric_gauge":
-                    reference = results.get("visual_metric_aligned", {})
-                    if "model" not in reference or "metrics" not in reference:
-                        raise ValueError("Component metric recovery requires the verified visual BA reference")
-                    visual_reference = pycolmap.Reconstruction(reference["model"])
+                    visual_reference, component_reference = select_component_gauge_reference(
+                        model, results, initial_validity, fixed_identity, input_visual_residuals)
                     local, recovery_result = recovery.recover_metric_geometry(
                         visual_reference, prior_rows, pose_gap_names,
                         folder/"offline_component_metric_alignment", common,
-                        sys.modules[__name__])
+                        sys.modules[__name__], source_role=component_reference["source_role"])
                     results["weak_position_prior"] = original_failure
                     result_label = "component_metric_aligned"
                     observations_partitioned = True
-                    solution = reference["solver"]
+                    solution = component_reference["solver"]
                     destination = Path(recovery_result["model"])
                     validity = projection_validity(local)
                     visual_residuals = recovery_result["expected_visual_residuals"]
                     provided_prior_count = recovery_result["supported_position_priors"]
                     prior_count = 0
-                    activated = reference["factor_count_verified"]
+                    activated = component_reference["factor_count_verified"]
                     if (not activated or not recovery_result["development_guard_passed"]
                             or recovery_result["maximum_reprojection_error_delta_px"] > 1e-6
                             or not recovery_result["retained_observation_identity_preserved"]
@@ -381,28 +433,39 @@ def main():
             "offline_component_metric_alignment": ({"protocol": recovery_result["protocol"],
                 "result": str(folder/"offline_component_metric_alignment/RESULT.json"),
                 "original_candidate_failure_preserved": True,
-                "source_visual_BA_remains_geometry_authority": True,
+                "source_visual_geometry_role": component_reference["source_role"],
+                "source_visual_BA_remains_geometry_authority": component_reference["visual_BA_geometry_authority"],
+                "verified_aligned_input_remains_geometry_authority": not component_reference["visual_BA_geometry_authority"],
+                "solver_receipt_role": component_reference["solver_receipt_role"],
                 "retained_camera_fraction": recovery_result["retained_camera_fraction"],
                 "removed_cross_component_points": recovery_result["removed_cross_component_points"],
                 "maximum_reprojection_error_delta_px": recovery_result["maximum_reprojection_error_delta_px"],
                 "development_guard_passed": recovery_result["development_guard_passed"]}
                 if recovery_result and observations_partitioned else None),
             "factor_count_verified": activated,
-            "factor_count_scope": ("source_visual_BA_before_invariant_component_gauge_partition"
+            "factor_count_scope": (("source_visual_BA_before_invariant_component_gauge_partition"
+                if component_reference["visual_BA_geometry_authority"]
+                else "verified_aligned_input_visual_factors_before_invariant_component_gauge_partition")
                 if observations_partitioned else "selected_model"),
             "common_observations_preserved": not observations_rebuilt and not observations_partitioned,
             "retained_observation_identity_preserved": (recovery_result["retained_observation_identity_preserved"]
                 if observations_partitioned else True),
             "observation_set_rebuilt_from_current_run_matches": observations_rebuilt,
-            "observation_set_partitioned_from_visual_BA": observations_partitioned,
+            "observation_set_partitioned_from_visual_BA": (observations_partitioned
+                and component_reference["visual_BA_geometry_authority"]),
+            "observation_set_partitioned_from_visual_reference": observations_partitioned,
             "new_observations_invented": (recovery_result["new_observations_invented"]
                 if observations_partitioned else False),
             "coarse_prior_consistency_m": metric_helpers.quantiles(errors),
             "elapsed_seconds": time.monotonic()-case_started, "model": str(destination)}
         atomic_json(folder/"RESULT.json", common.serializable(results[result_label]))
-    if any(case.get("status") == "failed_projection_validation" for case in results.values()):
+    projection_failures = [label for label, case in results.items()
+        if case.get("status") == "failed_projection_validation"]
+    component_recovery_succeeded = "metrics" in results.get("component_metric_aligned", {})
+    if projection_failures and not component_recovery_succeeded:
         failure = {"status": "failed_projection_validation", "results": results,
             "selected": None, "development_guard_passed": False, "counted": False,
+            "failed_projection_candidates": projection_failures,
             "no_observations_deleted_to_mask_failure": True, "elapsed_seconds": time.monotonic()-started}
         atomic_json(args.output/"RESULT.json", common.serializable(failure))
         atomic_json(args.output/"STATE.json", {"status": failure["status"], "selected": None})
@@ -436,6 +499,7 @@ def main():
         "common_observation_comparison_basis": comparison_basis,
         "development_guard_passed": development_guard_passed,
         "selected": selected, "metric_source": CURRENT_METRIC_SOURCE,
+        "failed_projection_candidates_preserved": projection_failures,
         "coarse_prior_provenance": provenance, "elapsed_seconds": time.monotonic()-started,
         "absolute_accuracy_claim": False, "counted": False,
         "fallback_boundary": fallback_boundary}))
