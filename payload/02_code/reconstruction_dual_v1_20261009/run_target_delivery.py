@@ -58,6 +58,8 @@ def main():
                 raise ValueError('A failed run is retained. Use a new root or an explicit recorded front-stage retry.')
             from manual_retry import archive_failed_front
             archive_failed_front(root, args.case, args.retry_front_stage, args.repair_note)
+            invalidated = {'front', 'shared', 'target_inputs', 'gaussian', 'pgsr', 'target_geometry', 'delivery'}
+            state['stages'] = [row for row in state.get('stages', []) if row['stage'] not in invalidated]
     else:
         root.mkdir(parents=True, exist_ok=False)
         atomic_json(root / 'CONFIG.json', config)

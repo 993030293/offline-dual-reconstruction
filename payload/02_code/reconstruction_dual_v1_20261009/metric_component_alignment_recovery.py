@@ -246,7 +246,7 @@ def recover_metric_geometry(
     checks,
     source_role="post_native_visual_BA_geometry",
 ):
-    """Return a metric component subset without changing retained reprojections."""
+    """Metric-gauge supported components while retaining every registered camera."""
     output = Path(output)
     output.mkdir(parents=True, exist_ok=False)
     started = time.monotonic()
@@ -343,6 +343,11 @@ def recover_metric_geometry(
             )
             row["component_index"] = component_index
             row["names_head"] = component_names[:10]
+            row["camera_registration_role"] = (
+                "metric_gauged_training_candidate"
+                if transform is not None
+                else "retained_nontraining_witness"
+            )
             component_rows.append(row)
             if transform is not None:
                 transforms[component_index] = transform
@@ -363,31 +368,27 @@ def recover_metric_geometry(
             if component_index not in retained_components:
                 excluded_component_points.add(point_id)
 
+        metric_gauged_names = {
+            names[index]
+            for component_index, component in enumerate(components)
+            if component_index in retained_components
+            for index in component
+        }
+        witness_names = set(source_registered) - metric_gauged_names
+
         phase = "isolating_and_transforming_components"
         checks.atomic_json(output / "STATE.json", {"status": "running", "phase": phase})
         model = pycolmap.Reconstruction(source)
         for point_id in sorted(cross_component_points | excluded_component_points):
             model.delete_point3D(point_id)
-        dropped_names = {
-            names[index]
-            for component_index, component in enumerate(components)
-            if component_index not in retained_components
-            for index in component
+        if set(_registered(model)) != set(source_registered):
+            raise ValueError("Component isolation changed the full registered camera denominator")
+        witness_observations = {
+            name: int(_registered(model)[name].num_points3D)
+            for name in sorted(witness_names)
         }
-        dropped_frames = {
-            image.frame_id
-            for image in model.images.values()
-            if image.has_pose and image.name in dropped_names
-        }
-        if any(
-            image.has_pose
-            and image.frame_id in dropped_frames
-            and image.name not in dropped_names
-            for image in model.images.values()
-        ):
-            raise ValueError("A rejected component shares a rig frame with a retained camera")
-        for frame_id in sorted(dropped_frames):
-            model.deregister_frame(frame_id)
+        if any(witness_observations.values()):
+            raise ValueError("A nontraining component witness retained a three-dimensional observation")
         retained_observation_identity = checks.observation_identity(model)
         before_errors, before_invalid = _reprojection_errors(model)
         for component_index in sorted(retained_components):
@@ -412,14 +413,23 @@ def recover_metric_geometry(
         maximum_reprojection_delta = float(
             np.max(np.abs(before_errors - after_errors))
         ) if before_errors.size else 0.0
-        retained_fraction = model.num_reg_images() / full_camera_count
-        radii = [
-            np.linalg.norm(image.projection_center())
-            for image in model.images.values()
-            if image.has_pose
-        ]
+        metric_gauged_fraction = len(metric_gauged_names) / full_camera_count
+        registered_after = _registered(model)
+        full_map_radii = {
+            name: np.linalg.norm(image.projection_center())
+            for name, image in registered_after.items()
+        }
+        metric_gauged_radii = [full_map_radii[name] for name in sorted(metric_gauged_names)]
+        witness_radii = [full_map_radii[name] for name in sorted(witness_names)]
         retained_registered = _registered(model)
         retained_prior_residuals = [
+            np.linalg.norm(
+                retained_registered[name].projection_center()
+                - rows_by_name[name]["C_W_m"]
+            )
+            for name in sorted(metric_gauged_names & set(rows_by_name))
+        ]
+        full_map_prior_residuals = [
             np.linalg.norm(
                 retained_registered[name].projection_center()
                 - rows_by_name[name]["C_W_m"]
@@ -430,12 +440,14 @@ def recover_metric_geometry(
             raise ValueError("Component metric alignment retained an invalid projection")
         if maximum_reprojection_delta > REPROJECTION_INVARIANCE_TOLERANCE_PX:
             raise ValueError("Component metric alignment changed retained reprojections")
-        if retained_fraction < camera_policy["minimum_retained_fraction_of_sim3_inliers"]:
-            raise ValueError("Component metric alignment fails full-map camera retention")
+        if metric_gauged_fraction < camera_policy["minimum_retained_fraction_of_sim3_inliers"]:
+            raise ValueError("Component metric alignment fails the training-camera retention bound")
+        if model.num_reg_images() != full_camera_count:
+            raise ValueError("Component metric alignment lost a registered full-map camera")
         if model.num_points3D() < point_policy["minimum_retained_sparse_points"]:
             raise ValueError("Component metric alignment leaves too few sparse points")
-        if max(radii) > point_policy["maximum_camera_radius_m"]:
-            raise ValueError("Component metric alignment exceeds the camera radius guard")
+        if max(metric_gauged_radii) > point_policy["maximum_camera_radius_m"]:
+            raise ValueError("A metric-gauged training candidate exceeds the camera radius guard")
         if checks.observation_identity(source) != source_observation_identity:
             raise ValueError("Component metric alignment changed its source observations")
         if not _source_geometry_matches(source, source_poses, source_points):
@@ -471,13 +483,20 @@ def recover_metric_geometry(
             "retained_component_indices": sorted(retained_components),
             "source_registered_cameras": full_camera_count,
             "retained_registered_cameras": model.num_reg_images(),
-            "retained_camera_fraction": retained_fraction,
-            "dropped_camera_names": sorted(dropped_names),
+            "metric_gauged_registered_cameras": len(metric_gauged_names),
+            "retained_camera_fraction": metric_gauged_fraction,
+            "output_registered_camera_fraction": model.num_reg_images() / full_camera_count,
+            "dropped_camera_names": [],
+            "metric_gauge_excluded_camera_names": sorted(witness_names),
+            "nontraining_witness_camera_names": sorted(witness_names),
+            "nontraining_witness_observations": witness_observations,
+            "full_registered_denominator_preserved": True,
             "supported_position_priors": len(prior_rows),
             "retained_position_priors": len(retained_prior_residuals),
             "position_prior_BA_factors": 0,
             "position_prior_factor_count_claimed": False,
             "coarse_prior_consistency_m": _quantiles(retained_prior_residuals),
+            "full_map_coarse_prior_consistency_m": _quantiles(full_map_prior_residuals),
             "removed_cross_component_points": len(cross_component_points),
             "removed_excluded_component_points": len(excluded_component_points),
             "retained_points": model.num_points3D(),
@@ -494,7 +513,16 @@ def recover_metric_geometry(
             ),
             "new_observations_invented": False,
             "invalid_projection_count": after_invalid,
-            "camera_radius_m": _quantiles(radii),
+            "camera_radius_m": _quantiles(metric_gauged_radii),
+            "full_map_camera_radius_m": _quantiles(full_map_radii.values()),
+            "nontraining_witness_camera_radius_m": (
+                _quantiles(witness_radii) if witness_radii else None
+            ),
+            "camera_radius_guard_scope": "metric_gauged_training_candidates_only",
+            "nontraining_witnesses_may_exceed_training_extent": bool(
+                witness_radii
+                and max(witness_radii) > point_policy["maximum_camera_radius_m"]
+            ),
             "development_guard_passed": True,
             "source_visual_geometry_authority": source_role,
             "source_visual_BA_required_and_retained_as_authority": (

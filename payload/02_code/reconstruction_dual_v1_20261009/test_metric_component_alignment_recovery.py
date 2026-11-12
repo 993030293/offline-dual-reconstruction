@@ -174,6 +174,49 @@ class ComponentRecoveryTest(unittest.TestCase):
                 )
             self.assertTrue((Path(directory) / "rejected" / "FAILURE.json").is_file())
 
+    def test_weak_component_camera_is_retained_as_nontraining_witness(self):
+        model = fixture()
+        witness = max(model.images.values(), key=lambda image: image.image_id)
+        for index in reversed(range(len(witness.points2D))):
+            if witness.points2D[index].has_point3D():
+                model.delete_observation(witness.image_id, index)
+        rotation = witness.cam_from_world().rotation.matrix()
+        far_center = np.array([200.0, 0.0, 0.0])
+        witness.frame.set_cam_from_world(
+            witness.camera_id,
+            pycolmap.Rigid3d(
+                pycolmap.Rotation3d(rotation), -rotation @ far_center
+            ),
+        )
+        rows = [
+            {
+                "image_id": image.image_id,
+                "image_name": image.name,
+                "C_W_m": image.projection_center(),
+            }
+            for image in model.images.values()
+        ]
+        with tempfile.TemporaryDirectory() as directory, patch.object(
+            recovery, "_load_policy", return_value=test_policy()
+        ):
+            recovered, result = recovery.recover_metric_geometry(
+                model,
+                rows,
+                [],
+                Path(directory) / "witness",
+                HELPERS,
+                CHECKS,
+            )
+            self.assertEqual(recovered.num_reg_images(), model.num_reg_images())
+            self.assertEqual(result["retained_registered_cameras"], 40)
+            self.assertEqual(result["metric_gauged_registered_cameras"], 39)
+            self.assertEqual(result["dropped_camera_names"], [])
+            self.assertEqual(result["metric_gauge_excluded_camera_names"], [witness.name])
+            self.assertEqual(result["nontraining_witness_observations"][witness.name], 0)
+            self.assertGreater(result["full_map_camera_radius_m"]["maximum"], 100.0)
+            self.assertLess(result["camera_radius_m"]["maximum"], 100.0)
+            self.assertTrue(result["full_registered_denominator_preserved"])
+
     def test_verified_aligned_input_role_is_recorded_without_claiming_visual_ba(self):
         model = fixture()
         rows = [

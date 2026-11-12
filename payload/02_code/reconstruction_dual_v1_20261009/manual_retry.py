@@ -12,6 +12,7 @@ ORDER = ('preflight', 'raw_times', 'front', 'shared', 'target_inputs', 'gaussian
          'pgsr', 'target_geometry', 'delivery')
 FRONT = ('initial', 'sfm', 'recovery', 'temporal', 'pose_gap', 'metric',
          'metric_sim3_renderer_recovery', 'roles', 'export')
+DOWNSTREAM_FRONT_RETRY = ('metric', 'roles', 'export')
 
 
 def require_stopped(receipt):
@@ -29,21 +30,45 @@ def archive_failed_front(root, case, leaf, note):
     outer = root / 'stages/front'
     side = root / case / 'optimized'
     native = side / (leaf + '_process.json')
-    if (not state['status'].startswith('failed') or state['current_stage'] != 'front'
+    boundary = state.get('current_stage')
+    if (not state['status'].startswith('failed') or boundary not in ('front', 'shared')
             or leaf not in FRONT or not note):
         raise ValueError('Manual front retry requires the recorded failed boundary and a repair note')
-    if (outer / 'COMPLETED.json').exists() or not read_json(outer / 'PROCESS.json')['status'].startswith('failed'):
-        raise ValueError('Only an explicitly unfinished front stage can be archived')
-    if not read_json(native)['status'].startswith('failed'):
-        raise ValueError('The requested native front leaf did not fail')
-    for label in ORDER[ORDER.index('front') + 1:]:
+    if boundary == 'front':
+        if ((outer / 'COMPLETED.json').exists()
+                or not read_json(outer / 'PROCESS.json')['status'].startswith('failed')):
+            raise ValueError('Only an explicitly unfinished front stage can be archived')
+        if not read_json(native)['status'].startswith('failed'):
+            raise ValueError('The requested native front leaf did not fail')
+        outer_paths = [outer]
+    else:
+        failed_outer = root / 'stages' / boundary
+        if (leaf not in DOWNSTREAM_FRONT_RETRY or not (outer / 'COMPLETED.json').is_file()
+                or (failed_outer / 'COMPLETED.json').exists()
+                or not read_json(failed_outer / 'PROCESS.json')['status'].startswith('failed')):
+            raise ValueError('Downstream repair requires a completed front and an explicit failed shared boundary')
+        if read_json(native)['status'] != 'completed':
+            raise ValueError('A downstream front repair requires the requested leaf to have completed')
+        outer_paths = [outer, failed_outer, root / 'shared']
+    for label in ORDER[ORDER.index(boundary) + 1:]:
         if (root / 'stages' / label / 'COMPLETED.json').is_file():
             raise ValueError('A downstream completed stage prevents upstream retry')
-    require_stopped(outer / 'PROCESS.json')
+    for path in outer_paths:
+        process = path / 'PROCESS.json' if path.name != 'shared' or path.parent.name == 'stages' else None
+        if process and process.is_file():
+            require_stopped(process)
     require_stopped(native)
     archive = root / 'failures' / ('front_' + leaf + '_' + str(time.time_ns()))
     archive.resolve().relative_to(root)
-    paths = [outer, native, side / (leaf + '.log'), side / (leaf + '_wrapper.json'), side / leaf]
+    paths = list(outer_paths)
+    invalidated_front_leafs = []
+    for label in FRONT[FRONT.index(leaf):]:
+        stage_paths = [side / (label + '_process.json'), side / (label + '.log'),
+            side / (label + '_wrapper.json'), side / label]
+        if any(path.exists() for path in stage_paths):
+            invalidated_front_leafs.append(label)
+        paths.extend(stage_paths)
+    paths = list(dict.fromkeys(paths))
     for path in paths:
         path.resolve().relative_to(root)
     archive.mkdir(parents=True, exist_ok=False)
@@ -63,6 +88,8 @@ def archive_failed_front(root, case, leaf, note):
             moved.append({'original': str(path), 'retained': str(destination)})
     atomic_json(archive / 'RETRY.json', {'status': 'explicit_assistant_or_operator_retry',
         'repair_note': note, 'algorithm_autonomous_recovery': False,
+        'outer_failure_boundary': boundary,
+        'invalidated_front_leafs': invalidated_front_leafs,
         'successful_upstream_same_raw_run_reused': True, 'moved_failed_evidence': moved,
         'single_unassisted_cold_start_claim_allowed': False})
     return archive

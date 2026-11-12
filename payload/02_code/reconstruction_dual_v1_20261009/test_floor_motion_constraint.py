@@ -123,7 +123,7 @@ class MeasuredPlaneTests(unittest.TestCase):
         np.testing.assert_allclose(dense_world, coarse_world, atol=1e-14, rtol=0)
 
     def test_legacy_unconstrained_icp_is_equal_to_retained_original(self):
-        backup = Path(__file__).resolve().parents[2] / '04_outputs/dual_four_cold_stability_v1_20261010/floor_repair_original_sources_a0014/lio_local_map.py'
+        backup = Path(__file__).with_name('fixtures') / 'lio_local_map_pre_floor_constraint.py'
         spec = importlib.util.spec_from_file_location('original_floor_repair_native', backup)
         original = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(original)

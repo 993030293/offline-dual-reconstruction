@@ -5,11 +5,61 @@ import inspect
 import linecache
 from pathlib import Path
 
+import numpy as np
+
 from atomic_json_windows import atomic_json
 from destination_camera_admission import finalize_working_subset
 
 AFTER = '''        support_after = {im.name: camera_geometry_metrics(model, im, policy["camera_geometry_admission"])
                          for im in model.images.values() if im.has_pose}'''
+
+EXTENT = '''        centers = np.asarray([im.projection_center() for im in model.images.values() if im.has_pose])
+        pp = policy["point_filter"]
+        if not np.isfinite(centers).all() or np.linalg.norm(centers, axis=1).max() > pp["maximum_camera_radius_m"]:
+            raise ValueError("The metric camera extent is invalid")
+        lo, hi = centers.min(0)-pp["camera_aabb_margin_m"], centers.max(0)+pp["camera_aabb_margin_m"]'''
+
+
+def training_candidate_extent(model, camera_policy, point_policy, support_function, output):
+    """Apply metric extent only after the unchanged geometry-support partition."""
+    registered = {image.name: image for image in model.images.values() if image.has_pose}
+    supports = {
+        name: support_function(model, image, camera_policy)
+        for name, image in registered.items()
+    }
+    candidates = {name for name, row in supports.items() if row['passed']}
+    witnesses = set(registered) - candidates
+    minimum_fraction = camera_policy['minimum_retained_fraction_of_sim3_inliers']
+    if (len(candidates) < camera_policy['minimum_retained_cameras']
+            or len(candidates) / len(registered) < minimum_fraction):
+        raise ValueError('The unchanged geometry support leaves too few training candidates')
+    candidate_centers = np.asarray([
+        registered[name].projection_center() for name in sorted(candidates)
+    ])
+    candidate_radii = np.linalg.norm(candidate_centers, axis=1)
+    full_radii = {
+        name: float(np.linalg.norm(image.projection_center()))
+        for name, image in registered.items()
+    }
+    if (not np.isfinite(candidate_centers).all()
+            or not np.isfinite(candidate_radii).all()
+            or candidate_radii.max() > point_policy['maximum_camera_radius_m']):
+        raise ValueError('A geometry-supported training candidate has an invalid metric extent')
+    atomic_json(Path(output) / 'PRE_FILTER_TRAINING_EXTENT.json', {
+        'status': 'training_candidate_extent_verified',
+        'full_registered_denominator': len(registered),
+        'training_support_candidate_count': len(candidates),
+        'training_support_candidate_fraction': len(candidates) / len(registered),
+        'nontraining_witness_names': sorted(witnesses),
+        'full_map_maximum_camera_radius_m': max(full_radii.values()),
+        'training_candidate_maximum_camera_radius_m': float(candidate_radii.max()),
+        'maximum_camera_radius_m': point_policy['maximum_camera_radius_m'],
+        'minimum_retained_fraction': minimum_fraction,
+        'thresholds_unchanged': True,
+        'full_map_camera_registrations_preserved': True,
+        'nontraining_witnesses_not_used_for_training_AABB': True,
+    })
+    return candidate_centers
 
 
 def stabilize(model, point_policy, camera_policy, lo, hi, filter_points, support_function, full_count, output):
@@ -78,6 +128,13 @@ def adapt(module):
         removed_after.extend(_joint_removed)
 '''
     modified = source.replace(AFTER, AFTER + addition)
+    if modified.count(EXTENT) != 1:
+        raise ValueError('The original full-map metric extent boundary changed')
+    extent_replacement = '''        pp = policy["point_filter"]
+        centers = _training_candidate_extent(model, policy["camera_geometry_admission"],
+            pp, camera_geometry_metrics, args.output)
+        lo, hi = centers.min(0)-pp["camera_aabb_margin_m"], centers.max(0)+pp["camera_aabb_margin_m"]'''
+    modified = modified.replace(EXTENT, extent_replacement)
     destination_anchor = '        pose_error, point_error = 0., 0.'
     if modified.count(destination_anchor) != 1:
         raise ValueError('The original delivered-image coordinate boundary changed')
@@ -96,6 +153,7 @@ def adapt(module):
     namespace = dict(original.__globals__)
     namespace['_joint_stabilize'] = stabilize
     namespace['_destination_finalize'] = finalize_working_subset
+    namespace['_training_candidate_extent'] = training_candidate_extent
     exec(compile(modified, source_name, 'exec'), namespace)
     module.main = namespace['main']
     return original
