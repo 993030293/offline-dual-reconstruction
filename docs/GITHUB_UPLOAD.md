@@ -37,7 +37,7 @@ git push -u origin main
 
 ## 上传后复核
 
-1. 在一个新目录重新克隆远端仓库。
+1. 在 Windows 的短目标目录重新克隆远端仓库。完整源码树含深层参考路径，默认配置可能报 `Filename too long`；使用 `git -c core.longpaths=true clone https://github.com/993030293/offline-dual-reconstruction.git D:\offline-dual`，不需要修改全局 Git 配置。
 2. 运行 `python tools/verify_publication.py --root .`。
 3. 确认 GitHub Actions 的 `source-integrity` 通过。
 4. 核对 `payload/02_code`、PGSR 补丁、三份第三方许可和两个 provenance 清单均存在。

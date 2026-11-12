@@ -8,7 +8,7 @@
   "manifest_self_excluded": true,
   "generated_verify_result_excluded": true,
   "file_count": 1673,
-  "total_bytes": 16280969,
+  "total_bytes": 16283015,
   "files": [
     {
       "path": ".gitattributes",
@@ -27,13 +27,13 @@
     },
     {
       "path": "CHANGELOG.md",
-      "bytes": 6916,
-      "sha256": "7e461f67a6c16b5204b70755ad4ab18f91ef3e0cd95c354b4afd59e9768c47d0"
+      "bytes": 7011,
+      "sha256": "91b4c96a49ed9d44c01c577346e6f49f8f15f63438b788c47a43232e356d0992"
     },
     {
       "path": "README.md",
-      "bytes": 6212,
-      "sha256": "6cffef4aa4b86a3cf3d750aa1b1e69445ec4a06a61ee4f4a6fb156e2e9e62fe2"
+      "bytes": 6679,
+      "sha256": "3ae67fc97088fc509fce7ec93e2207e8bcebd921718f3ca44d1aabec6ef1e58d"
     },
     {
       "path": "THIRD_PARTY.md",
@@ -47,13 +47,13 @@
     },
     {
       "path": "docs/GITHUB_UPLOAD.md",
-      "bytes": 2256,
-      "sha256": "088f4227f9a841fbdb3c1977dcd8c676c7830f195c7445ff751e210ef1489465"
+      "bytes": 2507,
+      "sha256": "983c0af626f3107d083e7946e65e01150af3e3c43a1def74bcbafbe0f15c5438"
     },
     {
       "path": "docs/PACKAGING_FAILURE_LEDGER.md",
-      "bytes": 9194,
-      "sha256": "b5189122e6e4c8129575ca94ca513a8dfc001ed44c4448a8fcc6a4c2d7b43e19"
+      "bytes": 9834,
+      "sha256": "31ce17f72dc6f317d83288e37d1a35cfa5a752bd1349f12648bccbba547804a2"
     },
     {
       "path": "docs/PUBLICATION_BOUNDARY.md",
@@ -62,13 +62,13 @@
     },
     {
       "path": "docs/REPRODUCIBILITY.md",
-      "bytes": 3108,
-      "sha256": "f46407b9ab1c5af642d2aa40d006401e20b38e4ac1e194c8e8d129aeb71b2947"
+      "bytes": 3486,
+      "sha256": "d9821602afe824a98f442cd9fe40fa6d807ed14c569f3a95fd48adf23a4602fd"
     },
     {
       "path": "docs/VALIDATION_STATUS.md",
-      "bytes": 10796,
-      "sha256": "9e1dbb1bc82295b83273817d49c0e823bcced39a6bff2d4fe5ed33d323c69d53"
+      "bytes": 11011,
+      "sha256": "78b970b51262688c7df92b11608dd979ba981c661b4cec9c9a5f9d671164994d"
     },
     {
       "path": "docs/accepted_package/BIND_RUNTIME.ps1",

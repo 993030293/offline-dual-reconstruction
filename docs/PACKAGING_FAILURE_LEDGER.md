@@ -19,6 +19,7 @@
 | 13 | 审计回归的首次定向调用 | 从错误工作目录启动测试，因找不到 `native_packing` 模块而停止 | 测试模块依赖正式源码目录在导入路径中，调用位置错误 | 失败调用不计作测试结论；从正式源码目录使用包内离线 Python 重跑，随后完整套件 442/442 通过 | 无；属于验收调用错误 |
 | 14 | 完成运行的报告刷新 | 第一次脚本从 `common` 导入并不存在的 `data_identity`；另一次从源码子目录拼接相对 Python 路径，解释器未启动 | 把另一个运行库的帮助函数误认为 `common` 接口，并错误假设命令工作目录在仓库根 | 两次失败都未修改模型或几何；使用明确的包内 Python 绝对路径和局部只读身份函数重跑，只更新 `RUN_REPORT.md`、`EXCEPTION_LEDGER.json` 并生成报告刷新回执 | 无；模型、训练和几何产物未重跑 |
 | 15 | 更新后源码清单首次重建 | 生成器按设计报告 `Candidate source tree does not match the declared accepted-base delta` | `BASELINE_DELTA.json` 仍是旧候选的允许集合，尚未声明 RA-024 至 RA-030 的新源码和预览运行时文件 | 失败诊断写入 `SOURCE_COPY_MAP.json`；据此逐文件更新为 23 个修改和 31 个新增，再次生成后状态为 `accepted_base_plus_declared_delta`，私有发布验证通过 | 无；失败即停保护阻止了未声明源码被静默发布 |
+| 16 | GitHub 远端干净克隆 | 默认 Windows 浅克隆下载对象后，在深层参考源码文件上报 `Filename too long`，工作树未完整检出 | 完整算法溯源树的相对路径叠加较长目标目录超过 Windows 默认 Git 检出限制 | 原失败目录保留；不修改全局 Git 配置，改用短目标目录和命令级 `git -c core.longpaths=true clone`。远端提交完整检出、工作树干净，私有发布验证再次通过 | 不影响已上传对象或算法内容；构成明确的 Windows 克隆前置条件 |
 
 ## 本轮视频算法运行失败索引
 
@@ -43,4 +44,4 @@
 
 公开仓库模式仍被机器专属绝对路径和项目许可未决主动阻断。这是发布边界，不应被描述为算法失败。
 
-当前候选已在一份原始录制上经辅助修复和阶段续跑得到双输出及双预览；这证明的不是“一次无人干预通过”。当前口径为辅助完成 1/4、严格无人干预 0/4。视频算法异常及质量边界见 `docs/VALIDATION_STATUS.md`。更新后的 `BASELINE_DELTA.json`、`SOURCE_COPY_MAP.json` 和 `PUBLICATION_MANIFEST.json` 已重新生成，私有发布验证通过；公开模式仍因机器路径和许可边界不应通过。
+当前候选已在一份原始录制上经辅助修复和阶段续跑得到双输出及双预览；这证明的不是“一次无人干预通过”。当前口径为辅助完成 1/4、严格无人干预 0/4。视频算法异常及质量边界见 `docs/VALIDATION_STATUS.md`。更新后的 `BASELINE_DELTA.json`、`SOURCE_COPY_MAP.json` 和 `PUBLICATION_MANIFEST.json` 已重新生成，私有发布验证通过；远端也已使用短路径和命令级长路径选项重新克隆并通过同一验证。公开模式仍因机器路径和许可边界不应通过。

@@ -16,7 +16,7 @@
 
 ## 新机器复现顺序
 
-1. 克隆本仓库并运行 `python tools/verify_publication.py --root .`。
+1. 克隆本仓库并运行 `python tools/verify_publication.py --root .`。Windows 下使用短目标目录和命令级长路径选项，例如 `git -c core.longpaths=true clone https://github.com/993030293/offline-dual-reconstruction.git D:\offline-dual`；默认配置已实际复现 `Filename too long`，不应要求用户修改全局 Git 设置。
 2. 按固定提交分别准备 3DGS、gsplat 和 PGSR；在干净 PGSR 基线上应用补丁并再次检查工作树差异。
 3. 建立隔离的 Windows SfM、Windows 几何和 WSL PGSR 环境；不要把环境目录提交到仓库。
 4. 将机器专属路径写入本地配置；本地配置必须被 `.gitignore` 排除。预览运行时可以在 `payload/02_code/reconstruction_dual_v1_20261009/OFFLINE_RUNTIME.local.json` 中配置 `node` 和 `playwright_package`，或同时设置 `RECON_NODE_EXECUTABLE` 与 `RECON_PLAYWRIGHT_PACKAGE`。Playwright 版本必须与已安装的离线浏览器修订匹配；不允许在运行时下载浏览器。
@@ -37,6 +37,6 @@
 
 ## 失败边界
 
-配置完成、源码编译、进程启动或文件存在都不等于跨机器复现成功。任何缺失依赖、标定不匹配、数值门失败、网络访问、输出目录污染或未知异常，都应明确失败并保留证据。
+配置完成、源码编译、进程启动或文件存在都不等于跨机器复现成功。任何缺失依赖、标定不匹配、数值门失败、网络访问、输出目录污染或未知异常，都应明确失败并保留证据。命令级 `core.longpaths=true` 只解决 Windows 检出限制，不证明算法跨机器可运行。
 
 截至 2026-11-12，当前候选已通过本机完整测试套件和一次完整离线依赖预检，并在一份原始 `c0_july` 录制上经辅助修复与阶段续跑生成新的 3DGS、PGSR、点云/网格和双预览。该运行包含 5 次人工/开发助手介入、6 份原生失败记录和 6 次控制器尝试，因此当前口径是辅助完成 1/4、严格无人干预 0/4。复现者应先阅读 `docs/VALIDATION_STATUS.md`，不能把本轮辅助完成或历史参考包的成功当成当前提交的四录制稳定性证据。

@@ -67,6 +67,12 @@ python .\tools\verify_publication.py --root .
 
 该检查验证的是发布内容和源码身份，不会启动训练，也不能替代四视频端到端重跑。新的机器环境请按 [运行时复现清单](docs/REPRODUCIBILITY.md) 准备。
 
+Windows 下完整源码树含深层参考路径。默认 Git 配置可能在检出阶段报 `Filename too long`；无需修改系统全局设置，使用短目标目录和仅对本次命令生效的长路径选项：
+
+```powershell
+git -c core.longpaths=true clone https://github.com/993030293/offline-dual-reconstruction.git D:\offline-dual
+```
+
 ## 完整运行的预期输出
 
 端到端验收通过后，每份录制应同时得到：
@@ -82,6 +88,6 @@ python .\tools\verify_publication.py --root .
 
 ## 数据、环境与许可
 
-仓库不包含私有 MCAP、抽帧图像、相机数据库、模型权重、PLY、网格、Python/WSL/CUDA 环境或浏览器缓存。运行环境必须在本地显式绑定，禁止运行时下载。
+仓库不包含私有 MCAP、抽帧图像、相机数据库、模型权重、PLY、网格、Python/WSL/CUDA 环境或浏览器缓存。运行环境必须在本地显式绑定，禁止运行时下载。Windows 克隆还需要短目标目录和命令级 `core.longpaths=true`；这只影响源码检出，不改变算法。
 
 项目原创代码尚未选择统一开源许可；INRIA 3DGS 和 PGSR 还包含研究或非商业限制。因此当前仅适合私有协作，不能因为仓库可克隆就推断为允许公开再分发或商业使用。详见 [发布边界](docs/PUBLICATION_BOUNDARY.md) 和 [第三方说明](THIRD_PARTY.md)。
