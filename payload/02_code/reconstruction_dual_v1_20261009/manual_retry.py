@@ -111,6 +111,9 @@ def archive_failed_delivery_stage(root, stage, note):
     for label in ORDER[ORDER.index(stage) + 1:]:
         if (root / 'stages' / label / 'COMPLETED.json').is_file():
             raise ValueError('A downstream completed stage prevents delivery-stage retry')
+    if stage == 'delivery' and (root / 'PREVIEW_SERVER.json').is_file():
+        from start_viewer import stop_owned
+        stop_owned(root, read_json(root / 'PREVIEW_SERVER.json'))
     require_stopped(process)
     archive = root / 'failures' / (stage + '_' + str(time.time_ns()))
     archive.resolve().relative_to(root)
@@ -126,9 +129,6 @@ def archive_failed_delivery_stage(root, stage, note):
             root / 'PREVIEW_SERVER.json',
         ],
     }
-    if stage == 'delivery' and (root / 'PREVIEW_SERVER.json').is_file():
-        from start_viewer import stop_owned
-        stop_owned(root, read_json(root / 'PREVIEW_SERVER.json'))
     paths = [failed, *outputs[stage]]
     for path in paths:
         path.resolve().relative_to(root)

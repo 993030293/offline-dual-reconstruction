@@ -2,9 +2,14 @@
 
 import json
 from pathlib import Path
+import subprocess
+import sys
 import tempfile
 import unittest
 
+import psutil
+
+from common import HERE
 from manual_retry import archive_failed_delivery_stage, archive_failed_front
 
 
@@ -112,6 +117,44 @@ class ManualRetryTests(unittest.TestCase):
         receipt = json.loads((archive / "RETRY.json").read_text())
         self.assertEqual(receipt["outer_failure_boundary"], "delivery")
         self.assertFalse(receipt["single_unassisted_cold_start_claim_allowed"])
+
+    def test_delivery_retry_stops_owned_preview_before_process_drain_check(self):
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        root = Path(temporary.name)
+        viewer = root / "viewer"
+        viewer.mkdir(parents=True)
+        command = [sys.executable, "-c", "import time; time.sleep(60)",
+                   str(HERE / "serve_delivery.py"), str(viewer)]
+        preview = subprocess.Popen(command, creationflags=subprocess.CREATE_NO_WINDOW)
+        self.addCleanup(lambda: preview.poll() is None and preview.kill())
+        birth = psutil.Process(preview.pid).create_time()
+        write(root / "STATE.json", {
+            "status": "failed_delivery",
+            "current_stage": "delivery",
+            "stages": [{"stage": "target_geometry"}],
+        })
+        write(root / "stages/target_geometry/COMPLETED.json", {"status": "completed"})
+        write(root / "stages/delivery/PROCESS.json", {
+            "status": "failed_child",
+            "owned_process_identities": [{"pid": preview.pid, "creation_time": birth}],
+        })
+        write(root / "PREVIEW_SERVER.json", {
+            "pid": preview.pid,
+            "birth": birth,
+            "command": command,
+            "url": "http://127.0.0.1:1/",
+            "run_root": str(root),
+        })
+
+        archive = archive_failed_delivery_stage(
+            root, "delivery", "fixture stop-owned-preview repair"
+        )
+
+        preview.wait(timeout=10)
+        self.assertIsNotNone(preview.returncode)
+        self.assertFalse((root / "PREVIEW_SERVER.json").exists())
+        self.assertTrue((archive / "retained/PREVIEW_SERVER.json").is_file())
 
 
 if __name__ == "__main__":
