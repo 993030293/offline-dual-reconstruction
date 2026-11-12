@@ -8,7 +8,7 @@
   "manifest_self_excluded": true,
   "generated_verify_result_excluded": true,
   "file_count": 1682,
-  "total_bytes": 16354341,
+  "total_bytes": 16354671,
   "files": [
     {
       "path": ".gitattributes",
@@ -92,8 +92,8 @@
     },
     {
       "path": "docs/PACKAGING_FAILURE_LEDGER.md",
-      "bytes": 19310,
-      "sha256": "64e46ee299d5cf4ec62017ffdde29c7fba16be928230d1f0eadde3497be069b4"
+      "bytes": 19640,
+      "sha256": "236d3ba3b65e7cccf1a0c7820fa211c4eb5c50b9e7fc77b0ce59cdc61efa9433"
     },
     {
       "path": "docs/PUBLICATION_BOUNDARY.md",
