@@ -13,7 +13,7 @@ ORDER = ('preflight', 'raw_times', 'front', 'shared', 'target_inputs', 'gaussian
 FRONT = ('initial', 'sfm', 'recovery', 'temporal', 'pose_gap', 'metric',
          'metric_sim3_renderer_recovery', 'roles', 'export')
 DOWNSTREAM_FRONT_RETRY = ('metric', 'roles', 'export')
-DOWNSTREAM_DELIVERY_RETRY = ('target_inputs',)
+DOWNSTREAM_DELIVERY_RETRY = ('target_inputs', 'delivery')
 
 
 def require_stopped(receipt):
@@ -114,7 +114,22 @@ def archive_failed_delivery_stage(root, stage, note):
     require_stopped(process)
     archive = root / 'failures' / (stage + '_' + str(time.time_ns()))
     archive.resolve().relative_to(root)
-    paths = [failed, root / 'target']
+    outputs = {
+        'target_inputs': [root / 'target'],
+        'delivery': [
+            root / 'target/delivery',
+            root / 'target/browser_review',
+            root / 'target/DELIVERY_RESULT.json',
+            root / 'target/PRIOR_VIEWER_LANDING.html',
+            root / 'viewer',
+            root / 'native_packing',
+            root / 'PREVIEW_SERVER.json',
+        ],
+    }
+    if stage == 'delivery' and (root / 'PREVIEW_SERVER.json').is_file():
+        from start_viewer import stop_owned
+        stop_owned(root, read_json(root / 'PREVIEW_SERVER.json'))
+    paths = [failed, *outputs[stage]]
     for path in paths:
         path.resolve().relative_to(root)
     archive.mkdir(parents=True, exist_ok=False)

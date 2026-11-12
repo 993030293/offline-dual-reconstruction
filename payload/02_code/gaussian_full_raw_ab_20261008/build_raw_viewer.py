@@ -4,6 +4,7 @@ import argparse
 import html
 import json
 from pathlib import Path
+import re
 import shutil
 import sys
 
@@ -16,10 +17,45 @@ sys.path.insert(0, str(V1))
 from runtime import data_identity
 from atomic_json_windows import atomic_json, read_json
 
-SOURCE_ROOT = ROOT / "04_outputs/gaussian_pipeline_optimization_v2_20261005/viewer_execution_001/release"
+SOURCE_ROOT = Path(__file__).with_name("viewer_template_v1") / "release"
 SOURCE = SOURCE_ROOT / "baseline/cases/packed"
 CASES = {"box2": "8月20日 Box2", "box1": "8月20日 Box1", "c1": "8月18日绕箱", "c0_july": "7月原始绕箱"}
 MODES = {"baseline": "原生基准", "optimized": "优化模型"}
+
+
+def bind_packed_asset_budget(source):
+    """Retain or upgrade the packaged viewer's fixed asset budget."""
+    native = "const LIMIT = 64 * 1024 * 1024;"
+    packaged = "const LIMIT = 256 * 1024 * 1024;"
+    if source.count(native) == 1 and source.count(packaged) == 0:
+        return source.replace(native, packaged)
+    if source.count(native) == 0 and source.count(packaged) == 1:
+        return source
+    raise ValueError("The preserved packed asset budget anchor changed")
+
+
+def bind_viewer_page(page, title, camera_count, branch):
+    """Bind a packaged generic page to the current case and camera count."""
+    title_text = html.escape(title)
+    title_pattern = r"<title>.*?</title>"
+    heading_pattern = r"<h1>.*?</h1>"
+    if len(re.findall(title_pattern, page, flags=re.DOTALL)) != 1:
+        raise ValueError("The packaged viewer title boundary changed")
+    if len(re.findall(heading_pattern, page, flags=re.DOTALL)) != 1:
+        raise ValueError("The packaged viewer heading boundary changed")
+    page = re.sub(title_pattern, f"<title>{title_text} · 自由飞行预览</title>", page,
+        count=1, flags=re.DOTALL)
+    page = re.sub(heading_pattern, f"<h1>{title_text} · {camera_count} 帧</h1>", page,
+        count=1, flags=re.DOTALL)
+    start = page.index('<select id="case-select">')
+    end = page.index("</select>", start) + len("</select>")
+    options = "".join(
+        '<option value="' + case + "-" + mode + '"'
+        + (" selected" if case + "-" + mode == branch else "") + ">"
+        + html.escape(label + " · " + MODES[mode]) + "</option>"
+        for case, label in CASES.items() for mode in MODES
+    )
+    return page[:start] + '<select id="case-select">' + options + "</select>" + page[end:]
 
 
 def read(path):
@@ -108,10 +144,7 @@ def main():
         shutil.copyfile(SOURCE / name, folder / name)
     # The new diagnostic budget preserves all SH orders and Gaussian rows for larger fresh inputs.
     packed = (folder / "packed_splat_asset.js").read_text()
-    anchor = "const LIMIT = 64 * 1024 * 1024;"
-    if packed.count(anchor) != 1:
-        raise ValueError("The preserved packed asset budget anchor changed")
-    (folder / "packed_splat_asset.js").write_text(packed.replace(anchor, "const LIMIT = 256 * 1024 * 1024;"))
+    (folder / "packed_splat_asset.js").write_text(bind_packed_asset_budget(packed))
     admission = read(side / "export/TRAINING_ADMISSION.json")
     source_map = Path(admission["source_model"]).resolve()
     source_map.relative_to(side.resolve())
@@ -172,14 +205,14 @@ def main():
     page = page.replace("Box2 · 自由飞行三维预览", title+" · 自由飞行预览").replace("可自由移动的 Box2 高斯三维场景", "可自由移动的高斯三维场景")
     page = page.replace("新地图 · 优化组合 · 1,016 帧", title+" · "+str(admission["training_count"])+" 帧")
     page = page.replace("箱体范围", "自动聚焦范围").replace("箱顶和远离采集路径的位置", "遮挡处和远离采集路径的位置")
-    start = page.index('<select id="case-select">')
-    end = page.index("</select>", start)+len("</select>")
-    options = "".join('<option value="'+case+"-"+mode+'"'+(" selected" if case+"-"+mode == branch else "")+'>'
-                      +html.escape(label+" · "+MODES[mode])+"</option>" for case, label in CASES.items() for mode in MODES)
-    page = page[:start]+'<select id="case-select">'+options+'</select>'+page[end:]
+    page = bind_viewer_page(page, title, len(views), branch)
     (folder / "index.html").write_text(page, encoding="utf-8")
     code = (folder / "viewer.js").read_text(encoding="utf-8").replace("箱体范围", "自动聚焦范围")
-    code += '\nfetch("../../../available.json").then(reply => reply.json()).then(ready => { for (const option of document.getElementById("case-select").options) option.disabled = !ready.branches.includes(option.value); }).catch(showError);\n'
+    availability = 'fetch("../../../available.json").then(reply => reply.json()).then(ready => { for (const option of document.getElementById("case-select").options) option.disabled = !ready.branches.includes(option.value); }).catch(showError);'
+    if code.count(availability) == 0:
+        code += "\n" + availability + "\n"
+    elif code.count(availability) != 1:
+        raise ValueError("The packaged viewer availability binding is duplicated")
     (folder / "viewer.js").write_text(code, encoding="utf-8")
     shutil.copyfile(Path(__file__).with_name("viewer_validation.js"), folder / "viewer_validation.js")
     (folder / "index.html").write_text(page.replace('</body>', '<script type="module" src="./viewer_validation.js"></script></body>'), encoding="utf-8")

@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "status": "packaged_offline_viewer_template",
+  "source_run": "C:/lidar-camera-fusion-mask-robust-downsampling/04_outputs/final_four_offline_deliveries_v1_20261014/c0_july/viewer",
+  "source_branch": "c0_july-optimized",
+  "source_role": "previously accepted offline free-flight viewer code and vendor runtime",
+  "template_file_count": 16,
+  "geometry_payloads_copied": false,
+  "excluded_source_assets": [
+    "scene.ply",
+    "box.ply",
+    "scene.spk",
+    "box.spk",
+    "camera_path.json",
+    "display_manifest.json",
+    "render_filter.json"
+  ],
+  "license_files_included": [
+    "release/shared-build/vendor/SPARK-LICENSE.txt",
+    "release/shared-build/vendor/THREE-LICENSE.txt"
+  ],
+  "offline_runtime_only": true,
+  "language_model_or_network_dependency": false
+}

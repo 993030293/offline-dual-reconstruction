@@ -85,6 +85,34 @@ class ManualRetryTests(unittest.TestCase):
         self.assertEqual(receipt["outer_failure_boundary"], "target_inputs")
         self.assertFalse(receipt["single_unassisted_cold_start_claim_allowed"])
 
+    def test_delivery_failure_archives_only_partial_delivery_outputs(self):
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        root = Path(temporary.name)
+        write(root / "STATE.json", {
+            "status": "failed_delivery",
+            "current_stage": "delivery",
+            "stages": [{"stage": "target_geometry"}],
+        })
+        write(root / "stages/target_geometry/COMPLETED.json", {"status": "completed"})
+        write(root / "stages/delivery/PROCESS.json", process("failed_child"))
+        write(root / "target/RESULT.json", {"status": "target_geometry_complete"})
+        write(root / "target/delivery/gaussian_scene.ply")
+        write(root / "viewer/partial.txt")
+
+        archive = archive_failed_delivery_stage(
+            root, "delivery", "fixture packaged-viewer repair"
+        )
+
+        self.assertFalse((root / "stages/delivery").exists())
+        self.assertFalse((root / "target/delivery").exists())
+        self.assertFalse((root / "viewer").exists())
+        self.assertTrue((root / "target/RESULT.json").is_file())
+        self.assertTrue((root / "stages/target_geometry/COMPLETED.json").is_file())
+        receipt = json.loads((archive / "RETRY.json").read_text())
+        self.assertEqual(receipt["outer_failure_boundary"], "delivery")
+        self.assertFalse(receipt["single_unassisted_cold_start_claim_allowed"])
+
 
 if __name__ == "__main__":
     unittest.main()

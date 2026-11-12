@@ -20,7 +20,7 @@ def main():
     parser.add_argument('--repair-note')
     parser.add_argument('--retry-front-stage', choices=('initial', 'sfm', 'recovery', 'temporal', 'pose_gap',
         'metric', 'metric_sim3_renderer_recovery', 'roles', 'export'))
-    parser.add_argument('--retry-stage', choices=('target_inputs',))
+    parser.add_argument('--retry-stage', choices=('target_inputs', 'delivery'))
     parser.add_argument('--body-camera-calibration', type=Path,
         help='Explicit local camera_optical to base_link calibration when absent from raw TF')
     parser.add_argument('--stop-after', choices=('sensors', 'front', 'complete'), default='complete')
