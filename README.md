@@ -73,6 +73,36 @@ Windows 下完整源码树含深层参考路径。默认 Git 配置可能在检�
 git -c core.longpaths=true clone https://github.com/993030293/offline-dual-reconstruction.git D:\offline-dual
 ```
 
+## 当前本机完整运行入口
+
+仓库根目录现在提供当前候选的唯一完整入口 `RUN.ps1`。第一次使用时先绑定这台工作站已经安装的离线运行时，并执行真实预检：
+
+```powershell
+& .\BIND_RUNTIME.ps1
+& .\PREFLIGHT.ps1 -OutputRoot 'D:\offline_dual_preflight'
+```
+
+输出目录必须尚不存在。从原始 MCAP 完整运行：
+
+```powershell
+& .\RUN.ps1 `
+  -Raw 'E:\path\to\recording.mcap' `
+  -RunRoot 'D:\reconstruction_runs\object_001' `
+  -Case 'object_001'
+```
+
+如果 MCAP 的 `/tf_static` 没有连接 `camera_optical` 与 `base_link`，必须显式提供同一设备的相机—机体标定。当前 E26 设备标定可以这样传入；入口只读取 `T_base_link_camera_optical` 的七个数值，不读取该 JSON 中的历史轨迹或 SfM 路径：
+
+```powershell
+& .\RUN.ps1 `
+  -Raw 'E:\path\to\recording.mcap' `
+  -RunRoot 'D:\reconstruction_runs\object_002' `
+  -Case 'object_002' `
+  -BodyCameraCalibration '.\payload\02_code\e26_orbit_visual_mvs_v1_20260818\configs\e26_trajectory_binding_v1.json'
+```
+
+`SMOKE_SENSOR.ps1` 只运行到传感器阶段，用于有界冒烟；它不能替代完整双路重建验收。`docs/accepted_package/` 仍只是历史参考包快照，当前候选必须从仓库根目录入口运行。
+
 ## 完整运行的预期输出
 
 端到端验收通过后，每份录制应同时得到：
@@ -82,9 +112,10 @@ git -c core.longpaths=true clone https://github.com/993030293/offline-dual-recon
 - 从 PGSR 表面按面积采样的显示点云；
 - 两条线路共用的相机与尺度记录；
 - 原生异常账本和运行报告；
+- 根 `RUN.ps1` 的参数、退出码和成功/失败入口回执 `PACKAGE_ENTRY_RESULT.json`；
 - 可旋转、平移、缩放、自由飞行并回放采集路径的离线预览。
 
-当前提交已在 `c0_july` 的辅助续跑中得到这一终态：共享训练相机 1,198 张，3DGS 训练 12,000 次并输出 562,815 个高斯，PGSR 训练 15,000 次并输出 685,801 个参数高斯；最终表面网格含 261,260 个顶点和 520,250 个三角形，显示点云为 1,000,000 点。该结果不是一次无人干预冷启动，也没有独立 GT；另外三份录制仍待重跑。
+提交 `e0df16f` 已在 `c0_july` 的全新目录中以一次内部控制器尝试得到这一终态：共享训练相机 1,171 张，3DGS 训练 12,000 次并输出 566,889 个高斯，PGSR 训练 15,000 次并输出 709,596 个参数高斯；最终表面网格含 253,699 个顶点和 505,358 个三角形，显示点云为 1,000,000 点。该结果没有独立 GT，并且发生在当前根 `RUN.ps1` 加入之前，所以只算算法级冷启动成功；四份录制仍需从新提交的根入口重新验收。
 
 ## 数据、环境与许可
 

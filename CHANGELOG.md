@@ -1,5 +1,27 @@
 # Changelog
 
+## 2026-11-12 - Root production entry and Round 2 cold-run evidence
+
+### Completed
+
+- 提交 `e0df16f` 从原始 `c0_july` MCAP 以一次控制器尝试、无续跑、无运行时大模型或人工接管达到 `dual_target_outputs_complete`；
+- RA-031 联合视觉条件化阶段在新冷启动中以约 188.282 秒完成，随后 3DGS 12,000 次和 PGSR 15,000 次训练均完成；
+- 两分支共享 1,171 张训练图像；3DGS 输出 566,889 个高斯，PGSR 输出 709,596 个参数高斯，最终 M3 网格含 253,699 个顶点和 505,358 个三角形；
+- 两类页面完成实际目视与交互检查，点云俯视顶面存在，高斯无人机斜俯视可用；独立几何 GT 仍未验证。
+
+### Packaging fixes retained
+
+- 保留 C1 因错误内部启动命令遗漏显式相机—机体标定而失败的目录，不续跑、不计算法成功；
+- 仓库根目录增加当前 `RUN.ps1`、`BIND_RUNTIME.ps1`、`VERIFY_PACKAGE.ps1`、`PREFLIGHT.ps1`、`SMOKE_SENSOR.ps1` 和运行时绑定配置；
+- 本机运行时绑定/包验证回执不再被发布清单误收录，新增排除回归；
+- C1 传感器冒烟通过，显式标定只消费 `T_base_link_camera_optical` 数值子集，不消费同文件中的历史轨迹或 SfM 字段。
+
+### Boundary
+
+- `e0df16f` 的 `c0_july` 是算法级无人干预冷启动成功，但绕过了当时尚不存在的当前根生产入口；根入口正式完整验收仍为 0/4；
+- 新根入口修复必须提交后，使用四个新的空目录从根 `RUN.ps1` 顺序重跑，不能复用 Round 2 中间产物；
+- 不创建稳定标签或正式 Release，公开模式仍因机器路径和许可未决而失败。
+
 ## 2026-11-12 - Assisted raw-to-dual delivery candidate
 
 ### Completed

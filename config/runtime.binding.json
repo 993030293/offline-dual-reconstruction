@@ -1,0 +1,38 @@
+{
+  "schema": "offline_dual_runtime_binding_v1",
+  "supported_runtime_root": "C:/lidar-camera-fusion-mask-robust-downsampling",
+  "portable_relocation_verified": false,
+  "runtime_payload_included_in_archive": false,
+  "links": [
+    {
+      "relative": "05_envs/sfm_py311_v1",
+      "source": "05_envs/sfm_py311_v1"
+    },
+    {
+      "relative": "05_envs/colmap-4.1.1-cuda",
+      "source": "05_envs/colmap-4.1.1-cuda"
+    },
+    {
+      "relative": "05_envs/e26_rosbags_vendor_v1",
+      "source": "05_envs/e26_rosbags_vendor_v1"
+    },
+    {
+      "relative": "05_envs/e26_generic_side_bottom_v1",
+      "source": "05_envs/e26_generic_side_bottom_v1"
+    },
+    {
+      "relative": "04_outputs/box2_3dgs_display_v1_20260930",
+      "source": "04_outputs/box2_3dgs_display_v1_20260930"
+    },
+    {
+      "relative": "04_outputs/gaussian_pipeline_optimization_v1_20261005",
+      "source": "04_outputs/gaussian_pipeline_optimization_v1_20261005"
+    }
+  ],
+  "external_runtime": {
+    "wsl_distro": "E26-C2-LIV-20260907-134802",
+    "wsl_python": "/opt/e26_thin_surface_v1/venv/bin/python",
+    "pgsr_source": "/opt/e26_thin_surface_v1/pgsr",
+    "node_and_playwright": "Bound by payload/02_code/reconstruction_dual_v1_20261009/OFFLINE_RUNTIME.local.json"
+  }
+}

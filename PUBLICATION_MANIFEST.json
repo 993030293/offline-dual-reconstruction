@@ -7,8 +7,8 @@
   "candidate_algorithm_file_count": 1635,
   "manifest_self_excluded": true,
   "generated_verify_result_excluded": true,
-  "file_count": 1674,
-  "total_bytes": 16293243,
+  "file_count": 1680,
+  "total_bytes": 16315630,
   "files": [
     {
       "path": ".gitattributes",
@@ -26,19 +26,49 @@
       "sha256": "b31d2182c1e378e10fc3dc6e147dac7ff4e33a23bb6990e7c8c8ca290a6e3e38"
     },
     {
+      "path": "BIND_RUNTIME.ps1",
+      "bytes": 2476,
+      "sha256": "e7b009b3f35ff8179c2c2c2a05d3dc9ed4f8147ae433efd08240c4f753b61a7c"
+    },
+    {
       "path": "CHANGELOG.md",
-      "bytes": 7011,
-      "sha256": "91b4c96a49ed9d44c01c577346e6f49f8f15f63438b788c47a43232e356d0992"
+      "bytes": 8684,
+      "sha256": "5fca17f33c086155db77adfc342fef2304e3f623ba80ca328c96b7a1adab97e1"
+    },
+    {
+      "path": "PREFLIGHT.ps1",
+      "bytes": 847,
+      "sha256": "c52693b743f183ddc847083acc09b437362ce36cb726e8216d7abd83d806548a"
     },
     {
       "path": "README.md",
-      "bytes": 6876,
-      "sha256": "53cb2d081bd218fbc4fdbbcc7e48b7385d1ec53ab81a07681035768ca76ea7e0"
+      "bytes": 8372,
+      "sha256": "675536c835e0d588572c01986ca54847376af60d6619bfa977719bd2bdd0f170"
+    },
+    {
+      "path": "RUN.ps1",
+      "bytes": 3131,
+      "sha256": "0e9eaeeb1dfe44096d8c5a0ea5b930664d1dd5051085e09bda914a8054ca967d"
+    },
+    {
+      "path": "SMOKE_SENSOR.ps1",
+      "bytes": 1014,
+      "sha256": "43a0a5c732d79a65264f061dcca8bfdcc30f78ee72f7dfce78a8a00c5f917986"
     },
     {
       "path": "THIRD_PARTY.md",
       "bytes": 1703,
       "sha256": "c45fac08fa44c7cae7ddfeee7cf3b70fc1587b62a892472c8977ee28a8e2c58c"
+    },
+    {
+      "path": "VERIFY_PACKAGE.ps1",
+      "bytes": 2896,
+      "sha256": "35d9a7535edc288b9e60b383bbca8051760c017818da2e5f35bfd9fd3897ad18"
+    },
+    {
+      "path": "config/runtime.binding.json",
+      "bytes": 1265,
+      "sha256": "6fdef9278c4ac78184bcb8c3ecc43b4795cb0f4f3303b668027627138931c620"
     },
     {
       "path": "docs/ALGORITHM_COMPLETENESS.md",
@@ -47,8 +77,8 @@
     },
     {
       "path": "docs/FORMAL_ACCEPTANCE_ROUNDS.md",
-      "bytes": 3395,
-      "sha256": "a88047d11f2052fd83bc2a02f148d40549be4a91d261591a97a4ebda8a8e4452"
+      "bytes": 6531,
+      "sha256": "95d2ac13c84c1deb4037effa906e7eb60e2c9fc27597a03a22e2007f84e0963d"
     },
     {
       "path": "docs/GITHUB_UPLOAD.md",
@@ -57,8 +87,8 @@
     },
     {
       "path": "docs/PACKAGING_FAILURE_LEDGER.md",
-      "bytes": 10909,
-      "sha256": "a123297c9a4b2638b55b2ebf5c14281ddbde309c17ea70f2bbc6148c80f68b12"
+      "bytes": 12800,
+      "sha256": "c8c1b607924412e0ff68dccae6c551a4c1250457bc61cb68d57f0e935af4f52d"
     },
     {
       "path": "docs/PUBLICATION_BOUNDARY.md",
@@ -72,8 +102,8 @@
     },
     {
       "path": "docs/VALIDATION_STATUS.md",
-      "bytes": 13796,
-      "sha256": "8b6c55d0143f4f2a6eddc9a04bdccd94fde4c3fbb005e7be29584e247f40c67b"
+      "bytes": 15635,
+      "sha256": "41c08e6598492b8915ca04cda6858df111560e6d3fb46cc18847ebb5f1e60e11"
     },
     {
       "path": "docs/accepted_package/BIND_RUNTIME.ps1",
@@ -8362,13 +8392,13 @@
     },
     {
       "path": "tools/build_publication_manifest.py",
-      "bytes": 11782,
-      "sha256": "1f830c22208021d053aaad5e08a28c05054f5c4e54caa067dad8a080ff55f3ac"
+      "bytes": 11895,
+      "sha256": "f10ba055cb963ce34352c98c4ae1bd8d315ba9e60d55fcd0f920813250243ce2"
     },
     {
       "path": "tools/test_publication_local_exclusions.py",
-      "bytes": 2126,
-      "sha256": "0ce9dfa7c2fd060bace16d5f834d6ec5693d93a79ec383cf34a2765184156f3f"
+      "bytes": 2478,
+      "sha256": "dfdc8dfbae5379b6b0134370d5c50e048c4d6aaf2f4a41ec5a49e8ad86c3ac59"
     },
     {
       "path": "tools/verify_pgsr_patch.sh",
@@ -8377,8 +8407,8 @@
     },
     {
       "path": "tools/verify_publication.py",
-      "bytes": 11825,
-      "sha256": "250ff3c0f02cb83b04c81bc1793d7f29cca44ba233aecb93a1971c1ad37ee168"
+      "bytes": 12083,
+      "sha256": "495d8e4d39478826a3d982d69131ae96e2ea3573c73c13f57debb2aee079c7b2"
     }
   ]
 }

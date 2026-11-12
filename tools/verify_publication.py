@@ -21,6 +21,9 @@ LOCAL_ONLY_NAMES = {
     "local_runtime.json",
     "INSTALL_RECEIPT.json",
     "INSTALL_VERIFY.json",
+    "PACKAGE_VERIFY_RESULT.json",
+    "PUBLICATION_PUBLIC_GATE_RESULT.json",
+    "RUNTIME_BINDING_RECEIPT.json",
 }
 BANNED_SUFFIXES = {
     ".bag",
@@ -54,9 +57,15 @@ ALLOWED_NATIVE_RUNTIME_FILES = {
     "payload/04_outputs/gaussian_pipeline_optimization_v3_20261005/vector_gray_stats_001/b0/native_vector_gray_stats.dll",
 }
 REQUIRED_FILES = {
+    "BIND_RUNTIME.ps1",
     "CHANGELOG.md",
+    "PREFLIGHT.ps1",
     "README.md",
+    "RUN.ps1",
+    "SMOKE_SENSOR.ps1",
     "THIRD_PARTY.md",
+    "VERIFY_PACKAGE.ps1",
+    "config/runtime.binding.json",
     "docs/ALGORITHM_COMPLETENESS.md",
     "docs/REPRODUCIBILITY.md",
     "docs/VALIDATION_STATUS.md",

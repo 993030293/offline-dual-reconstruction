@@ -35,6 +35,15 @@ class LocalExclusionTests(unittest.TestCase):
         self.assertTrue(BUILD.is_local_only_path(relative))
         self.assertTrue(VERIFY.is_local_only_path(relative))
 
+    def test_generated_local_receipts_are_local_only(self):
+        for name in (
+            "PACKAGE_VERIFY_RESULT.json",
+            "PUBLICATION_PUBLIC_GATE_RESULT.json",
+            "RUNTIME_BINDING_RECEIPT.json",
+        ):
+            self.assertTrue(BUILD.is_local_only_path(name))
+            self.assertTrue(VERIFY.is_local_only_path(name))
+
     def test_machine_binding_is_absent_from_both_file_enumerators(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

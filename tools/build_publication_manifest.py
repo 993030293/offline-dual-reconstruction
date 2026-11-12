@@ -19,6 +19,9 @@ EXCLUDED_NAMES = {
     "local_runtime.json",
     "INSTALL_RECEIPT.json",
     "INSTALL_VERIFY.json",
+    "PACKAGE_VERIFY_RESULT.json",
+    "PUBLICATION_PUBLIC_GATE_RESULT.json",
+    "RUNTIME_BINDING_RECEIPT.json",
 }
 GENERATED_OUTPUTS = {
     "PUBLICATION_MANIFEST.json",
