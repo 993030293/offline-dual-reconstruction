@@ -8,7 +8,7 @@
   "manifest_self_excluded": true,
   "generated_verify_result_excluded": true,
   "file_count": 1681,
-  "total_bytes": 16319990,
+  "total_bytes": 16329901,
   "files": [
     {
       "path": ".gitattributes",
@@ -27,13 +27,13 @@
     },
     {
       "path": "BIND_RUNTIME.ps1",
-      "bytes": 2476,
-      "sha256": "e7b009b3f35ff8179c2c2c2a05d3dc9ed4f8147ae433efd08240c4f753b61a7c"
+      "bytes": 4561,
+      "sha256": "16d0d0438019990e48e80511f28fa7661078c8c61c444461ee7ec3ff24c27b4d"
     },
     {
       "path": "CHANGELOG.md",
-      "bytes": 9020,
-      "sha256": "c334df02ce60f6f383b3400e342dbd948419b89744e4d2e8458982809e6259bb"
+      "bytes": 9613,
+      "sha256": "72b627f9b20b23b32edb12e0d654c83827ca1f7e14e6785dde44fd728f226c89"
     },
     {
       "path": "PREFLIGHT.ps1",
@@ -42,8 +42,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 8372,
-      "sha256": "675536c835e0d588572c01986ca54847376af60d6619bfa977719bd2bdd0f170"
+      "bytes": 8679,
+      "sha256": "a66473e0fbee8904a8cb36a9ca7fa13f03b21f08d32ffbaf70dd04a06efc5e69"
     },
     {
       "path": "RUN.ps1",
@@ -62,13 +62,13 @@
     },
     {
       "path": "VERIFY_PACKAGE.ps1",
-      "bytes": 3095,
-      "sha256": "5d85645718655665a47885f0ac46c0914559c6fa6a9c0d03080848f22dffe4b2"
+      "bytes": 5036,
+      "sha256": "90af5332fe467aa677fd66a560ca7dea533d37940c9c9ee452e6e7f31a1e80af"
     },
     {
       "path": "config/runtime.binding.json",
-      "bytes": 1265,
-      "sha256": "6fdef9278c4ac78184bcb8c3ecc43b4795cb0f4f3303b668027627138931c620"
+      "bytes": 1733,
+      "sha256": "04f576bf5fc60f59913713fc7feaf166e8fba83f5f54b153108d47c56e9e01d9"
     },
     {
       "path": "docs/ALGORITHM_COMPLETENESS.md",
@@ -77,8 +77,8 @@
     },
     {
       "path": "docs/FORMAL_ACCEPTANCE_ROUNDS.md",
-      "bytes": 7164,
-      "sha256": "26c78273359e99f2165ac0bb949cbdb214e6111941a7b60591ccd792eb3fe294"
+      "bytes": 8136,
+      "sha256": "ed1fe00b0aad3a63e00f038a4a94c52c5764f59c9d426f296c449118cb1bc7de"
     },
     {
       "path": "docs/GITHUB_UPLOAD.md",
@@ -87,8 +87,8 @@
     },
     {
       "path": "docs/PACKAGING_FAILURE_LEDGER.md",
-      "bytes": 13883,
-      "sha256": "ba22dda4a31f9ebe6c4e378275128b78c87c373e1e96cc6deea3e20a7086352a"
+      "bytes": 15470,
+      "sha256": "b9441d30bfaab82f0f94dba65ad8b355a27cc3b7f37cdee65234574c751593e3"
     },
     {
       "path": "docs/PUBLICATION_BOUNDARY.md",
@@ -102,8 +102,8 @@
     },
     {
       "path": "docs/VALIDATION_STATUS.md",
-      "bytes": 16212,
-      "sha256": "d62f351b7fbc638eff7093c087d368f96798c75ac855d019566a8e5fa933e8c5"
+      "bytes": 16851,
+      "sha256": "a9155bc5cee37edcce2a72f26c8449c1abf9834c36b89836af28fa2bca851c76"
     },
     {
       "path": "docs/accepted_package/BIND_RUNTIME.ps1",
@@ -8402,8 +8402,8 @@
     },
     {
       "path": "tools/test_root_entry_contract.py",
-      "bytes": 1532,
-      "sha256": "e0afa4359b2d47db80f824263b0f6b5ea0ab173ae4d77360337d57bc756c12a4"
+      "bytes": 2851,
+      "sha256": "11e3c0e287e5ed4a38c8fe79e11d44713a86e858471a284d01c1d7f638233f79"
     },
     {
       "path": "tools/verify_pgsr_patch.sh",

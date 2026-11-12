@@ -40,11 +40,58 @@ foreach ($link in $config.links) {
     $bound += [ordered]@{ destination = $destination; source = $source }
 }
 
+$browser = $config.browser_runtime
+if ($null -eq $browser) {
+    throw 'The frozen runtime binding does not declare an offline browser runtime.'
+}
+$node = [IO.Path]::GetFullPath([string]$browser.node)
+$playwright = [IO.Path]::GetFullPath([string]$browser.playwright_package)
+if (-not (Test-Path -LiteralPath $node -PathType Leaf)) {
+    throw "The declared offline Node executable is missing: $node"
+}
+if (-not (Test-Path -LiteralPath (Join-Path $playwright 'index.js') -PathType Leaf)) {
+    throw "The declared offline Playwright package is missing: $playwright"
+}
+$localBindingPath = Join-Path $packageRoot 'payload\02_code\reconstruction_dual_v1_20261009\OFFLINE_RUNTIME.local.json'
+$localBinding = [ordered]@{
+    source = [string]$browser.source
+    bundle_version = [string]$browser.bundle_version
+    node = $node.Replace('\', '/')
+    playwright_package = $playwright.Replace('\', '/')
+    runtime_download_allowed = $false
+}
+$localBindingWritten = $false
+if (Test-Path -LiteralPath $localBindingPath) {
+    $existing = Get-Content -LiteralPath $localBindingPath -Raw | ConvertFrom-Json
+    $existingNode = [IO.Path]::GetFullPath([string]$existing.node)
+    $existingPlaywright = [IO.Path]::GetFullPath([string]$existing.playwright_package)
+    $matches = (
+        $existingNode -eq $node -and
+        $existingPlaywright -eq $playwright -and
+        [string]$existing.source -eq [string]$browser.source -and
+        [string]$existing.bundle_version -eq [string]$browser.bundle_version -and
+        -not [bool]$existing.runtime_download_allowed
+    )
+    if (-not $matches) {
+        throw "Existing machine-local browser binding differs from the frozen package declaration: $localBindingPath"
+    }
+} else {
+    $localBinding | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath $localBindingPath -Encoding utf8
+    $localBindingWritten = $true
+}
+
 $receipt = [ordered]@{
     status = 'same_machine_runtime_bound'
     package_id = 'offline_dual_reconstruction_github_v0_1_20261110'
     runtime_root = $resolvedRuntime
     links = $bound
+    browser_binding = [ordered]@{
+        local_config = $localBindingPath
+        node = $node
+        playwright_package = $playwright
+        generated = $localBindingWritten
+        runtime_download_allowed = $false
+    }
     third_party_payload_copied = $false
     portable_relocation_verified = $false
     completed_utc = [DateTime]::UtcNow.ToString('o')

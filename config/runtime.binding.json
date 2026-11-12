@@ -3,6 +3,13 @@
   "supported_runtime_root": "C:/lidar-camera-fusion-mask-robust-downsampling",
   "portable_relocation_verified": false,
   "runtime_payload_included_in_archive": false,
+  "browser_runtime": {
+    "source": "verified local offline Node plus Playwright 1.58.2 with installed Chromium revision 1208 on 2026-11-12",
+    "bundle_version": "node_from_26.1104.22356_playwright_1.58.2",
+    "node": "C:/Program Files/WindowsApps/OpenAI.CodexPrimaryRuntime.v26-1104-2876-0_26.1104.2876.0_x64__3k8sg7r9htsxt/dependencies/node/bin/node.exe",
+    "playwright_package": "C:/Users/99303/git/playwright/node_modules/playwright",
+    "runtime_download_allowed": false
+  },
   "links": [
     {
       "relative": "05_envs/sfm_py311_v1",
@@ -33,6 +40,6 @@
     "wsl_distro": "E26-C2-LIV-20260907-134802",
     "wsl_python": "/opt/e26_thin_surface_v1/venv/bin/python",
     "pgsr_source": "/opt/e26_thin_surface_v1/pgsr",
-    "node_and_playwright": "Bound by payload/02_code/reconstruction_dual_v1_20261009/OFFLINE_RUNTIME.local.json"
+    "node_and_playwright": "Generated and verified by BIND_RUNTIME.ps1 from browser_runtime"
   }
 }

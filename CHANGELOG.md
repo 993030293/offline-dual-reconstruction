@@ -17,6 +17,9 @@
 - C1 传感器冒烟通过，显式标定只消费 `T_base_link_camera_optical` 数值子集，不消费同文件中的历史轨迹或 SfM 字段。
 - `d6c0905` 提交后的默认根验证器曾因参数绑定阶段无法使用 `$PSScriptRoot` 而失败；默认输出路径现改为在脚本主体解析，并新增无 `-Output` 参数的真实入口回归；
 - 首次推送因当前主机无法连接 `github.com:443` 未完成，远端仍保持 `e0df16f`，不得写成已推送。
+- `2ab2a5c` 的首个根入口冷启动在生产预检发现干净副本未生成 `OFFLINE_RUNTIME.local.json`；失败目录保留，未读取视频主体；
+- 运行时冻结配置现声明已验证的离线 Node/Playwright，`BIND_RUNTIME.ps1` 负责生成并核对本机浏览器配置，`VERIFY_PACKAGE -RequireRuntime` 将其作为第七项必需检查。
+- RA-035 工作树已通过 6 项入口回归和根 `PREFLIGHT.ps1`，实际启动本地 Chromium、核对 WSL CUDA 与原生依赖，且没有下载或网络模型调用；正式结论仍等待后续提交的干净副本复核。
 
 ### Boundary
 

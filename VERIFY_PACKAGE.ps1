@@ -54,6 +54,46 @@ if ($RequireRuntime) {
             $runtimeFailures += $path
         }
     }
+    $localBindingPath = Join-Path $packageRoot 'payload\02_code\reconstruction_dual_v1_20261009\OFFLINE_RUNTIME.local.json'
+    $localBindingExists = Test-Path -LiteralPath $localBindingPath -PathType Leaf
+    $browserMatches = $false
+    $declaredNode = $null
+    $declaredPlaywright = $null
+    $actualNode = $null
+    $actualPlaywright = $null
+    if ($null -ne $binding.browser_runtime -and $localBindingExists) {
+        try {
+            $localBinding = Get-Content -LiteralPath $localBindingPath -Raw | ConvertFrom-Json
+            $declaredNode = [IO.Path]::GetFullPath([string]$binding.browser_runtime.node)
+            $declaredPlaywright = [IO.Path]::GetFullPath([string]$binding.browser_runtime.playwright_package)
+            $actualNode = [IO.Path]::GetFullPath([string]$localBinding.node)
+            $actualPlaywright = [IO.Path]::GetFullPath([string]$localBinding.playwright_package)
+            $browserMatches = (
+                $actualNode -eq $declaredNode -and
+                $actualPlaywright -eq $declaredPlaywright -and
+                -not [bool]$binding.browser_runtime.runtime_download_allowed -and
+                -not [bool]$localBinding.runtime_download_allowed -and
+                (Test-Path -LiteralPath $actualNode -PathType Leaf) -and
+                (Test-Path -LiteralPath (Join-Path $actualPlaywright 'index.js') -PathType Leaf)
+            )
+        } catch {
+            $browserMatches = $false
+        }
+    }
+    $runtimeChecks += [ordered]@{
+        kind = 'offline_browser_binding'
+        path = $localBindingPath
+        exists = $localBindingExists
+        declared_node = $declaredNode
+        actual_node = $actualNode
+        declared_playwright = $declaredPlaywright
+        actual_playwright = $actualPlaywright
+        target_matches = $browserMatches
+        runtime_download_allowed = $false
+    }
+    if (-not $browserMatches) {
+        $runtimeFailures += $localBindingPath
+    }
 }
 
 $result = [ordered]@{
