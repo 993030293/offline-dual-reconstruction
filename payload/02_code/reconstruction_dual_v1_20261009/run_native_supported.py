@@ -49,19 +49,13 @@ def main():
         prepared = json.loads((backend / 'RESULT.json').read_text())
         sys.argv[sys.argv.index('--model') + 1] = prepared['model']
         if ('--offline-physical-recovery' in sys.argv
-                or '--offline-metric-retriangulation' in sys.argv):
+                or '--offline-metric-retriangulation' in sys.argv
+                or '--offline-component-metric-alignment' in sys.argv):
             raise ValueError('The production metric adapter already owns the offline recovery option')
         recovery_inputs = metric_retriangulation_inputs(backend, prepared)
-        if recovery_inputs:
-            database, images, recovery_receipt = recovery_inputs
-            sys.argv.extend(['--offline-metric-retriangulation',
-                '--retriangulation-database', str(database),
-                '--retriangulation-images', str(images)])
-            recovery_mode = 'coarse_center_retriangulation_joint_BA'
-        else:
-            sys.argv.append('--offline-physical-recovery')
-            database, images, recovery_receipt = None, None, None
-            recovery_mode = 'legacy_same_track_physical_recovery_no_database_available'
+        database, images, recovery_receipt = recovery_inputs if recovery_inputs else (None, None, None)
+        sys.argv.append('--offline-component-metric-alignment')
+        recovery_mode = 'visual_track_component_metric_gauge_after_native_visual_BA'
         from atomic_json_windows import atomic_json
         atomic_json(output.parent / ('metric_input_adapter_' + str(time.time_ns()) + '.json'),
             {'original_source_model': str(original), 'actual_prepared_source': prepared['model'],
@@ -71,6 +65,9 @@ def main():
                 'retriangulation_database': str(database) if database else None,
                 'retriangulation_images': str(images) if images else None,
                 'retriangulation_source_receipt': str(recovery_receipt) if recovery_receipt else None,
+                'matching_database_is_lineage_evidence_not_required_by_component_gauge': True,
+                'component_edge_threshold_uses_native_absolute_pose_minimum_inliers': True,
+                'coarse_positions_used_for_component_metric_gauge_not_per_camera_replacement': True,
                 'original_metric_candidate_failure_preserved': True,
                 'downstream_point_filter_thresholds_unchanged': True})
     elif kind == 'export' and (backend / 'RESULT.json').is_file():

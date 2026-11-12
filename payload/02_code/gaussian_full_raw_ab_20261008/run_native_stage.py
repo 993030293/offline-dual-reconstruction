@@ -108,7 +108,7 @@ def main():
                 source = inspect.getsource(original_main)
                 changes = [
                     ('ba["status"] != "metric_interface_verified" or not ba["development_guard_passed"]\n                or ba["selected"] != "weak_position_prior" or ba["common_observation_p95_delta_px"] > .05',
-                     'ba["status"] != "metric_interface_verified" or ba["selected"] not in ("weak_position_prior", "visual_metric_aligned")\n                or (ba["selected"] == "weak_position_prior" and (not ba["development_guard_passed"] or ba["common_observation_p95_delta_px"] > .05))'),
+                     'ba["status"] != "metric_interface_verified" or ba["selected"] not in ("weak_position_prior", "visual_metric_aligned", "component_metric_aligned")\n                or (ba["selected"] in ("weak_position_prior", "component_metric_aligned") and (not ba["development_guard_passed"] or ba["common_observation_p95_delta_px"] > .05))'),
                     ('ba["results"]["weak_position_prior"]["model"]', 'ba["results"][ba["selected"]]["model"]'),
                 ]
                 for before, after in changes:
@@ -116,7 +116,7 @@ def main():
                         raise ValueError("The explicit native metric fallback anchors changed")
                     source = source.replace(before, after)
                 if args.allow_pure_sim3_recovery:
-                    status_anchor = 'ba["status"] != "metric_interface_verified" or ba["selected"] not in ("weak_position_prior", "visual_metric_aligned")'
+                    status_anchor = 'ba["status"] != "metric_interface_verified" or ba["selected"] not in ("weak_position_prior", "visual_metric_aligned", "component_metric_aligned")'
                     if source.count(status_anchor) != 1:
                         raise ValueError("The explicit export status boundary changed")
                     source = source.replace(status_anchor,
@@ -128,6 +128,7 @@ def main():
                 exec(compile(source, source_name, "exec"), namespace)
                 native.main = namespace["main"]
                 trace["metric_fallback"] = {"visual_metric_aligned_model_allowed_if_native_guard_selects_it": True,
+                    "component_metric_aligned_model_allowed_only_with_invariant_reprojection_guard": True,
                     "weak_prior_failure_preserved": True, "support_and_point_thresholds_unchanged": True,
                     "pure_sim3_recovery_explicitly_requested": args.allow_pure_sim3_recovery}
                 if args.export_qa_mode is not None:

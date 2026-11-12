@@ -28,9 +28,9 @@
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/preflight.py",
       "base_sha256": "7167253b92751e6f909e68a4b5b602d260863b9e6af50d3149058d4ff642da6f",
-      "candidate_sha256": "e9266e37027d8f07b0ca50bbebc6932d63d29986b35b2e709fcef00cba60af29",
-      "incidents": ["RA-001", "RA-002", "RA-003", "RA-008", "RA-009", "RA-010"],
-      "purpose": "Verify actual browser launch, UTF-8/UTF-16 diagnostics, long-path imports and native quality runtime behavior."
+      "candidate_sha256": "c495796348bccfb7243b39d693076c74d7be68650fbe7701f5830e0221005048",
+      "incidents": ["RA-001", "RA-002", "RA-003", "RA-008", "RA-009", "RA-010", "PACKAGING-10"],
+      "purpose": "Verify actual browser launch with explicit binary diagnostic decoding, long-path imports and native quality runtime behavior."
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/register_raw_lidar.py",
@@ -61,18 +61,25 @@
       "purpose": "Report registered zero-observation cameras without attempting an empty projection."
     },
     {
+      "path": "payload/02_code/gaussian_full_raw_ab_20261008/run_native_stage.py",
+      "base_sha256": "e72580e85d0103c1842d9dfe4dc6923e6ae255235a5e78ee742c140080ff260d",
+      "candidate_sha256": "473f2fb541b7a03b7f15b62d809c8fe30ef6d47c9c0ab246eb209c4477ca8d9e",
+      "incidents": ["RA-019"],
+      "purpose": "Allow only the invariant-checked component metric model through the existing export boundary."
+    },
+    {
       "path": "payload/02_code/gaussian_pipeline_optimization_v1_20261005/run_metric_refinement.py",
       "base_sha256": "bd102792056a79af81b7073aaddc08e56cf869dd9385892d652c135736773662",
-      "candidate_sha256": "e580fa22bb3b7f33da87cad10926489f3fec218b0268433532ee9df480d476d6",
+      "candidate_sha256": "518ba288240c61f01a3da908af13b22c2d33fed45a60ed5ffdb6a6611c401a1e",
       "incidents": ["RA-012", "RA-017", "RA-018", "RA-019"],
-      "purpose": "Use active prior accounting and a fail-closed current-run metric retriangulation recovery."
+      "purpose": "Preserve the failed all-prior BA and select only a fail-closed visual-component metric gauge candidate."
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/README.md",
       "base_sha256": "2650cae530a3b0ad979445e05df9bb6bed3ff21c125c40006f18bddbc6cc0fea",
-      "candidate_sha256": "ebd856eaae38312d477c6ca19c53fcbe0de30533ec0532ae07242cb046391292",
+      "candidate_sha256": "01cb638e026437c750ea995e9eba3ee0345533ea4dec5f1be0aa2d75ed7239d8",
       "incidents": ["RA-012", "RA-019"],
-      "purpose": "Document the metric recovery contract and its unresolved downstream admission boundary."
+      "purpose": "Document the rejected retriangulation route, component metric contract and remaining cold-run boundary."
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/prepare_camera_backend.py",
@@ -84,9 +91,9 @@
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/run_native_supported.py",
       "base_sha256": "88075ee4a8035f2571ada7d37f9ad2e892f13adbd0f2947e79a1290afb8f46c2",
-      "candidate_sha256": "f2f404a9c6d0c4aede5089a99b47fe85b0464ae9ff587e7d6b0bd761c4e5854b",
+      "candidate_sha256": "6beb06536f3f26e05dcb57c781943f7cf1a27bfa4b2b2889e554e5c421d62098",
       "incidents": ["RA-012", "RA-018", "RA-019"],
-      "purpose": "Route verified current-run matching inputs into the offline metric recovery adapter."
+      "purpose": "Select component metric gauge recovery after native visual BA without weakening downstream admission."
     }
   ],
   "added_files": [
@@ -98,9 +105,9 @@
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/test_runtime_browser.py",
-      "candidate_sha256": "83a8544e0f10e7ba3f1835791bb9df0159267485ca9e8177c3cbd033f6540747",
-      "incidents": ["RA-003", "RA-008", "RA-009", "RA-010"],
-      "purpose": "Regression tests for diagnostic decoding, long-path imports and native runtime equivalence."
+      "candidate_sha256": "8939b079c1d110be9ae52ee5b850919d5022cedcdee882fa179e917e32e93573",
+      "incidents": ["RA-003", "RA-008", "RA-009", "RA-010", "PACKAGING-10"],
+      "purpose": "Regression tests for non-ASCII diagnostic decoding, long-path imports and native runtime equivalence."
     },
     {
       "path": "payload/02_code/box2_lio_guided_sfm_v1_20261002/test_run_prior_ba_metrics.py",
@@ -119,6 +126,18 @@
       "candidate_sha256": "126b93f6fbf8766b690dba3f35d9e41a5ef945ca84766d95c16ecd8e2250423d",
       "incidents": ["RA-012", "RA-018", "RA-019"],
       "purpose": "Regress center replacement, active factors, bounded pruning, input routing and source database immutability."
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/metric_component_alignment_recovery.py",
+      "candidate_sha256": "a11db444cfeb454ad54586c62de5477e1b7cafe5b0dd691fe5ecf2aca8832d70",
+      "incidents": ["RA-012", "RA-019"],
+      "purpose": "Isolate strongly supported visual-track components and establish their metric gauges without changing retained reprojections."
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_metric_component_alignment_recovery.py",
+      "candidate_sha256": "850d00a27310aca511025d343923a4694bf01f7263f64251ab581f2480fe074b",
+      "incidents": ["RA-012", "RA-019"],
+      "purpose": "Regress component separation, metric gauge invariance, source immutability and fail-closed minimum support."
     }
   ],
   "bundled_runtime_manifest": "payload/04_outputs/gaussian_pipeline_optimization_v3_20261005/RUNTIME_MANIFEST.json",

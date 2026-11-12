@@ -6,7 +6,7 @@
 
 ## 已保留
 
-1. 历史参考包的完整 `payload/02_code` 源码树，以及当前候选的 7 个声明修改文件和 2 个新增文件；排除 Python 字节码缓存和机器专属 `OFFLINE_RUNTIME.local.json`。
+1. 历史参考包的完整 `payload/02_code` 源码树，以及当前候选的 13 个声明修改文件和 7 个新增文件；排除 Python 字节码缓存和机器专属 `OFFLINE_RUNTIME.local.json`。
 2. `e26_video_to_target_m3_nollm_v1r23_20260927_installed_candidate` 的代码、配置、合同、几何模块、脚本、测试和第三方通知。
 3. 历史参考包的正式入口、预检、绑定和包规范原文，放在 `docs/accepted_package/` 供追溯；它们不作为当前候选通过的证据。
 4. PGSR 基线提交 `de24f1a38b350387e8d8fe381b2cd70c1ae946e7` 上的四文件补丁，包括新增的 `utils/projective_validity.py`。
@@ -36,7 +36,7 @@
 
 ## 身份核验
 
-`PUBLICATION_MANIFEST.json` 对本候选的每个发布文件记录 SHA-256，并给出当前算法源码树身份。`provenance/SOURCE_COPY_MAP.json` 记录历史参考包与当前候选的逐文件关系；`provenance/BASELINE_DELTA.json` 明确列出允许的 7 个修改文件和 2 个新增文件。验证脚本会检查：
+`PUBLICATION_MANIFEST.json` 对本候选的每个发布文件记录 SHA-256，并给出当前算法源码树身份。`provenance/SOURCE_COPY_MAP.json` 记录历史参考包与当前候选的逐文件关系；`provenance/BASELINE_DELTA.json` 明确列出允许的 13 个修改文件和 7 个新增文件。验证脚本会检查：
 
 - 清单是否完整且无多余文件；
 - 源码是否等于历史参考包加上声明的精确差异，且没有未声明修改；

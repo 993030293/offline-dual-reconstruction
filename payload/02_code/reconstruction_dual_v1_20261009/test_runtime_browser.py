@@ -54,6 +54,10 @@ class ProcessOutputDecodeTests(unittest.TestCase):
     def test_utf8_output_is_preserved(self):
         self.assertEqual(decode_process_output("GPU ready\n".encode("utf-8")), "GPU ready\n")
 
+    def test_utf8_non_ascii_diagnostic_is_preserved(self):
+        message = "╔ offline browser diagnostic \u2764\n"
+        self.assertEqual(decode_process_output(message.encode("utf-8")), message)
+
     def test_utf16_little_endian_output_without_bom_is_detected(self):
         encoded = "WSL warning\r\n".encode("utf-16-le")
         self.assertEqual(decode_process_output(encoded), "WSL warning\r\n")

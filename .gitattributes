@@ -1,2 +1,6 @@
 # Preserve the accepted source snapshot byte-for-byte across checkouts.
 * -text
+
+# Generated publication ledgers retain the repository's explicit CRLF convention.
+PUBLICATION_MANIFEST.json whitespace=cr-at-eol
+provenance/SOURCE_COPY_MAP.json whitespace=cr-at-eol

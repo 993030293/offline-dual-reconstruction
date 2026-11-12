@@ -16,6 +16,12 @@ GENERATED_OUTPUTS = {
     "PUBLICATION_MANIFEST.json",
     "PUBLICATION_VERIFY_RESULT.json",
 }
+LOCAL_ONLY_NAMES = {
+    "OFFLINE_RUNTIME.local.json",
+    "local_runtime.json",
+    "INSTALL_RECEIPT.json",
+    "INSTALL_VERIFY.json",
+}
 BANNED_SUFFIXES = {
     ".bag",
     ".ckpt",
@@ -127,6 +133,8 @@ def is_reparse_point(path: Path) -> bool:
 def is_local_only_path(relative: str, is_directory: bool = False) -> bool:
     """Exclude ignored machine bindings while retaining the four frozen runtime files."""
     parts = Path(relative).parts
+    if Path(relative).name in LOCAL_ONLY_NAMES:
+        return True
     if "__pycache__" in parts or relative.lower().endswith(".pyc"):
         return True
     if relative == ".git" or relative.startswith(".git/"):

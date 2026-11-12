@@ -3,17 +3,17 @@
   "candidate_id": "offline_dual_reconstruction_github_v0_1_20261110",
   "release_stage": "prerelease_metric_recovery_development_update",
   "historical_accepted_source_version": "bcf197d198d6e9ff2aef2d2dd7abfb6a025cb3f06df4739beb1a4d4190dc3dfd",
-  "candidate_algorithm_source_version": "2d7f5531aa43e94c0366c80f9072adbdb667371dd7048f0c8f54f9cf0494d896",
-  "candidate_algorithm_file_count": 1609,
+  "candidate_algorithm_source_version": "750c00fed523179e5af7b7c9f573983a036f314c1931bdea68f937ab688d7282",
+  "candidate_algorithm_file_count": 1611,
   "manifest_self_excluded": true,
   "generated_verify_result_excluded": true,
-  "file_count": 1646,
-  "total_bytes": 11246321,
+  "file_count": 1649,
+  "total_bytes": 11293757,
   "files": [
     {
       "path": ".gitattributes",
-      "bytes": 80,
-      "sha256": "9edc69e5126a11d5f96940a01822ef8e310f6f4ab5c653e7efd9a014b9e61ed7"
+      "bytes": 263,
+      "sha256": "87088702b5d353f9ad0cc87a6e1a2c7483dcb0b1d9a2a9a8e4af3fef23a7a4ea"
     },
     {
       "path": ".github/workflows/source-integrity.yml",
@@ -27,13 +27,13 @@
     },
     {
       "path": "CHANGELOG.md",
-      "bytes": 2598,
-      "sha256": "47641df3cedd19cef863b3a5b79ed5f45c1b15863335cb78bd16698931b293ea"
+      "bytes": 4041,
+      "sha256": "c58577b8834e93498242620b446e833523cddf6de2fcb89acccfc01f37fb900a"
     },
     {
       "path": "README.md",
-      "bytes": 5397,
-      "sha256": "6f5fe0c8936fff825b45767ca6d764553d663fb0dbd857d79e45388d9b4eb9c5"
+      "bytes": 5670,
+      "sha256": "1be0de0c7f37bdf125653e0b307809065d250692d4767e658d69121eba8c36c2"
     },
     {
       "path": "THIRD_PARTY.md",
@@ -42,8 +42,8 @@
     },
     {
       "path": "docs/ALGORITHM_COMPLETENESS.md",
-      "bytes": 4024,
-      "sha256": "8af767fbcf843c9c92299ee1be56d57887e09b76b075c312571ec9889f16d34b"
+      "bytes": 4026,
+      "sha256": "dc20680d69877bbf8742f58c73edf6508dca3dc67e4cb41e5808dd782a73e95c"
     },
     {
       "path": "docs/GITHUB_UPLOAD.md",
@@ -52,8 +52,8 @@
     },
     {
       "path": "docs/PACKAGING_FAILURE_LEDGER.md",
-      "bytes": 3058,
-      "sha256": "57bf8992cd3a8b8a43f59d3986a8dfc3220eda7a45b3748434839bb71c238906"
+      "bytes": 5786,
+      "sha256": "326bf05ddaf59ab44ac3af758178f0d52cf09f5a9b82648d6e88a5de7d23a062"
     },
     {
       "path": "docs/PUBLICATION_BOUNDARY.md",
@@ -62,13 +62,13 @@
     },
     {
       "path": "docs/REPRODUCIBILITY.md",
-      "bytes": 2529,
-      "sha256": "4f4ba26ef3a0078879bdd999a014cfc52f300179c0781d6016e4699a582fe0a8"
+      "bytes": 2960,
+      "sha256": "f206db364b5585b188ed3cc62c875dbdb011681381af9fb8cd854a6e0b13bd3b"
     },
     {
       "path": "docs/VALIDATION_STATUS.md",
-      "bytes": 8726,
-      "sha256": "3ca11b40335ac16c17b4cf1d7a890daa735f47856dbc8e1017103fc026779abb"
+      "bytes": 11296,
+      "sha256": "1958235653fd355b1f7040ffb8cf56733e70cd21d90ad0204ef7f3bbd186d7b1"
     },
     {
       "path": "docs/accepted_package/BIND_RUNTIME.ps1",
@@ -707,8 +707,8 @@
     },
     {
       "path": "payload/02_code/gaussian_full_raw_ab_20261008/run_native_stage.py",
-      "bytes": 10112,
-      "sha256": "e72580e85d0103c1842d9dfe4dc6923e6ae255235a5e78ee742c140080ff260d"
+      "bytes": 10305,
+      "sha256": "473f2fb541b7a03b7f15b62d809c8fe30ef6d47c9c0ab246eb209c4477ca8d9e"
     },
     {
       "path": "payload/02_code/gaussian_full_raw_ab_20261008/run_owned_task.py",
@@ -1117,8 +1117,8 @@
     },
     {
       "path": "payload/02_code/gaussian_pipeline_optimization_v1_20261005/run_metric_refinement.py",
-      "bytes": 25565,
-      "sha256": "e580fa22bb3b7f33da87cad10926489f3fec218b0268433532ee9df480d476d6"
+      "bytes": 30673,
+      "sha256": "518ba288240c61f01a3da908af13b22c2d33fed45a60ed5ffdb6a6611c401a1e"
     },
     {
       "path": "payload/02_code/gaussian_pipeline_optimization_v1_20261005/run_native_lightglue.py",
@@ -6907,8 +6907,8 @@
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/README.md",
-      "bytes": 24813,
-      "sha256": "ebd856eaae38312d477c6ca19c53fcbe0de30533ec0532ae07242cb046391292"
+      "bytes": 25899,
+      "sha256": "01cb638e026437c750ea995e9eba3ee0345533ea4dec5f1be0aa2d75ed7239d8"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/RUN_BOX1.ps1",
@@ -7156,6 +7156,11 @@
       "sha256": "37af191ee2e8dd1e171a5e113c37fdb37a623bf2e6af17a160848f0cc307ead4"
     },
     {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/metric_component_alignment_recovery.py",
+      "bytes": 21630,
+      "sha256": "a11db444cfeb454ad54586c62de5477e1b7cafe5b0dd691fe5ecf2aca8832d70"
+    },
+    {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/metric_geometry_recovery.py",
       "bytes": 11978,
       "sha256": "77a9710ae0c4ca4b65968b0c3a6e55993d6bd62b6fe81581bbcd731e9bac6467"
@@ -7257,8 +7262,8 @@
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/preflight.py",
-      "bytes": 5510,
-      "sha256": "e9266e37027d8f07b0ca50bbebc6932d63d29986b35b2e709fcef00cba60af29"
+      "bytes": 5767,
+      "sha256": "c495796348bccfb7243b39d693076c74d7be68650fbe7701f5830e0221005048"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/prepare_camera_backend.py",
@@ -7307,8 +7312,8 @@
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/run_native_supported.py",
-      "bytes": 4751,
-      "sha256": "f2f404a9c6d0c4aede5089a99b47fe85b0464ae9ff587e7d6b0bd761c4e5854b"
+      "bytes": 4789,
+      "sha256": "6beb06536f3f26e05dcb57c781943f7cf1a27bfa4b2b2889e554e5c421d62098"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/run_sfm_global.py",
@@ -7491,6 +7496,11 @@
       "sha256": "fbb2f8a5246df9d36ea0e9e3c09848e283ae914de1d65cd640b4d00b48c1ba8b"
     },
     {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_metric_component_alignment_recovery.py",
+      "bytes": 6264,
+      "sha256": "850d00a27310aca511025d343923a4694bf01f7263f64251ab581f2480fe074b"
+    },
+    {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/test_metric_geometry_recovery.py",
       "bytes": 17674,
       "sha256": "c877c2d9bf0829f8b228468964add65b0d50062c50696da7a9ee3c176ffd6b18"
@@ -7562,8 +7572,8 @@
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/test_runtime_browser.py",
-      "bytes": 3911,
-      "sha256": "83a8544e0f10e7ba3f1835791bb9df0159267485ca9e8177c3cbd033f6540747"
+      "bytes": 4113,
+      "sha256": "8939b079c1d110be9ae52ee5b850919d5022cedcdee882fa179e917e32e93573"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/test_sfm_process_monitor.py",
@@ -8207,8 +8217,8 @@
     },
     {
       "path": "provenance/BASELINE_DELTA.json",
-      "bytes": 7508,
-      "sha256": "dcd7a984f88599661f21bccda8fa9339e75e7d985c4eae03c797c3a6ec4c295f"
+      "bytes": 8815,
+      "sha256": "15635e8e3db065b8e273409cec3db6d90e427d6223e41de5f67bef4a451db722"
     },
     {
       "path": "provenance/EXTERNAL_SOURCE_LOCK.json",
@@ -8222,13 +8232,18 @@
     },
     {
       "path": "provenance/SOURCE_COPY_MAP.json",
-      "bytes": 371574,
-      "sha256": "af34132231ca7f223931f2441d32d42827ee05e66a4aebca4bc57f0a42f3817f"
+      "bytes": 372777,
+      "sha256": "322225a40f83701c91eb0152a78f4db8e87b2da21aaddf507420807be84fa57f"
     },
     {
       "path": "tools/build_publication_manifest.py",
-      "bytes": 11596,
-      "sha256": "11cb97231b6393a890765fbb4acb8a5f3ddbd621a23bf6af2323db3e22d4415a"
+      "bytes": 11782,
+      "sha256": "1f830c22208021d053aaad5e08a28c05054f5c4e54caa067dad8a080ff55f3ac"
+    },
+    {
+      "path": "tools/test_publication_local_exclusions.py",
+      "bytes": 2126,
+      "sha256": "0ce9dfa7c2fd060bace16d5f834d6ec5693d93a79ec383cf34a2765184156f3f"
     },
     {
       "path": "tools/verify_pgsr_patch.sh",
@@ -8237,8 +8252,8 @@
     },
     {
       "path": "tools/verify_publication.py",
-      "bytes": 11619,
-      "sha256": "9aaf76e0f1205eea8d3b957d79430d3c08e3b871a4839bbac3397c0c20a37a1c"
+      "bytes": 11825,
+      "sha256": "250ff3c0f02cb83b04c81bc1793d7f29cca44ba233aecb93a1971c1ad37ee168"
     }
   ]
 }

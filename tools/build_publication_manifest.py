@@ -41,6 +41,13 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def write_json(path: Path, value: dict) -> None:
+    """Write reproducible CRLF JSON matching the byte-preserved repository convention."""
+    with path.open("w", encoding="utf-8", newline="\r\n") as stream:
+        json.dump(value, stream, indent=2, ensure_ascii=False)
+        stream.write("\n")
+
+
 def native_path(path: Path) -> Path:
     """Use the Windows extended-length form without changing relative manifests."""
     resolved = str(path.resolve())
@@ -62,6 +69,8 @@ def is_excluded_source(path: Path, root: Path) -> bool:
 
 def is_local_only_path(relative: str, is_directory: bool = False) -> bool:
     parts = Path(relative).parts
+    if Path(relative).name in EXCLUDED_NAMES:
+        return True
     if "__pycache__" in parts or relative.lower().endswith(".pyc"):
         return True
     if relative == ".git" or relative.startswith(".git/"):
@@ -249,10 +258,7 @@ def main() -> int:
     source_map = build_source_copy_map(candidate_root, source_package)
     source_map_path = candidate_root / "provenance/SOURCE_COPY_MAP.json"
     source_map_path.parent.mkdir(parents=True, exist_ok=True)
-    source_map_path.write_text(
-        json.dumps(source_map, indent=2, ensure_ascii=False) + "\n",
-        encoding="utf-8",
-    )
+    write_json(source_map_path, source_map)
     if source_map["status"] != "accepted_base_plus_declared_delta":
         raise RuntimeError("Candidate source tree does not match the declared accepted-base delta")
 
@@ -279,10 +285,7 @@ def main() -> int:
         "total_bytes": total_bytes,
         "files": entries,
     }
-    (candidate_root / "PUBLICATION_MANIFEST.json").write_text(
-        json.dumps(manifest, indent=2, ensure_ascii=False) + "\n",
-        encoding="utf-8",
-    )
+    write_json(candidate_root / "PUBLICATION_MANIFEST.json", manifest)
     print(json.dumps({"status": "built", "file_count": len(entries), "total_bytes": total_bytes}))
     return 0
 

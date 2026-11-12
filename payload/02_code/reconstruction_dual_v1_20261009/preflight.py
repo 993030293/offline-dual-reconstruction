@@ -49,7 +49,11 @@ def main():
         'if(await page.title()!=="offline-preview-probe")process.exit(2); await b.close(); '
         'console.log("local Playwright browser launched")})().catch(error=>{console.error(error);process.exit(1)})')
     node_check = subprocess.run([str(node), "-e", browser_probe, str(browser)],
-        capture_output=True, text=True, check=True, timeout=20, creationflags=subprocess.CREATE_NO_WINDOW)
+        capture_output=True, timeout=20, creationflags=subprocess.CREATE_NO_WINDOW)
+    node_stdout = decode_process_output(node_check.stdout).strip()
+    node_stderr = decode_process_output(node_check.stderr).strip()
+    if node_check.returncode != 0:
+        raise RuntimeError("Offline browser probe failed: " + node_stderr)
     required = [SFM_PYTHON, COLMAP, HERE / "run_delivery.py", HERE / "pgsr_branch.py",
                 OLD / "run_side.py", ROOT / "04_outputs/box2_3dgs_display_v1_20260930/MAIN_CONFIG.json"]
     if any(not path.is_file() for path in required):
@@ -77,7 +81,8 @@ def main():
     atomic_json(args.output, {"status": "installed_offline_components_verified", "Windows_modules": modules,
         "WSL_stdout": linux_stdout, "WSL_stderr": linux_stderr, "node": str(node),
         "browser_package": str(browser), "workspace_free_bytes": free,
-        "actual_node_module_import": node_check.stdout.strip(),
+        "actual_node_module_import": node_stdout,
+        "actual_node_module_stderr": node_stderr,
         "actual_initial_frontend_import": initial_frontend.decode_bayer.__code__.co_filename,
         "actual_sparse_frontend_import": sparse_frontend.decode_bayer.__code__.co_filename,
         "actual_native_quality_runtime": native_quality,
