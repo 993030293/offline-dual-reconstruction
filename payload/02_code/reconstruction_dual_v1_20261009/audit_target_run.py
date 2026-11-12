@@ -5,7 +5,7 @@ from collections import Counter
 import math
 
 from common import COLMAP, atomic_json, read_json
-from metric_recovery_accounting import metric_geometry_recoveries
+from metric_recovery_accounting import component_metric_alignments, metric_geometry_recoveries
 from native_packing import packing_recovery_accounting
 
 
@@ -375,6 +375,12 @@ def review(root):
     gate_checks = registration_checks(side, initial_names)
     backend_stages = camera_recovery_stages(side)
     metric_recoveries = metric_geometry_recoveries(side)
+    component_alignments = component_metric_alignments(side)
+    component_alignment_verified = bool(component_alignments and all(
+        row['recorded_component_metric_guards_passed'] for row in component_alignments))
+    metric_recovery_path_verified = bool(not metric_recoveries or all(
+        row['recorded_original_metric_recovery_guards_passed'] for row in metric_recoveries)
+        or component_alignment_verified)
     gpu_recoveries = gpu_reboot_recoveries(root)
     gpu_recoveries_verified = all(row['recorded_offline_reboot_recovery_verified'] for row in gpu_recoveries)
     interrupted_gpu_recoveries = gpu_interruption_recoveries(root)
@@ -400,6 +406,9 @@ def review(root):
         'original_initial_registration_checks': gate_checks,
         'camera_backend_substage_processes': backend_stages,
         'offline_metric_geometry_recoveries': metric_recoveries,
+        'offline_component_metric_alignments': component_alignments,
+        'predefined_component_metric_alignment_verified': component_alignment_verified,
+        'predefined_metric_recovery_path_verified': metric_recovery_path_verified,
         'offline_gpu_owner_reboot_recoveries': gpu_recoveries,
         'predefined_gpu_owner_reboot_recovery_verified': gpu_recoveries_verified,
         'offline_gpu_owner_interruption_recoveries': interrupted_gpu_recoveries,
@@ -444,9 +453,10 @@ def review(root):
             and gpu_recoveries_verified
             and interrupted_gpu_verified and heartbeat_verified and focus_verified and destination_verified
             and ground_recovery_verified
-            and all(row['recorded_original_metric_recovery_guards_passed'] for row in metric_recoveries)),
+            and metric_recovery_path_verified),
         'independent_geometry_accuracy_verified': False,
-        'failed_BA_can_be_recovered_by_preexisting_explicit_Sim3_policy_but_is_not_a_BA_pass': True}
+        'failed_BA_can_be_recovered_by_preexisting_explicit_Sim3_policy_but_is_not_a_BA_pass':
+            component_alignment_verified}
     atomic_json(root / 'EXCEPTION_LEDGER.json', ledger)
     lines = ['# 目标表面双输出运行记录', '', '当前状态：`' + state['status'] + '`。', '',
         '输入：`' + config['raw'] + '`。目标点云必须来自数值 ROI 和 M3 去地面的观测表面，不能用全场景 TSDF 代替。', '',
@@ -526,10 +536,19 @@ def review(root):
     for row in metric_recoveries:
         lines += ['- 原始米制候选 `' + row['original_failure_receipt'] + '`：投影无效 '
             + str(row['original_invalid_projections']) + '，最大相机半径 '
-            + str(row['original_maximum_camera_radius_m']) + ' m；离线恢复 '
+            + str(row['original_maximum_camera_radius_m']) + ' m；物理/重新三角化恢复 '
             + row['recovery_status'] + '，实际位置先验 ' + str(row['actual_position_priors'])
             + '，另外的物理深度残差 ' + str(row['separate_physical_depth_residuals'])
             + '。失败与恢复耗时已包含在父级米制阶段，不能重复累加。']
+    for row in component_alignments:
+        lines += ['- 分量 Sim(3) 米制规范 `' + row['component_receipt'] + '`：验证 '
+            + str(row['recorded_component_metric_guards_passed']) + '，完整注册相机 '
+            + str(row['full_registered_cameras']) + '，实际米制分量相机 '
+            + str(row['metric_gauged_registered_cameras']) + '，非训练见证相机 '
+            + str(row['nontraining_witness_cameras']) + '，保留观测 '
+            + str(row['retained_observations']) + '，最大重投影变化 '
+            + str(row['maximum_reprojection_error_delta_px'])
+            + ' px。原视觉 BA 仍不算通过；此恢复不构成独立精度证明。']
     if ground_recovery:
         attempts = ground_recovery['actual_sampling_attempts']
         lines += ['', '地面支撑曾抽样不足，原始与完整证据检查均保留：`'

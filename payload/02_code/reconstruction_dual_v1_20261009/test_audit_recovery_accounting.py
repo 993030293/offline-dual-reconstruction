@@ -8,7 +8,7 @@ from audit_target_run import (registration_checks, camera_recovery_stages, gpu_r
     gpu_interruption_recoveries, heartbeat_publication_recoveries, review)
 from audit_target_run import focus_numerical_recoveries, destination_admission_recoveries
 from common import COLMAP, atomic_json, read_json
-from metric_recovery_accounting import metric_geometry_recoveries
+from metric_recovery_accounting import component_metric_alignments, metric_geometry_recoveries
 
 
 class RecoveryAccountingTests(unittest.TestCase):
@@ -110,6 +110,73 @@ class RecoveryAccountingTests(unittest.TestCase):
         value = metric_geometry_recoveries(self.side)[0]
         self.assertTrue(value['original_failure_preserved'])
         self.assertFalse(value['recorded_original_metric_recovery_guards_passed'])
+
+    def component_alignment(self):
+        result_path = self.side / 'metric/weak_position_prior/offline_component_metric_alignment/RESULT.json'
+        self.write('metric/CONTRACT.json', {
+            'offline_metric_recovery_protocol': 'visual_track_component_metric_gauge_v1'})
+        self.write('metric/weak_position_prior/ORIGINAL_CANDIDATE_FAILURE.json', {
+            'status': 'original_candidate_rejected_known_physical_or_extent_failure',
+            'factor_count_verified': True, 'active_priors': 23,
+            'projection': {'invalid_count': 3}, 'maximum_camera_radius_m': 31.})
+        self.write('metric/RESULT.json', {
+            'selected': 'component_metric_aligned', 'development_guard_passed': True,
+            'results': {'component_metric_aligned': {
+                'factor_count_verified': True,
+                'retained_observation_identity_preserved': True,
+                'new_observations_invented': False,
+                'offline_component_metric_alignment': {
+                    'protocol': 'visual_track_component_metric_gauge_v1',
+                    'result': str(result_path)}}}})
+        self.write('metric/weak_position_prior/offline_component_metric_alignment/RESULT.json', {
+            'status': 'completed_component_metric_guards',
+            'protocol': 'visual_track_component_metric_gauge_v1',
+            'development_guard_passed': True,
+            'retained_observation_identity_preserved': True,
+            'new_observations_invented': False,
+            'invalid_projection_count': 0,
+            'source_geometry_unchanged': True,
+            'full_registered_denominator_preserved': True,
+            'thresholds_relaxed': False,
+            'absolute_accuracy_claim': False,
+            'GT_used': False,
+            'source_visual_geometry_authority': 'verified_aligned_input_before_metric_BA',
+            'retained_registered_cameras': 1226,
+            'metric_gauged_registered_cameras': 1201,
+            'nontraining_witness_camera_names': ['witness'],
+            'retained_observations': 1096032,
+            'maximum_reprojection_error_delta_px': 1.7e-10})
+
+    def test_component_alignment_is_distinct_from_unrun_physical_recovery(self):
+        self.component_alignment()
+        physical = metric_geometry_recoveries(self.side)[0]
+        component = component_metric_alignments(self.side)[0]
+        self.assertEqual(physical['recovery_status'], 'not_completed')
+        self.assertTrue(component['recorded_component_metric_guards_passed'])
+        self.assertEqual(component['metric_gauged_registered_cameras'], 1201)
+        self.assertEqual(component['nontraining_witness_cameras'], 1)
+
+    def test_verified_component_alignment_can_complete_unassisted_without_erasing_BA_failure(self):
+        root = self.side / 'component_delivery_fixture'
+        self.side = root / 'case' / 'optimized'
+        self.component_alignment()
+        self.side = root
+        self.write('CONFIG.json', {'case': 'case', 'raw': 'metadata_fixture.mcap'})
+        self.write('STATE.json', {'status': 'dual_target_outputs_complete', 'controller_attempt_count': 1})
+        self.write('target/DELIVERY_RESULT.json', {
+            'status': 'adaptive_sensor_dual_target_outputs_and_viewers_verified',
+            'strict_ReliableLidar_profile_completed': False,
+            'adaptive_sensor_contract_completed': True,
+            'target_url': 'http://127.0.0.1/fixture', 'mesh_vertices': 1,
+            'mesh_triangles': 1, 'surface_points': 1,
+            'actual_browser_behavior': 'metadata_fixture.json'})
+        result = review(self.side)
+        self.assertTrue(result['unassisted_single_raw_to_delivery_verified'])
+        self.assertFalse(result['zero_failure_claim_allowed'])
+        self.assertTrue(result['predefined_component_metric_alignment_verified'])
+        report = (self.side / 'RUN_REPORT.md').read_text(encoding='utf-8')
+        self.assertIn('物理/重新三角化恢复 not_completed', report)
+        self.assertIn('分量 Sim(3) 米制规范', report)
 
     def test_completed_target_can_be_unassisted_but_cannot_be_zero_failure(self):
         root = self.side / 'delivery_fixture'
