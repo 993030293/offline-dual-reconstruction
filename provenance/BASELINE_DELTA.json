@@ -2,7 +2,7 @@
   "schema": "offline_dual_baseline_delta_v1",
   "base_package_id": "offline_dual_reconstruction_v1_20261014",
   "base_source_version": "bcf197d198d6e9ff2aef2d2dd7abfb6a025cb3f06df4739beb1a4d4190dc3dfd",
-  "candidate_stage": "prerelease_assisted_single_recording_dual_delivery",
+  "candidate_stage": "private_release_candidate_same_machine_four_recording_pass",
   "change_groups": [
     {
       "incidents": [
@@ -315,16 +315,28 @@
   ],
   "bundled_runtime_manifest": "payload/04_outputs/gaussian_pipeline_optimization_v3_20261005/RUNTIME_MANIFEST.json",
   "end_to_end_acceptance": {
-    "passed": false,
-    "blocking_incident": "four_recording_unassisted_acceptance_pending",
-    "assisted_completed_recordings": 1,
-    "unassisted_completed_recordings": 0,
+    "passed": true,
+    "scope": "same_machine_private_four_recording_root_entry",
+    "blocking_incident": null,
+    "formal_tested_git_commit": "f84c7e548eaf552c5e0c984ef1a23dc74c98a360",
+    "formal_completed_recordings": 4,
     "required_recordings": 4,
-    "assisted_recording": "c0_july",
-    "assisted_run_status": "dual_target_outputs_complete",
-    "manual_or_developer_interventions": 5,
-    "native_failure_process_records": 6,
-    "controller_attempts": 6,
-    "independent_geometry_accuracy_verified": false
+    "formal_recordings": [
+      "c0_july",
+      "c1",
+      "box1",
+      "box2"
+    ],
+    "formal_run_status": "dual_target_outputs_complete",
+    "formal_controller_attempts": 4,
+    "formal_manual_or_developer_interventions": 0,
+    "historical_assisted_completed_recordings": 1,
+    "historical_assisted_recording": "c0_july",
+    "historical_manual_or_developer_interventions": 5,
+    "historical_native_failure_process_records": 6,
+    "historical_controller_attempts": 6,
+    "cross_machine_verified": false,
+    "independent_geometry_accuracy_verified": false,
+    "stable_release_allowed": false
   }
 }

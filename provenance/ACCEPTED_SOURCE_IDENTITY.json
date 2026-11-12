@@ -9,17 +9,26 @@
   "publication_candidate": {
     "id": "offline_dual_reconstruction_github_v0_1_20261110",
     "created_on": "2026-11-10",
-    "stage": "prerelease_failed_end_to_end_baseline",
+    "stage": "private_release_candidate_same_machine_four_recording_pass",
     "relation_to_historical_reference": "accepted_base_plus_declared_delta",
     "delta": "provenance/BASELINE_DELTA.json",
     "attempt_004_snapshot_version": "d54ac05ce6a59f7e10316e7391a49e1fb1613196015829e24e7c13d39b79ea20",
-    "local_regression_tests_passed": 10,
+    "local_regression_tests_passed": 443,
     "local_offline_preflight_passed": true,
-    "four_recording_cold_run_passed": false,
-    "completed_recordings": 0,
+    "four_recording_cold_run_passed": true,
+    "completed_recordings": 4,
     "required_recordings": 4,
-    "blocking_incident": "RA-012",
-    "current_previews_verified": false
+    "blocking_incident": null,
+    "current_previews_verified": true,
+    "tested_git_commit": "f84c7e548eaf552c5e0c984ef1a23dc74c98a360",
+    "formal_acceptance_date": "2026-11-13",
+    "formal_acceptance_report": "docs/FORMAL_ACCEPTANCE_F84C7E5_20261113.md",
+    "stable_release_allowed": false,
+    "stable_release_blockers": [
+      "cross_machine_minimum_run_not_completed",
+      "independent_geometry_accuracy_not_verified",
+      "public_license_and_machine_path_boundary"
+    ]
   },
   "cross_machine_verified": false,
   "public_gt_accuracy_verified": false,

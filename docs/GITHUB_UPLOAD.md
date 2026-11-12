@@ -41,8 +41,8 @@ git push -u origin main
 2. 运行 `python tools/verify_publication.py --root .`。
 3. 确认 GitHub Actions 的 `source-integrity` 通过。
 4. 核对 `payload/02_code`、PGSR 补丁、三份第三方许可和两个 provenance 清单均存在。
-5. 确认 README 和 `docs/VALIDATION_STATUS.md` 明确记录：当前候选辅助完成 1/4，严格无人干预完成 0/4，独立几何精度未验证。
-6. 在当前候选四视频冷启动和跨机器运行均未完成前，不创建稳定标签或正式 Release。
+5. 确认 README、`docs/VALIDATION_STATUS.md` 和 `docs/FORMAL_ACCEPTANCE_F84C7E5_20261113.md` 明确记录：`f84c7e5` 同机根入口正式完成 4/4，但三例保留预定义子阶段非零结果，独立几何精度、跨机器和非箱体泛化未验证。
+6. 当前仍不得创建稳定标签或正式 Release；剩余硬门至少包括另一台机器的一份原始录制最小冷启动，以及公开许可和机器路径边界整改。
 
 ## 以后公开时
 
