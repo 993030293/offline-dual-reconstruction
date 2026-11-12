@@ -43,7 +43,11 @@ document.getElementById("pack").addEventListener("click", async event => {
       whole_pack_wall_ms: performance.now()-completeStarted };
     const receipt = await fetch("/api/packing-receipt/"+branch, { method: "POST",
       headers: { "Content-Type": "application/json" }, body: JSON.stringify(result) });
-    if (!receipt.ok) throw new Error("The native oracle receipt was not accepted: "+await receipt.text());
+    const receiptBody = await receipt.text();
+    if (!receipt.ok) throw new Error("The native oracle receipt was not accepted: "+receiptBody);
+    const receiptResult = JSON.parse(receiptBody);
+    if (receiptResult.status !== "native_array_and_complete_asset_oracles_recorded")
+      throw new Error("The native oracle receipt acknowledgement changed");
     status.textContent = JSON.stringify(result, null, 2);
     status.dataset.complete = "true";
   } catch (error) {
