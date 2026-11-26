@@ -27,7 +27,11 @@ def main():
     parser.add_argument('--point-profile', choices=('AdaptiveSensor', 'ReliableLidar', 'VisualTargetDiagnostic'), default='AdaptiveSensor')
     parser.add_argument('--gaussian-iterations', type=int, default=12000)
     parser.add_argument('--pgsr-iterations', type=int, default=15000)
+    parser.add_argument('--initial-frame-budget', type=int,
+        help='Cap the fresh initial SfM shortlist using acquisition-time coverage')
     args = parser.parse_args()
+    if args.initial_frame_budget is not None and not 3 <= args.initial_frame_budget <= 1200:
+        parser.error('--initial-frame-budget must be between 3 and 1200')
     if not re.fullmatch(r'[a-z][a-z0-9_]{0,40}', args.case):
         raise ValueError('A safe lowercase case identifier is required')
     root, raw = args.run_root.resolve(), args.raw.resolve(strict=True)
@@ -44,6 +48,8 @@ def main():
         'surface_voxel_m': .005, 'surface_truncation_m': .020, 'surface_depth_max_m': 10.,
         'surface_sample_count': 1000000, 'GT_used': False, 'historical_derived_inputs_used': False,
         'visual_frame_admission': 'RequireEveryVisualFrame' if args.point_profile == 'ReliableLidar' else 'PreserveVisualFrames'}
+    if args.initial_frame_budget is not None:
+        config['initial_frame_budget'] = args.initial_frame_budget
     if args.body_camera_calibration:
         from calibration_binding import load_calibration
         config['explicit_body_camera_calibration'] = load_calibration(args.body_camera_calibration)
@@ -136,6 +142,9 @@ def main():
             state['status'] = 'sensor_preflight_complete_reconstruction_pending'
             atomic_json(root / 'STATE.json', state)
             return
+        os.environ.pop('RECON_INITIAL_FRAME_BUDGET', None)
+        if args.initial_frame_budget is not None:
+            os.environ['RECON_INITIAL_FRAME_BUDGET'] = str(args.initial_frame_budget)
         stage('front', [SFM_PYTHON, HERE / 'front_end.py', '--case', args.case, '--mode', 'optimized',
             '--campaign', root, '--stop-after', 'export', '--render-near-recovery'], 14400,
             side / 'export/TRAINING_ADMISSION.json')

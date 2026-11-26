@@ -13,7 +13,9 @@ param(
     [string]$StopAfter = 'complete',
     [int]$GaussianIterations = 12000,
     [int]$PgsrIterations = 15000,
-    [string]$BodyCameraCalibration
+    [string]$BodyCameraCalibration,
+    [ValidateRange(3, 1200)]
+    [int]$InitialFrameBudget
 )
 
 $ErrorActionPreference = 'Stop'
@@ -37,6 +39,9 @@ $arguments = @(
 if ($BodyCameraCalibration) {
     $arguments += @('--body-camera-calibration', $resolvedCalibration)
 }
+if ($PSBoundParameters.ContainsKey('InitialFrameBudget')) {
+    $arguments += @('--initial-frame-budget', [string]$InitialFrameBudget)
+}
 $env:PYTHONUTF8 = '1'
 $env:PYTHONDONTWRITEBYTECODE = '1'
 $env:PIP_NO_INDEX = '1'
@@ -59,6 +64,7 @@ if (Test-Path -LiteralPath $resolvedRunRoot) {
         stop_after = $StopAfter
         gaussian_iterations = $GaussianIterations
         pgsr_iterations = $PgsrIterations
+        initial_frame_budget = if ($PSBoundParameters.ContainsKey('InitialFrameBudget')) { $InitialFrameBudget } else { $null }
         body_camera_calibration_provided = [bool]$BodyCameraCalibration
         body_camera_calibration = $resolvedCalibration
         package_verification = (Join-Path $packageRoot 'PACKAGE_VERIFY_RESULT.json')

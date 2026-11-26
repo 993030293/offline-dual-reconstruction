@@ -9,12 +9,30 @@ from unittest.mock import patch
 
 import numpy as np
 
-from initial_trackability import PAIR_BASE, evaluate_trackability, temporal_pairs, trackability_selection
+from initial_trackability import PAIR_BASE, cap_by_acquisition_time, evaluate_trackability, temporal_pairs, trackability_selection
 from run_initial_safe import load_native
 from front_end import initial_budget
 
 
 class InitialTrackabilityTests(unittest.TestCase):
+    def test_cap_spreads_a_nonuniform_shortlist_and_preserves_both_ends(self):
+        times = [10, 11, 12, 13, 29, 49, 70, 80, 90]
+        rows = [{'camera_header_ns': stamp, 'decision': 'selected_initial_sfm_pending',
+                 'selection_reason': 'coarse_quality'} for stamp in times]
+        chosen = cap_by_acquisition_time(list(reversed(rows)), 5)
+        self.assertEqual([row['camera_header_ns'] for row in chosen], [10, 29, 49, 70, 90])
+        self.assertEqual([row['camera_header_ns'] for row in rows
+                          if row['decision'] == 'eligible_not_selected'], [11, 12, 13, 80])
+        self.assertTrue(all('selection_reason' not in row for row in rows if row not in chosen))
+
+    def test_cap_can_reuse_nearby_times_when_most_frames_follow_a_gap(self):
+        rows = [{'camera_header_ns': stamp, 'decision': 'selected_initial_sfm_pending'}
+                for stamp in [0, 1000, 1001, 1002, 1003, 1004]]
+        chosen = cap_by_acquisition_time(rows, 5)
+        self.assertEqual(len({row['camera_header_ns'] for row in chosen}), 5)
+        self.assertEqual([chosen[0]['camera_header_ns'], chosen[-1]['camera_header_ns']], [0, 1004])
+        self.assertIs(cap_by_acquisition_time(chosen, 5), chosen)
+
     def database(self, counts=(40, 40, 40)):
         connection = sqlite3.connect(':memory:')
         self.addCleanup(connection.close)

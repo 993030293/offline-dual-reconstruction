@@ -91,6 +91,8 @@ git -c core.longpaths=true clone https://github.com/993030293/offline-dual-recon
   -Case 'object_001'
 ```
 
+对新跑次加上 `-InitialFrameBudget 500`，可将 SfM 初选限制在 500 帧。在原有粗位姿和画质候选内按拍摄时间覆盖全程，然后沿用原生匹配和三视图预筛。后续注册恢复仍可补帧，实际训练帧数以相机准入和训练回执为准。省略该参数时采用原有初选策略。500 帧初选已在 Box2 上完成一次全流程试验。
+
 如果 MCAP 的 `/tf_static` 没有连接 `camera_optical` 与 `base_link`，必须显式提供同一设备的相机—机体标定。当前 E26 设备标定可以这样传入；入口只读取 `T_base_link_camera_optical` 的七个数值，不读取该 JSON 中的历史轨迹或 SfM 路径：
 
 ```powershell

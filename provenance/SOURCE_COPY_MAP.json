@@ -7100,8 +7100,8 @@
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/initial_trackability.py",
-      "bytes": 19519,
-      "sha256": "7f120f422f2ab19849c4c6434448b64c8864293b516584133fc268257e2cbfc5"
+      "bytes": 21613,
+      "sha256": "6d86580c48e7a4286e2c2d97da27ed23be648baf986fb24bcc9d47b7305c53f0"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/inspect_surface_view.cjs",
@@ -7295,8 +7295,8 @@
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/run_target_delivery.py",
-      "bytes": 12272,
-      "sha256": "f222da9e5558b73f41614461b62c963aef70693987632098ffbff64c706c66cb"
+      "bytes": 12891,
+      "sha256": "cd646349a5b9b43e7b3850fb44ae8137575f8f54fe1a6674451754bff99b6d56"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/run_target_pipeline.py",
@@ -7455,8 +7455,8 @@
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/test_initial_trackability.py",
-      "bytes": 12725,
-      "sha256": "d2bdb48a799f86f6327076b8c5ba971e429588e62f533f6fba8e66e7e7015b93"
+      "bytes": 13984,
+      "sha256": "a85e1f85704ccf899f2b05501d2ef33f70d25a18060a200464c23501dcf7d17b"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/test_m3_registered_scan_source.py",
@@ -8237,6 +8237,11 @@
       "candidate_sha256": "bf4a8326f34c5171bd52eac88695823b128af49c5a4f12fc25c4764076acafef"
     },
     {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/initial_trackability.py",
+      "accepted_sha256": "7f120f422f2ab19849c4c6434448b64c8864293b516584133fc268257e2cbfc5",
+      "candidate_sha256": "6d86580c48e7a4286e2c2d97da27ed23be648baf986fb24bcc9d47b7305c53f0"
+    },
+    {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/joint_camera_admission.py",
       "accepted_sha256": "6d2c02d90d963cbd1597f4f852858b873e876d35a0fa7eba6d51c3410a34c02c",
       "candidate_sha256": "298d1f9f8c6498a2967e3c250da1737eb85ff937b1f3adc36f54982f7186ba87"
@@ -8294,7 +8299,7 @@
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/run_target_delivery.py",
       "accepted_sha256": "8ab1db878cae2567debb2a15905bdf630c10f898207d8f1653bf08448ca43444",
-      "candidate_sha256": "f222da9e5558b73f41614461b62c963aef70693987632098ffbff64c706c66cb"
+      "candidate_sha256": "cd646349a5b9b43e7b3850fb44ae8137575f8f54fe1a6674451754bff99b6d56"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/run_target_pipeline.py",
@@ -8315,6 +8320,11 @@
       "path": "payload/02_code/reconstruction_dual_v1_20261009/test_floor_motion_constraint.py",
       "accepted_sha256": "0cce960e0df1a270b1a47fd43280cee377fa98216015ae9b6a057ef2ce63a9d5",
       "candidate_sha256": "2eabad124b470412c9227ff1dfc6b960acf4e94454b0606c986a76e9cfb7b777"
+    },
+    {
+      "path": "payload/02_code/reconstruction_dual_v1_20261009/test_initial_trackability.py",
+      "accepted_sha256": "d2bdb48a799f86f6327076b8c5ba971e429588e62f533f6fba8e66e7e7015b93",
+      "candidate_sha256": "a85e1f85704ccf899f2b05501d2ef33f70d25a18060a200464c23501dcf7d17b"
     }
   ],
   "declared_added_files": [

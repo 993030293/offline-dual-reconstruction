@@ -1,14 +1,14 @@
 {
   "schema": "offline_dual_publication_manifest_v2",
   "candidate_id": "offline_dual_reconstruction_github_v0_1_20261110",
-  "release_stage": "private_release_candidate_same_machine_four_recording_pass",
+  "release_stage": "box2_opt_in_sfm_budget_experiment",
   "historical_accepted_source_version": "bcf197d198d6e9ff2aef2d2dd7abfb6a025cb3f06df4739beb1a4d4190dc3dfd",
-  "candidate_algorithm_source_version": "c76fe7b92ea9a5eccb024337053476a6e9d070296fa0bb1f868c17ed1f67296c",
+  "candidate_algorithm_source_version": "fa45eaaf22fc306ec2347d44d631919e3f2cfd72b6fcf32ad335a5ec3d86562d",
   "candidate_algorithm_file_count": 1635,
   "manifest_self_excluded": true,
   "generated_verify_result_excluded": true,
   "file_count": 1682,
-  "total_bytes": 16354671,
+  "total_bytes": 16360657,
   "files": [
     {
       "path": ".gitattributes",
@@ -42,13 +42,13 @@
     },
     {
       "path": "README.md",
-      "bytes": 9202,
-      "sha256": "97e4e6c9dee8279bdc80eeeb050226757d4481fbc16c32449f7fbf34f8b912fc"
+      "bytes": 9592,
+      "sha256": "b47c46484aebadca0b46ca265336b44e21504a1bf56fded2e850434f7ff3d58a"
     },
     {
       "path": "RUN.ps1",
-      "bytes": 3131,
-      "sha256": "0e9eaeeb1dfe44096d8c5a0ea5b930664d1dd5051085e09bda914a8054ca967d"
+      "bytes": 3455,
+      "sha256": "ab81e904b51e49f7ce254af75e72191753a598be13433326de333c7b74b85602"
     },
     {
       "path": "SMOKE_SENSOR.ps1",
@@ -7262,8 +7262,8 @@
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/initial_trackability.py",
-      "bytes": 19519,
-      "sha256": "7f120f422f2ab19849c4c6434448b64c8864293b516584133fc268257e2cbfc5"
+      "bytes": 21613,
+      "sha256": "6d86580c48e7a4286e2c2d97da27ed23be648baf986fb24bcc9d47b7305c53f0"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/inspect_surface_view.cjs",
@@ -7457,8 +7457,8 @@
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/run_target_delivery.py",
-      "bytes": 12272,
-      "sha256": "f222da9e5558b73f41614461b62c963aef70693987632098ffbff64c706c66cb"
+      "bytes": 12891,
+      "sha256": "cd646349a5b9b43e7b3850fb44ae8137575f8f54fe1a6674451754bff99b6d56"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/run_target_pipeline.py",
@@ -7617,8 +7617,8 @@
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/test_initial_trackability.py",
-      "bytes": 12725,
-      "sha256": "d2bdb48a799f86f6327076b8c5ba971e429588e62f533f6fba8e66e7e7015b93"
+      "bytes": 13984,
+      "sha256": "a85e1f85704ccf899f2b05501d2ef33f70d25a18060a200464c23501dcf7d17b"
     },
     {
       "path": "payload/02_code/reconstruction_dual_v1_20261009/test_m3_registered_scan_source.py",
@@ -8377,8 +8377,8 @@
     },
     {
       "path": "provenance/BASELINE_DELTA.json",
-      "bytes": 17093,
-      "sha256": "b4836831b215378d9f9bd4191de17af423d1d3228f0568dab883ff355b342136"
+      "bytes": 17802,
+      "sha256": "60b401d1dd35244f8a54b0301fdd0c37d5bd38c072f67bab65fe51dcf1665b42"
     },
     {
       "path": "provenance/EXTERNAL_SOURCE_LOCK.json",
@@ -8392,8 +8392,8 @@
     },
     {
       "path": "provenance/SOURCE_COPY_MAP.json",
-      "bytes": 387904,
-      "sha256": "2f8f2dabc6a98c27a6b4cc03243d70340659709abaace6f9accfb88faf4a6679"
+      "bytes": 388495,
+      "sha256": "24c43b4aca4040f496ba57f9cd840ca21e97a1155d31e541272f0c6f4ee27c46"
     },
     {
       "path": "tools/build_publication_manifest.py",

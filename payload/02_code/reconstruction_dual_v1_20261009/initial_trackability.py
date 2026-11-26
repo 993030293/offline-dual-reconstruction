@@ -1,8 +1,10 @@
 """Check visual trackability before freezing the initial raw-frame selection."""
 
+from bisect import bisect_left
 from collections import defaultdict
 from contextlib import closing, contextmanager
 import importlib
+import os
 from pathlib import Path
 import sqlite3
 import time
@@ -21,6 +23,30 @@ from initial_connection_search import recover_connections, spanning_parents, PRO
 
 PAIR_BASE = 2147483647
 WINDOW_NS = 800_000_000
+
+
+def cap_by_acquisition_time(rows, budget):
+    """Keep the full time range of the existing coarse/quality shortlist."""
+    if len(rows) <= budget:
+        return rows
+    ordered = sorted(rows, key=lambda row: row['camera_header_ns'])
+    stamps = [int(row['camera_header_ns']) for row in ordered]
+    span = stamps[-1] - stamps[0]
+    keep = [0]
+    for slot in range(1, budget - 1):
+        target = stamps[0] + span * slot // (budget - 1)
+        lower = keep[-1] + 1
+        upper = len(ordered) - (budget - slot)
+        right = bisect_left(stamps, target, lower, upper + 1)
+        candidates = (min(right, upper), max(right - 1, lower))
+        keep.append(min(candidates, key=lambda index: (abs(stamps[index] - target), index)))
+    keep.append(len(ordered) - 1)
+    selected = set(keep)
+    for index, row in enumerate(ordered):
+        if index not in selected:
+            row['decision'] = 'eligible_not_selected'
+            row.pop('selection_reason', None)
+    return [ordered[index] for index in keep]
 
 
 def temporal_pairs(rows, image_ids, attempted):
@@ -117,6 +143,13 @@ def select(native, args, choose, rows, policy, sharpness_min, baseline):
         'connectivity_rule': 'bounded_ranked_native_graph_pairs_then_unique_largest_component',
         'connectivity_checked_before_manifest_freeze': True,
         'initial_manifest_frozen_after_this_check': True, 'original_scalar_quality_and_coarse_gates_unchanged': True}
+    configured_budget = os.environ.get('RECON_INITIAL_FRAME_BUDGET')
+    budget = int(configured_budget) if configured_budget is not None else None
+    if budget is not None:
+        if not 3 <= budget <= policy['maximum_exported_frames']:
+            raise ValueError('Initial frame budget is outside the native selection capacity')
+        contract.update(initial_frame_budget=budget,
+                        budget_selection='nearest_equal_time_targets_inside_coarse_quality_shortlist')
     atomic_json(root / 'CONTRACT.json', contract)
     camera = pycolmap.Camera(model='OPENCV', width=info['width'], height=info['height'], params=params)
     exported, rejected, history, rejection_reasons = set(), set(), [], {}
@@ -128,6 +161,9 @@ def select(native, args, choose, rows, policy, sharpness_min, baseline):
 
     while True:
         selected, eligible = choose(rows, policy, sharpness_min, baseline, additional_quality_gate=allowed)
+        coarse_count = len(selected)
+        if budget is not None:
+            selected = cap_by_acquisition_time(selected, budget)
         names = {row['image_name'] for row in selected}
         new = {row['camera_frame']: row for row in selected if row['image_name'] not in exported}
         if not selected or len(exported) + len(new) > contract['maximum_candidates']:
@@ -267,6 +303,12 @@ def select(native, args, choose, rows, policy, sharpness_min, baseline):
         'final_shortlist_connected_by_actual_native_matches': True,
         'rejected_reasons': rejection_reasons,
         'actual_three_view_SfM_and_BA_still_required': True, 'cross_attempt_cache_used': False}
+    if budget is not None:
+        stamps = [int(row['camera_header_ns']) for row in selected]
+        value.update(coarse_shortlist_before_final_budget=coarse_count,
+                     selected_time_span_seconds=(stamps[-1] - stamps[0]) / 1e9,
+                     maximum_selected_time_gap_seconds=max(
+                         (last - first for first, last in zip(stamps, stamps[1:])), default=0) / 1e9)
     atomic_json(Path(args.output) / 'INITIAL_TRACKABILITY_RECEIPT.json', value)
     return selected, eligible
 
